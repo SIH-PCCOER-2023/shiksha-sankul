@@ -6,15 +6,10 @@ const crypto = require('crypto');
 // Creating user schema
 const userSchema = mongoose.Schema(
   {
-    firstName: {
+    name: {
       type: String,
       trim: true,
       required: ['true', 'Please provide your first name'],
-    },
-    lastName: {
-      type: String,
-      trim: true,
-      required: ['true', 'Please provide your last name'],
     },
     email: {
       type: String,
@@ -27,19 +22,20 @@ const userSchema = mongoose.Schema(
     user: {
       type: String,
       enum: {
-        values: ['student', 'institute', 'industry', 'university', 'aicte'],
+        values: ['student', 'faculty'],
         message: 'The value {VALUE} is not supported',
       },
       required: [true, 'Please provide a user type'],
+      default:'student'
     },
-    photo: {
+    /*photo: {
       type: String,
       default: 'default.jpg',
-    },
+    },*/
     password: {
       type: String,
       required: ['true', 'Please provide a password'],
-      minlength: [8, 'Password length must be atleast 8'],
+      //minlength: [8, 'Password length must be atleast 8'],
       select: false,
     },
     passwordConfirm: {
@@ -50,7 +46,11 @@ const userSchema = mongoose.Schema(
           return el === this.password;
         },
         message: 'Passwords do not match',
-      },
+      }
+    },
+    college : {
+      type:String,
+      required:[true,'please provide the college']
     },
     passwordChangedAt: Date,
     passwordResetToken: String,
@@ -130,3 +130,8 @@ const User = mongoose.model('User', userSchema);
 
 // Exporting User Model
 module.exports = User;
+
+
+
+
+    
