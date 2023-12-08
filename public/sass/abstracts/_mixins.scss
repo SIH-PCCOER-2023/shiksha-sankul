@@ -1,0 +1,64 @@
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+// MEDIA QUERY MANAGER (DESKTOP-FIRST APPROACH)
+
+/*
+0 - 600px:      Phone
+600 - 900px:    Tablet portrait
+900 - 1200px:   Tablet landscape
+
+[1200 - 1800px] is where our normal styles apply
+
+1800px + :      Big desktop
+*/
+
+// BREAKPOINTS
+
+/*
+$breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+*/
+
+// 1em = 16px
+
+// ORDER FOR MEDIA QUERIES
+// Base + Typography > General Layout + Grid > Page Layout > Components
+
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 600px) {
+            //600px or 37.5em
+            @content;
+        }
+    }
+
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 900px) {
+            //900px or 56.25em
+            @content;
+        }
+    }
+
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 1200px) {
+            //1200px or 75em
+            @content;
+        }
+    }
+
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 1800px) {
+            //1800px+ or 112.5em
+            @content;
+        }
+    }
+}

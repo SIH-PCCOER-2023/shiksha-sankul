@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -20,6 +21,9 @@ app.use(cors());
 
 // Access-Control-Allow-Origin *
 app.options('*', cors());
+
+// Serving static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Development Logging
 if ((process.env.NODE_ENV = 'development')) {
