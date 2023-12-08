@@ -5,6 +5,8 @@ const AppError = require('../utils/appError');
 const crypto = require('crypto');
 
 const User = require('../models/userModel');
+const Student=require('../models/studentmodel');
+const Faculty=require('../models/facultymodel');
 
 // CookieOptions
 const cookieOptions = {
@@ -38,7 +40,7 @@ const createSendToken = (user, statusCode, req, res) => {
 
 // UserType
 exports.loginUserType = catchAsync(async (req, res) => {
-  const users = ['student', 'institute', 'industry', 'university', 'aicte'];
+  const users = ['student','faculty'];
   const userLoginType = req.body.user;
 
   if (!users.includes(userLoginType)) {
@@ -56,9 +58,9 @@ exports.signup = catchAsync(async (req, res) => {
   }
   // 1.) Create new user based on req.body
   const newUser = await User.create({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    name:req.body.name,
     email: req.body.email,
+    college:req.body.college,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
     user: req.body.user,
@@ -72,24 +74,17 @@ exports.signup = catchAsync(async (req, res) => {
   if (req.body.user === 'student') {
     await Student.create({
       student: newUser._id,
+      class: req.body.class,
+      rollno: req.body.rollno,
+      class10th: req.body.class10th,
+      class12th:req.body.class12th
     });
-  } else if (req.body.user === 'institute') {
-    await Institute.create({
-      instituteAdmin: newUser._id,
+  } else if (req.body.user === 'faculty') {
+    await Faculty.create({
+      faculty: newUser._id
     });
-  } else if (req.body.user === 'university') {
-    await University.create({
-      universityAdmin: newUser._id,
-    });
-  } else if (req.body.user === 'industry') {
-    await Industry.create({
-      companyAdmin: newUser._id,
-    });
-  } else if (req.body.user === 'alumni') {
-    await Alumni.create({
-      alumni: newUser._id,
-    });
-  }
+  } 
+  
 
   // 2.) Sign JSON token and sennd back to client
   createSendToken(newUser, 201, req, res);
@@ -97,7 +92,8 @@ exports.signup = catchAsync(async (req, res) => {
 
 // Login User
 exports.login = catchAsync(async (req, res, next) => {
-  const userType = req.cookies.userLoginType;
+  //const userType = req.cookies.userLoginType;
+  const userType=req.body.user;
   // 1.) Get email and password from req.body
   const { email, password } = req.body;
 
@@ -125,10 +121,12 @@ exports.login = catchAsync(async (req, res, next) => {
 
 // LogOut User
 exports.logout = (req, res) => {
-  res.cookie('jwt', 'loggedout', {
+  /*res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
-  });
+  });*/
+  res.clearCookie('jwt');
+  res.clearCookie('userLoginType');
   res.status(200).json({ status: 'success' });
 };
 
