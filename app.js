@@ -1,6 +1,5 @@
 const path = require('path');
 const express = require('express');
-const pug = require('pug');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -12,6 +11,8 @@ const globalErrorHandler = require('./controllers/errorController');
 // Requiring modules
 const userRoutes = require('./routes/userRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const studentRoutes = require('./routes/studentroutes');
+const facultyRoutes = require('./routes/facultyRoutes');
 
 // Create express app
 const app = express();
@@ -61,6 +62,8 @@ app.use('/', viewRouter);
 
 //API Routes
 app.use('/api/v1/auth', userRoutes);
+app.use('/api/v1/student', studentRoutes);
+app.use('/api/v1/faculty', facultyRoutes);
 
 app.all('*', function (req, res, next) {
   // Other than defined route
