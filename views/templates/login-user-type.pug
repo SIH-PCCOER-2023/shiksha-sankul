@@ -1,0 +1,15 @@
+extends base
+
+block content
+    main.main
+    form.login-type__form
+        .login-type__group.login-type__group--1
+        label.login-type__label(for='student')
+            img(src='../img/student-icon.png' alt='student' onmouseover='{changeToGifHandler}' onmouseout='{changeToImageHandler}' onclick='{submitHandler}')
+            span(onclick='{submitHandler}') Student
+        input#student.login-type__input(type='radio' name='user_type' hidden='')
+        .login-type__group.login-type__group--2
+        label.login-type__label(for='faculty')
+            img(src='../img/teacher-icon.png' alt='faculty' onmouseover='{changeToGifHandler}' onmouseout='{changeToImageHandler}' onclick='{submitHandler}')
+            span(onclick='{submitHandler}') Faculty
+        input#faculty.login-type__input(type='radio' name='user_type' hidden='')

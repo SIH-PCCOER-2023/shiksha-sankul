@@ -1,0 +1,21 @@
+<main class="main">
+    <form class="login-type__form">
+        <div class="login-type__group login-type__group--1">
+            <label class="login-type__label" for="student">
+                <img src="../img/student-png.png" alt="student" onmouseover="changeToGifHandler(event)"
+                    onmouseout="changeToImageHandler(event)" />
+                <span>Student</span>
+            </label>
+            <input class="login-type__input" type="radio" name="user_type" id="student" hidden />
+        </div>
+
+        <div class="login-type__group login-type__group--2">
+            <label class="login-type__label" for="faculty">
+                <img src="../img/teacher-png.png" alt="faculty" onmouseover="changeToGifHandler(event)"
+                    onmouseout="changeToImageHandler(event)" />
+                <span>Faculty</span>
+            </label>
+            <input class="login-type__input" type="radio" name="user_type" id="faculty" hidden />
+        </div>
+    </form>
+</main>

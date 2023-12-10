@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const pug = require('pug');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -10,9 +11,14 @@ const globalErrorHandler = require('./controllers/errorController');
 
 // Requiring modules
 const userRoutes = require('./routes/userRoutes');
+const viewRouter = require('./routes/viewRoutes');
 
 // Create express app
 const app = express();
+app.enable('trust-proxy');
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views', 'templates'));
 
 /* Global Middleware */
 
@@ -49,6 +55,9 @@ app.use(
     maxAge: 24 * 60 * 60 * 100,
   })
 );
+
+// Rendered Routes
+app.use('/', viewRouter);
 
 //API Routes
 app.use('/api/v1/auth', userRoutes);

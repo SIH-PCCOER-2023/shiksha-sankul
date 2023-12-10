@@ -1,0 +1,71 @@
+<div class="signup">
+    <form action="#" class="signup__form">
+        <div class="signup__form--header">
+            <p>Student Registration</p>
+        </div>
+
+        <div class="signup__form--body">
+            <div class="signup__form--group">
+                <label for="name"><i class="fa-solid fa-user signup__form--icon"></i></label>
+                <input type="text" name="name" class="signup__form--input" placeholder="Name" id="name" required>
+            </div>
+
+            <div class="signup__form--group">
+                <label for="email"><i class="fa-solid fa-envelope signup__form--icon"></i></label>
+                <input type="email" name="email" class="signup__form--input" placeholder="Email" id="email" required>
+            </div>
+
+            <div class="signup__form--group">
+                <label for="institute_type"><i class="fa-solid fa-building-columns signup__form--icon"></i></label>
+                <input type="text" name="institute_type" class="signup__form--input" placeholder="School/College"
+                    id="institute_type" required>
+            </div>
+
+            <div class="signup__form--group">
+                <label for="class"><i class="fa-solid fa-graduation-cap signup__form--icon"></i></label>
+                <input type="text" name="class" class="signup__form--input" placeholder="Class" id="class" required>
+
+                <label for="roll_no"><i class="fa-solid fa-list-ul signup__form--icon"></i></label>
+                <input type="number" name="roll_no" class="signup__form--input" placeholder="Roll Number" id="roll_no"
+                    required>
+            </div>
+
+            <div class="signup__form--group">
+                <label for="10th_percentage"><i class="fa-solid fa-percent signup__form--icon"></i></label>
+                <input type="number" name="10th_percentage" class="signup__form--input"
+                    placeholder="Class 10th Percentage" id="10th_percentage" required>
+
+                <label for="12th_percentage"><i class="fa-solid fa-percent signup__form--icon"></i></label>
+                <input type="number" name="12th_percentage" class="signup__form--input"
+                    placeholder="Class 12th Percentage" id="12th_percentage" required>
+            </div>
+
+            <div class="signup__form--group">
+                <label for="password"><i class="fa-solid fa-lock signup__form--icon"></i></i></label>
+                <input type="password" name="password" class="signup__form--input" placeholder="Password" id="password"
+                    required>
+                <span><i class="fa-solid fa-eye-slash signup__form--eye-icon" onclick="passwordVisibleHandler(event)"
+                        visible="false"></i></span>
+            </div>
+
+            <div class="signup__form--group">
+                <label for="password-confirm"><i class="fa-solid fa-lock signup__form--icon"></i></label>
+                <input type="password" name="password-confirm" class="signup__form--input"
+                    placeholder="Confirm Password" id="password-confirm" required>
+                <span><i class="fa-solid fa-eye-slash signup__form--eye-icon" onclick="passwordVisibleHandler(event)"
+                        visible="false"></i></span>
+            </div>
+        </div>
+
+        <div class="signup__form--footer">
+            <p>
+                Already have an account?
+                <a href="/login">Login</a>
+            </p>
+
+            <button class="signup--btn btn" type="submit">
+                Create Account
+            </button>
+        </div>
+    </form>
+</div>

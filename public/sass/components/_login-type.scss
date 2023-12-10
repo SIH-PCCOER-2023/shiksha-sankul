@@ -1,0 +1,54 @@
+.login-type {
+    &__form {
+        height: 85vh;
+
+        padding: 3rem 40rem;
+        padding-top: 1rem;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        background: linear-gradient(to right bottom, rgba(250, 250, 250, 0.5), rgba(250, 250, 250, 0.5)),
+            url("../img/login-bg.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    &__label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        & > img {
+            width: 25rem;
+            border-radius: 50%;
+
+            background-color: $color-grey-light-2;
+            transition: all 0.3s ease;
+            cursor: pointer;
+
+            border: 2px solid transparent;
+
+            &:hover {
+                transform: scale(1.1);
+                border: 2px solid $color-secondary-light;
+            }
+        }
+
+        & > span {
+            text-transform: uppercase;
+            font-size: 2.5rem;
+            padding-top: 2rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            line-height: 2;
+            cursor: pointer;
+
+            background-image: linear-gradient(to right, $color-secondary-light, $color-secondary-dark);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+    }
+}

@@ -4,19 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/701253292a.js" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/logo.png" type="image/x-icon">
+
     <title>Home</title>
 </head>
 
 <body>
-    <form action="#" class="form">
-        <div class="form__group">
-            <label for="name" class="form__label">Name</label>
-            <input type="text" name="name" id="name" class="form__input">
+    <div class="navigation">
+        <div class="navigation__logo">
+            <div class="navigation__logo--left">
+                <img src="../img/logo.png" alt="Logo 1" class="navigation__logo-img"></img>
+                <p>Shiksha Sankul</p>
+            </div>
+
+            <div class="navigation__logo--center">
+                <p>Learn, Adapt N' Thrive</p>
+            </div>
         </div>
 
-        <button type="submit">Save</button>
-    </form>
+        <input type="checkbox" class="navigation__checkbox" id="navi-toggle" onclick="BtnClickNavigation(event)" />
+        <label for="navi-toggle" class="navigation__button">
+            <span class="navigation__icon"></span>
+        </label>
+        <div class="navigation__background">&nbsp;</div>
+        <nav class="navigation__nav">
+            <ul class="navigation__list">
+                <li class="navigation__item">
+                    <a href="#home" class="navigation__link">
+                        <span>01</span>Home
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a href="#about" class="navigation__link">
+                        <span>02</span>About Us
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a href="#pricing" class="navigation__link">
+                        <span>03</span>Features
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a href="#features" class="navigation__link">
+                        <span>04</span>Feedback
+                    </a>
+                </li>
+                <li class="navigation__item">
+                    <a href="#contact" class="navigation__link">
+                        <span>05</span>Testimonials
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="signup">
+        <form action="#" class="signup__form">
+            <div class="signup__form--header">
+                <p>Student Registration</p>
+            </div>
+
+            <div class="signup__form--body">
+                <div class="signup__form--group">
+                    <label for="name"><i class="fa-solid fa-user signup__form--icon"></i></label>
+                    <input type="text" name="name" class="signup__form--input" placeholder="Name" id="name" required>
+                </div>
+
+                <div class="signup__form--group">
+                    <label for="email"><i class="fa-solid fa-envelope signup__form--icon"></i></label>
+                    <input type="email" name="email" class="signup__form--input" placeholder="Email" id="email"
+                        required>
+                </div>
+
+                <div class="signup__form--group">
+                    <label for="institute_type"><i class="fa-solid fa-building-columns signup__form--icon"></i></label>
+                    <input type="text" name="institute_type" class="signup__form--input" placeholder="School/College"
+                        id="institute_type" required>
+                </div>
+
+                <div class="signup__form--group">
+                    <label for="class"><i class="fa-solid fa-graduation-cap signup__form--icon"></i></label>
+                    <input type="text" name="class" class="signup__form--input" placeholder="Class" id="class" required>
+
+                    <label for="roll_no"><i class="fa-solid fa-list-ul signup__form--icon"></i></label>
+                    <input type="number" name="roll_no" class="signup__form--input" placeholder="Roll Number"
+                        id="roll_no" required>
+                </div>
+
+                <div class="signup__form--group">
+                    <label for="10th_percentage"><i class="fa-solid fa-percent signup__form--icon"></i></label>
+                    <input type="number" name="10th_percentage" class="signup__form--input"
+                        placeholder="Class 10th Percentage" id="10th_percentage" required>
+
+                    <label for="12th_percentage"><i class="fa-solid fa-percent signup__form--icon"></i></label>
+                    <input type="number" name="12th_percentage" class="signup__form--input"
+                        placeholder="Class 12th Percentage" id="12th_percentage" required>
+                </div>
+
+                <div class="signup__form--group">
+                    <label for="password"><i class="fa-solid fa-lock signup__form--icon"></i></i></label>
+                    <input type="password" name="password" class="signup__form--input" placeholder="Password"
+                        id="password" required>
+                    <span><i class="fa-solid fa-eye-slash signup__form--eye-icon"
+                            onclick="passwordVisibleHandler(event)" visible="false"></i></span>
+                </div>
+
+                <div class="signup__form--group">
+                    <label for="password-confirm"><i class="fa-solid fa-lock signup__form--icon"></i></label>
+                    <input type="password" name="password-confirm" class="signup__form--input"
+                        placeholder="Confirm Password" id="password-confirm" required>
+                    <span><i class="fa-solid fa-eye-slash signup__form--eye-icon"
+                            onclick="passwordVisibleHandler(event)" visible="false"></i></span>
+                </div>
+            </div>
+
+            <div class="signup__form--footer">
+                <p>
+                    Already have an account?
+                    <a href="/login">Login</a>
+                </p>
+
+                <button class="signup--btn btn" type="submit">
+                    Create Account
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="../js/styles/signup-form.js" type="text/javascript"></script>
 </body>
 
 </html>

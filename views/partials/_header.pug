@@ -1,0 +1,30 @@
+//- navigation.pug
+.navigation
+  .navigation__logo
+    img.navigation__logo-img(src='../img/logo.png' alt='Logo 1')
+  input#navi-toggle.navigation__checkbox(type='checkbox' onclick='{BtnClickNavigation}')
+  label.navigation__button(for='navi-toggle')
+    span.navigation__icon
+  .navigation__background &nbsp;
+  nav.navigation__nav
+    ul.navigation__list
+      li.navigation__item
+        a.navigation__link(href='#home')
+          span 01
+          | Home
+      li.navigation__item
+        a.navigation__link(href='#about')
+          span 02
+          | About Us
+      li.navigation__item
+        a.navigation__link(href='#pricing')
+          span 03
+          | Features
+      li.navigation__item
+        a.navigation__link(href='#features')
+          span 04
+          | Feedback
+      li.navigation__item
+        a.navigation__link(href='#contact')
+          span 05
+          | Testimonials
