@@ -11,7 +11,7 @@ const globalErrorHandler = require('./controllers/errorController');
 // Requiring modules
 const userRoutes = require('./routes/userRoutes');
 const viewRouter = require('./routes/viewRoutes');
-const studentRoutes = require('./routes/studentroutes');
+const studentRoutes = require('./routes/studentRoutes');
 const facultyRoutes = require('./routes/facultyRoutes');
 
 // Create express app
