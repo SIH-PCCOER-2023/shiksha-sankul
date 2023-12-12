@@ -7,7 +7,7 @@ const facultyGif = '../img/teacher.gif';
 function changeToGifHandler(event) {
   const value = event.target.alt;
 
-  if (value === 'student') {
+  if (value === 'STUDENT') {
     event.currentTarget.src = studentGif;
   } else {
     event.currentTarget.src = facultyGif;
@@ -17,7 +17,7 @@ function changeToGifHandler(event) {
 function changeToImageHandler(event) {
   const value = event.target.alt;
 
-  if (value === 'student') {
+  if (value === 'STUDENT') {
     event.currentTarget.src = student;
   } else {
     event.currentTarget.src = faculty;

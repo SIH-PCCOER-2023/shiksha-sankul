@@ -19,14 +19,14 @@ const userSchema = mongoose.Schema(
       required: ['true', 'Please provide a email address'],
       validate: [validator.isEmail, 'Please provide a valid email address'],
     },
-    user: {
+    type: {
       type: String,
       enum: {
         values: ['STUDENT', 'FACULTY', 'ADMIN', 'PARENT'],
         message: 'The value {VALUE} is not supported',
       },
       required: [true, 'Please provide a user type'],
-      default:'student'
+      default:'STUDENT'
     },
     /*photo: {
       type: String,
@@ -47,10 +47,6 @@ const userSchema = mongoose.Schema(
         },
         message: 'Passwords do not match',
       }
-    },
-    college : {
-      type:String,
-      required:[true,'please provide the college']
     },
     passwordChangedAt: Date,
     passwordResetToken: String,
@@ -130,8 +126,3 @@ const User = mongoose.model('User', userSchema);
 
 // Exporting User Model
 module.exports = User;
-
-
-
-
-    
