@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema(
     user: {
       type: String,
       enum: {
-        values: ['student', 'faculty'],
+        values: ['STUDENT', 'FACULTY', 'ADMIN', 'PARENT'],
         message: 'The value {VALUE} is not supported',
       },
       required: [true, 'Please provide a user type'],
