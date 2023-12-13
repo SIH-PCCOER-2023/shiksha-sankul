@@ -1,25 +1,25 @@
-const path = require('path');
-const express = require('express');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const cookieSession = require('cookie-session');
+const path = require("path");
+const express = require("express");
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const cookieSession = require("cookie-session");
 
-const AppError = require('./utils/appError');
-const globalErrorHandler = require('./controllers/errorController');
+const AppError = require("./utils/appError");
+const globalErrorHandler = require("./controllers/errorController");
 
 // Requiring modules
-const userRoutes = require('./routes/userRoutes');
-const viewRouter = require('./routes/viewRoutes');
-const studentRoutes = require('./routes/studentRoutes');
-const facultyRoutes = require('./routes/facultyRoutes');
+const authRoutes = require("./routes/authRoutes");
+const viewRouter = require("./routes/viewRoutes");
+const studentRoutes = require("./routes/studentRoutes");
+const facultyRoutes = require("./routes/facultyRoutes");
 
 // Create express app
 const app = express();
-app.enable('trust-proxy');
+app.enable("trust-proxy");
 
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views', 'templates'));
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views", "templates"));
 
 /* Global Middleware */
 
@@ -27,14 +27,14 @@ app.set('views', path.join(__dirname, 'views', 'templates'));
 app.use(cors());
 
 // Access-Control-Allow-Origin *
-app.options('*', cors());
+app.options("*", cors());
 
 // Serving static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Development Logging
-if ((process.env.NODE_ENV = 'development')) {
-  app.use(morgan('dev'));
+if ((process.env.NODE_ENV = "development")) {
+  app.use(morgan("dev"));
 }
 
 // Body parser, reading data from body into req.body
@@ -51,21 +51,20 @@ app.use((req, res, next) => {
 // Cookie Session
 app.use(
   cookieSession({
-    name: 'session',
-    keys: ['shikshasankul'],
+    name: "session",
+    keys: ["shikshasankul"],
     maxAge: 24 * 60 * 60 * 100,
   })
 );
 
+app.use('/api/v1/auth', authRoutes);
+app.use("/api/v1/student", studentRoutes);
+app.use("/api/v1/faculty", facultyRoutes);
+
 // Rendered Routes
-app.use('/', viewRouter);
+app.use("/", viewRouter);
 
-//API Routes
-app.use('/api/v1/auth', userRoutes);
-app.use('/api/v1/student', studentRoutes);
-app.use('/api/v1/faculty', facultyRoutes);
-
-app.all('*', function (req, res, next) {
+app.all("*", function (req, res, next) {
   // Other than defined route
   next(
     new AppError(

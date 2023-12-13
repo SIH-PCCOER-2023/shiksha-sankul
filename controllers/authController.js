@@ -41,7 +41,7 @@ const createSendToken = (user, statusCode, req, res) => {
 // UserType
 exports.loginUserType = catchAsync(async (req, res) => {
   const users = ['STUDENT', 'FACULTY', 'ADMIN', 'PARENT'];
-  const userLoginType = req.body.user;
+  const userLoginType = req.body.type;
 
   if (!users.includes(userLoginType)) {
     return next(new AppError('Invalid User Type', 400));
@@ -54,7 +54,7 @@ exports.loginUserType = catchAsync(async (req, res) => {
 // Sign Up User
 exports.signup = catchAsync(async (req, res) => {
   if (req.cookies.userLoginType) {
-    req.body.user = req.cookies.userLoginType;
+    req.body.type = req.cookies.userLoginType;
   }
   // 1.) Create new user based on req.body
   const newUser = await User.create({
@@ -63,7 +63,7 @@ exports.signup = catchAsync(async (req, res) => {
     college:req.body.college,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
-    user: req.body.user,
+    user: req.body.type,
     passwordChangedAt: req.body.passwordChangedAt,
     passwordResetToken: req.body.passwordResetToken,
     passwordResetExpires: req.body.passwordResetExpires,
@@ -71,7 +71,7 @@ exports.signup = catchAsync(async (req, res) => {
   });
 
   // Create specific users based on userType
-  if (req.body.user === 'student') {
+  if (req.body.type === 'STUDENT') {
     await Student.create({
       student: newUser._id,
       class: req.body.class,
@@ -79,7 +79,7 @@ exports.signup = catchAsync(async (req, res) => {
       class10th: req.body.class10th,
       class12th:req.body.class12th
     });
-  } else if (req.body.user === 'faculty') {
+  } else if (req.body.type === 'FACULTY') {
     await Faculty.create({
       faculty: newUser._id
     });
@@ -93,7 +93,7 @@ exports.signup = catchAsync(async (req, res) => {
 // Login User
 exports.login = catchAsync(async (req, res, next) => {
   //const userType = req.cookies.userLoginType;
-  const userType=req.body.user;
+  const userType=req.body.type;
   // 1.) Get email and password from req.body
   const { email, password } = req.body;
 
@@ -105,7 +105,7 @@ exports.login = catchAsync(async (req, res, next) => {
   //3. Check if user exists and password is correct
   const user = await User.findOne({ email }).select('+password');
 
-  if (user.user !== userType) {
+  if (user.type !== userType) {
     return next(
       new AppError('Invalid user type. Please enter valid user type', 401)
     );
@@ -171,8 +171,8 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   // GRANT ACCESS TO PROTECTED ROUTE
-  req.user = currentUser;
-  res.locals.user = currentUser;
+  req.type = currentUser;
+  res.locals.type = currentUser;
   next();
 });
 
