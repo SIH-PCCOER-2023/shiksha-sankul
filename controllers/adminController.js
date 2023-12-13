@@ -1,13 +1,14 @@
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('../utils/apiFeatures');
+const factory=require('./handlerFactory');
+
+const Faculty=require("../models/facultymodel");
+const Admin=require('../models/adminModel');
 
 
-const Student=require('../models/studentmodel');
-const Parent=require('../models/parentModel');
-
-exports.deleteOne=catchAsync(async(req,res,next)=>{
-    const doc= await Student.findByIdAndDelete(req.params.id);
+/*exports.deleteOne=catchAsync(async(req,res,next)=>{
+    const doc= await Faculty.findByIdAndDelete(req.params.id);
 
 
     if(!doc){
@@ -23,7 +24,7 @@ exports.deleteOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.updateOne=catchAsync(async(req,res,next)=>{
-    const doc= await Student.findByIdAndUpdate(req.params.id,req.body,{
+    const doc= await Faculty.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
         runValidators:true   
     });
@@ -43,7 +44,7 @@ exports.updateOne=catchAsync(async(req,res,next)=>{
 
 
 exports.createOne=catchAsync(async(req,res,next)=>{
-    const doc=await Student.create(req.body);
+    const doc=await Faculty.create(req.body);
 
     res.status(201).json({
         status:'success',
@@ -54,7 +55,7 @@ exports.createOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.getOne=catchAsync(async(req,res,next)=>{
-    const doc=await Student.findById(req.params.id);
+    const doc=await Faculty.findById(req.params.id);
 
     if (!doc) {
         return next(
@@ -71,7 +72,86 @@ exports.getOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.getAll=catchAsync(async(req,res,next)=>{
-    const doc=await Student.find();
+    const doc=await Faculty.find();
+
+    res.status(200).json({
+        status:'success',
+        resultno:doc.length,
+        data:{
+            data:doc//documents fetched
+        }
+
+    })
+})*/
+
+
+
+exports.deleteOne=catchAsync(async(req,res,next)=>{
+    const doc= await Admin.findByIdAndDelete(req.params.id);
+
+
+    if(!doc){
+        return next(
+            new AppError('No document found with that ID',404)
+        );
+    }
+
+    res.status(204).json({
+        status:'success',
+        data:null//data deleted
+    });
+});
+
+exports.updateOne=catchAsync(async(req,res,next)=>{
+    const doc= await Admin.findByIdAndUpdate(req.params.id,req.body,{
+        new:true,
+        runValidators:true   
+    });
+
+    if(!doc){
+        return next(
+            new AppError('No document found with that ID',404)
+        );
+    }
+    res.status(200).json({
+        status: 'success',
+        data: {
+          data: doc, // Updated doc
+        },
+      });
+});
+
+
+exports.createOne=catchAsync(async(req,res,next)=>{
+    const doc=await Admin.create(req.body);
+
+    res.status(201).json({
+        status:'success',
+        data:{
+            data:doc//created doc
+        }
+    });
+});
+
+exports.getOne=catchAsync(async(req,res,next)=>{
+    const doc=await Admin.findById(req.params.id);
+
+    if (!doc) {
+        return next(
+          new AppError('A document with that ID could not be found', 404)
+        );
+      }
+
+    res.status(200).json({
+        status:'success',
+        data:{
+            data:doc//document fetched
+        }
+    });
+});
+
+exports.getAll=catchAsync(async(req,res,next)=>{
+    const doc=await Admin.find();
 
     res.status(200).json({
         status:'success',
@@ -83,83 +163,10 @@ exports.getAll=catchAsync(async(req,res,next)=>{
     })
 })
 
+exports.getAllFaculty=factory.getAll(Faculty)
+exports.deleteOneFaculty = factory.deleteOne(Faculty);
+exports.createOneFaculty=factory.createOne(Faculty);
+exports.getOneFaculty=factory.getOne(Faculty);
+exports.updateOneFaculty=factory.updateOne(Faculty);
 
 
-
-
-/*exports.deleteOne=catchAsync(async(req,res,next)=>{
-    const doc= await Parent.findByIdAndDelete(req.params.id);
-
-
-    if(!doc){
-        return next(
-            new AppError('No document found with that ID',404)
-        );
-    }
-
-    res.status(204).json({
-        status:'success',
-        data:null//data deleted
-    });
-});
-
-exports.updateOne=catchAsync(async(req,res,next)=>{
-    const doc= await Parent.findByIdAndUpdate(req.params.id,req.body,{
-        new:true,
-        runValidators:true   
-    });
-
-    if(!doc){
-        return next(
-            new AppError('No document found with that ID',404)
-        );
-    }
-    res.status(200).json({
-        status: 'success',
-        data: {
-          data: doc, // Updated doc
-        },
-      });
-});
-
-
-exports.createOne=catchAsync(async(req,res,next)=>{
-    const doc=await Parent.create(req.body);
-
-    res.status(201).json({
-        status:'success',
-        data:{
-            data:doc//created doc
-        }
-    });
-});
-
-exports.getOne=catchAsync(async(req,res,next)=>{
-    const doc=await Parent.findById(req.params.id);
-
-    if (!doc) {
-        return next(
-          new AppError('A document with that ID could not be found', 404)
-        );
-      }
-
-    res.status(200).json({
-        status:'success',
-        data:{
-            data:doc//document fetched
-        }
-    });
-});
-
-exports.getAll=catchAsync(async(req,res,next)=>{
-    const doc=await Parent.find();
-
-    res.status(200).json({
-        status:'success',
-        resultno:doc.length,
-        data:{
-            data:doc//documents fetched
-        }
-
-    })
-})*/
