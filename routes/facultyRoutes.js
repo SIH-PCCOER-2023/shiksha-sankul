@@ -1,18 +1,19 @@
 const express = require('express');
-const facultyController=require('../controllers/facultyController');
+//const facultyController=require('../controllers/facultyController');
+const adminController=require("../controllers/adminController")
 //const { updateOne, deleteOne } = require('../controllers/handlerFactory');
 const router=express.Router();
 
 
 router
 .route('/')
-.get(facultyController.getAll)
-.post(facultyController.createOne)
+.get(adminController.getAllFaculty)
+.post(adminController.createOneFaculty)
 
 router
 .route("/:id")
-.patch(facultyController.updateOne)
-.get(facultyController.getOne)
-.delete(facultyController.deleteOne)
+.patch(adminController.updateOneFaculty)
+.get(adminController.getOneFaculty)
+.delete(adminController.deleteOneFaculty)
 
 module.exports=router;

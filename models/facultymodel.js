@@ -10,11 +10,15 @@ const facultySchema = mongoose.Schema(
             ref:'User'
         },
       
-      idcard :{
+      /*idcard :{
         type:String,
         required:[true,'please upload your id card'],
         default:'id.jpg'
-      },
+      },*/
+      phoneno : {
+        type:Number,
+        required:[true,'Please enter you phone no.']
+      }
 
       
     },
