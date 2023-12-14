@@ -1,18 +1,13 @@
+
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('../utils/apiFeatures');
-const factory=require('./handlerFactory');
 
-const Faculty=require("../models/facultymodel");
-const Admin=require('../models/adminModel');
-
-
-
-
+const parent=require('../models/parentModel');
 
 
 exports.deleteOne=catchAsync(async(req,res,next)=>{
-    const doc= await Admin.findByIdAndDelete(req.params.id);
+    const doc= await parent.findByIdAndDelete(req.params.id);
 
 
     if(!doc){
@@ -28,7 +23,7 @@ exports.deleteOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.updateOne=catchAsync(async(req,res,next)=>{
-    const doc= await Admin.findByIdAndUpdate(req.params.id,req.body,{
+    const doc= await parent.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
         runValidators:true   
     });
@@ -48,7 +43,7 @@ exports.updateOne=catchAsync(async(req,res,next)=>{
 
 
 exports.createOne=catchAsync(async(req,res,next)=>{
-    const doc=await Admin.create(req.body);
+    const doc=await parent.create(req.body);
 
     res.status(201).json({
         status:'success',
@@ -59,7 +54,7 @@ exports.createOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.getOne=catchAsync(async(req,res,next)=>{
-    const doc=await Admin.findById(req.params.id);
+    const doc=await parent.findById(req.params.id);
 
     if (!doc) {
         return next(
@@ -76,7 +71,7 @@ exports.getOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.getAll=catchAsync(async(req,res,next)=>{
-    const doc=await Admin.find();
+    const doc=await parent.find();
 
     res.status(200).json({
         status:'success',
@@ -87,11 +82,3 @@ exports.getAll=catchAsync(async(req,res,next)=>{
 
     })
 })
-
-exports.getAllFaculty=factory.getAll(Faculty)
-exports.deleteOneFaculty = factory.deleteOne(Faculty);
-exports.createOneFaculty=factory.createOne(Faculty);
-exports.getOneFaculty=factory.getOne(Faculty);
-exports.updateOneFaculty=factory.updateOne(Faculty);
-
-

@@ -1,19 +1,45 @@
 const express = require('express');
-//const facultyController=require('../controllers/facultyController');
-const adminController=require("../controllers/adminController")
-//const { updateOne, deleteOne } = require('../controllers/handlerFactory');
+const facultyController=require('../controllers/facultyController');
+
 const router=express.Router();
 
 
 router
 .route('/')
-.get(adminController.getAllFaculty)
-.post(adminController.createOneFaculty)
+.get(facultyController.getAll)
+.post(facultyController.createOne)
 
 router
 .route("/:id")
-.patch(adminController.updateOneFaculty)
-.get(adminController.getOneFaculty)
-.delete(adminController.deleteOneFaculty)
+.patch(facultyController.updateOne)
+.get(facultyController.getOne)
+.delete(facultyController.deleteOne)
+
+
+
+router
+.route('/managestudent/')
+.get(facultyController.getAllStudent)
+.post(facultyController.createOneStudent)
+
+router
+.route("/managestudent/:id")
+.patch(facultyController.updateOneStudent)
+.get(facultyController.getOneStudent)
+.delete(facultyController.deleteOneStudent)
+
+
+
+router
+.route('/manageparent')
+.get(facultyController.getAllParent)
+.post(facultyController.createOneParent)
+
+router
+.route("/manageparent/:id")
+.patch(facultyController.updateOneParent)
+.get(facultyController.getOneParent)
+.delete(facultyController.deleteOneParent)
+
 
 module.exports=router;

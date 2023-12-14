@@ -1,17 +1,18 @@
 const express = require('express');
-const facultyController=require('../controllers/facultyController');
+//const facultyController=require('../controllers/facultyController');
 //const { updateOne, deleteOne } = require('../controllers/handlerFactory');
+const parentController=require('../controllers/parentController')
 const router=express.Router();
 
 router
 .route('/')
-.get(facultyController.getAll)
-.post(facultyController.createOne)
+.get(parentController.getAll)
+.post(parentController.createOne)
 
 router
 .route("/:id")
-.patch(facultyController.updateOne)
-.get(facultyController.getOne)
-.delete(facultyController.deleteOne)
+.patch(parentController.updateOne)
+.get(parentController.getOne)
+.delete(parentController.deleteOne)
 
 module.exports=router;
