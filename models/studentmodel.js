@@ -4,23 +4,28 @@ const User = require("./userModel");
 
 const studentSchema = mongoose.Schema(
   {
-    student: {
+    student: 
+    {
       type: mongoose.Schema.ObjectId,
       ref: "User",
     },
-    class: {
+    class: 
+    {
       type: Number,
       required: [true, "enter the class"],
     },
-    rollno: {
+    rollno:
+    {
       type: Number,
       required: [true, "Enter the roll no "],
     },
-    class10th: {
+    class10th: 
+    {
       type: Number,
       required: [true, "Enter the class 10th marks"],
     },
-    class12th: {
+    class12th: 
+    {
       type: Number,
       required: [true, "Enter the class 12th marks"],
     },
