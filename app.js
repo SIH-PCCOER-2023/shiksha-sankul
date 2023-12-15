@@ -13,6 +13,8 @@ const authRoutes = require("./routes/authRoutes");
 const viewRouter = require("./routes/viewRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const facultyRoutes = require("./routes/facultyRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+
 
 // Create express app
 const app = express();
@@ -60,6 +62,7 @@ app.use(
 app.use('/api/v1/auth', authRoutes);
 app.use("/api/v1/student", studentRoutes);
 app.use("/api/v1/faculty", facultyRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 // Rendered Routes
 app.use("/", viewRouter);

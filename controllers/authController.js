@@ -63,7 +63,7 @@ exports.signup = catchAsync(async (req, res) => {
     college:req.body.college,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
-    user: req.body.type,
+    type: req.body.type,
     passwordChangedAt: req.body.passwordChangedAt,
     passwordResetToken: req.body.passwordResetToken,
     passwordResetExpires: req.body.passwordResetExpires,
@@ -92,7 +92,7 @@ exports.signup = catchAsync(async (req, res) => {
 
 // Login User
 exports.login = catchAsync(async (req, res, next) => {
-  //const userType = req.cookies.userLoginType;
+  // const userType = req.cookies.userLoginType;
   const userType=req.body.type;
   // 1.) Get email and password from req.body
   const { email, password } = req.body;
@@ -104,6 +104,12 @@ exports.login = catchAsync(async (req, res, next) => {
 
   //3. Check if user exists and password is correct
   const user = await User.findOne({ email }).select('+password');
+
+  if(!user){
+    return next(
+      new AppError('Invalid email or password. User does not exist', 401)
+    );
+  }
 
   if (user.type !== userType) {
     return next(
