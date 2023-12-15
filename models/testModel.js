@@ -1,4 +1,4 @@
-//const { default: validator } = require("validator");
+
 
 const mongoose=require('mongoose');
 const validator=require('validator');
@@ -16,6 +16,23 @@ const testSchema= mongoose.Schema(
         name:{
             type:String,
             required:[true,'Please enter your name'],
+        },
+        subject:{
+            type:String,
+            required:[true,'please enter the topic ']
+        
+        },
+        marks:{
+            type:Number,
+            required:[true,'please enter the topic ']
+        },
+        level:{
+            type:String,
+            required:[true,'please enter the topic ']
+
+        },
+        explanation:{
+            type:String
         },
         topic:{
             type:String,
@@ -40,7 +57,8 @@ const testSchema= mongoose.Schema(
         correctanswer:{
             type:String,
             required:[true,'give the corrected answer']
-        }
+        },
+
 
         
 
