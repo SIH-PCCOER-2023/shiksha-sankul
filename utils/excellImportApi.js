@@ -1,48 +1,55 @@
-var mongoose    = require('mongoose');
-var path        = require('path');
-var studentModel= require('../models/studentmodel');
-var excelToJson = require('convert-excel-to-json');
-var multer = require('multer')
+var mongoose = require("mongoose");
+var path = require("path");
+var excelToJson = require("convert-excel-to-json");
+var multer = require("multer");
 
-var storage = multer.diskStorage({  
-    destination:(req,file,cb)=>{  
-        cb(null,'./public/uploads');  
-    },  
-    filename:(req,file,cb)=>{  
-        cb(null,file.originalname);  
-    }  
-});  
-  
-var upload = multer({storage:storage});  
-  
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 
-function importExcelData2MongoDB(filePath){
-    // -> Read Excel File to Json Data
-    const excelData = excelToJson({
-        sourceFile: filePath,
-        sheets:[{
-            // Excel Sheet Name
-            name: 'Customers',
- 
-            // Header Row -> be skipped and will not be present at our result object.
-            header:{
-               rows: 1
-            },
-            
-            // Mapping columns to keys
-            columnToKey: {
-                A: '_id',
-                B: 'name',
-                C: 'address',
-                D: 'age'
-            }
-        }]
-    });
- 
-    // -> Log Excel Data to Console
-    console.log(excelData);
- 
-    /**
+var upload = multer({ storage: storage });
+
+function importExcelData2MongoDB(
+  filePath,
+  sheetName = "Sheet1",
+  mappingCol2Key,
+  model,
+) {
+  // -> Read Excel File to Json Data
+  // requires uploaded file path,
+  const excelData = excelToJson({
+    sourceFile: filePath,
+    sheets: [
+      {
+        // Excel Sheet Name
+        name: sheetName,
+
+        // Header Row -> be skipped and will not be present at our result object.
+        header: {
+          rows: 1,
+        },
+
+        // Mapping columns to keys
+        // columnToKey: {
+        //   A: "_id",
+        //   B: "name",
+        //   C: "address",
+        //   D: "age",
+        // },
+        columnToKey: mappingCol2Key,
+      },
+    ],
+  });
+
+  // -> Log Excel Data to Console
+  console.log(excelData);
+
+  /**
     { 
         Customers:
         [ 
@@ -53,23 +60,30 @@ function importExcelData2MongoDB(filePath){
             { _id: 5, name: 'Jason Bourne', address: 'California', age: 36 } 
         ] 
     }
-    */  
+    */
 
-    // Insert Json-Object to MongoDB
-    studentModel.insertMany(jsonObj,(err,data)=>{  
-            if(err){  
-                console.log(err);  
-            }else{  
-                res.redirect('/');  
-            }  
-     }); 
-            
-    fs.unlinkSync(filePath);
+  // Insert Json-Object to MongoDB
+  model.insertMany(jsonObj, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/");
+    }
+  });
+
+  fs.unlinkSync(filePath);
 }
 
-exports.importExcel = catchAsync(async (req, res) => {
-    importExcelData2MongoDB(__dirname + '/uploads/' + req.file.filename);
+exports.importExcel = (sheetName, mappingCol2Key, model) => {
+  catchAsync(async (req, res) => {
+    importExcelData2MongoDB(
+      __dirname + "/uploads/" + req.file.filename,
+      sheetName,
+      mappingCol2Key,
+      model,
+    );
     console.log(res);
-});
+  });
+};
 
 exports.upload = upload;
