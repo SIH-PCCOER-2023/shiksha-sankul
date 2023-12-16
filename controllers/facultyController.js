@@ -3,9 +3,10 @@ const AppError = require('../utils/appError');
 const APIFeatures = require('../utils/apiFeatures');
 
 const factory=require('./handlerFactory');
-const Faculty=require('../models/facultymodel')
-const Student=require('../models/studentmodel');
+const Faculty=require('../models/facultyModel')
+const Student=require('../models/studentModel');
 const Parent=require('../models/parentModel');
+const User = require('../models/userModel');
 
 exports.deleteOne=catchAsync(async(req,res,next)=>{
     const doc= await Faculty.findByIdAndDelete(req.params.id);
@@ -24,7 +25,7 @@ exports.deleteOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.updateOne=catchAsync(async(req,res,next)=>{
-    const doc= await Faculty.findByIdAndUpdate(req.params.id,req.body,{
+    const doc= await User.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
         runValidators:true   
     });
@@ -55,7 +56,7 @@ exports.createOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.getOne=catchAsync(async(req,res,next)=>{
-    const doc=await Faculty.findById(req.params.id);
+    const doc=await Faculty.findById(req.params.id).populate("user");
 
     if (!doc) {
         return next(
@@ -72,16 +73,22 @@ exports.getOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.getAll=catchAsync(async(req,res,next)=>{
-    const doc=await Faculty.find();
+    const docs=await Faculty.find().populate("user");
 
     res.status(200).json({
-        status:'success',
-        resultno:doc.length,
-        data:{
-            data:doc//documents fetched
-        }
-
-    })
+        status: "success",
+        count: docs.length,
+        data: docs.map((doc) => {
+            const requestObject = {
+                request: {
+                    type: "GET",
+                    url: req.originalUrl + "/" + doc._id,
+                },
+            };
+            Object.assign(doc._doc, requestObject);
+            return doc;
+        }),
+    });
 })
 
 exports.getAllStudent=factory.getAll(Student);

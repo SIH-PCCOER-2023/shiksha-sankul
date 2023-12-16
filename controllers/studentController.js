@@ -13,11 +13,12 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const APIFeatures = require('../utils/apiFeatures');
 
-const Student=require('../models/studentmodel');
+const Student=require('../models/studentModel');
+const User = require('../models/userModel');
 
 
 exports.deleteOne=catchAsync(async(req,res,next)=>{
-    const doc= await Student.findByIdAndDelete(req.params.id);
+    const doc = await Student.findByIdAndDelete(req.params.id);
 
 
     if(!doc){
@@ -33,7 +34,7 @@ exports.deleteOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.updateOne=catchAsync(async(req,res,next)=>{
-    const doc= await Student.findByIdAndUpdate(req.params.id,req.body,{
+    const doc= await User.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
         runValidators:true   
     });
@@ -64,7 +65,7 @@ exports.createOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.getOne=catchAsync(async(req,res,next)=>{
-    const doc=await Student.findById(req.params.id);
+    const doc=await Student.findById({"user.id": req.params.id}).populate("user");
 
     if (!doc) {
         return next(
@@ -81,14 +82,20 @@ exports.getOne=catchAsync(async(req,res,next)=>{
 });
 
 exports.getAll=catchAsync(async(req,res,next)=>{
-    const doc=await Student.find();
+    const doc=await Student.find().populate("user");
 
     res.status(200).json({
-        status:'success',
-        resultno:doc.length,
-        data:{
-            data:doc//documents fetched
-        }
-
-    })
+        status: "success",
+        count: docs.length,
+        data: docs.map((doc) => {
+            const requestObject = {
+                request: {
+                    type: "GET",
+                    url: req.originalUrl + "/" + doc._id,
+                },
+            };
+            Object.assign(requestObject, doc._doc);
+            return requestObject;
+        }),
+    });
 })

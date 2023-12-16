@@ -14,7 +14,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-function importExcelData2MongoDB(
+function importExcel2JSON(
   filePath,
   sheetName = "Sheet1",
   mappingCol2Key,
@@ -63,27 +63,25 @@ function importExcelData2MongoDB(
     */
 
   // Insert Json-Object to MongoDB
-  model.insertMany(jsonObj, (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect("/");
-    }
-  });
+  // model.insertMany(jsonObj, (err, data) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     res.redirect("/");
+  //   }
+  // });
 
   fs.unlinkSync(filePath);
 }
 
-exports.importExcel = (sheetName, mappingCol2Key, model) => {
-  catchAsync(async (req, res) => {
-    importExcelData2MongoDB(
-      __dirname + "/uploads/" + req.file.filename,
+exports.importExcel = (filename,sheetName, mappingCol2Key, model) => {
+    importExcel2JSON(
+      __dirname + "/uploads/" + filename,
       sheetName,
       mappingCol2Key,
       model,
     );
     console.log(res);
-  });
 };
 
 exports.upload = upload;
