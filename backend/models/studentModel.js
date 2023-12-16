@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const { Decimal128 } = require("bson");
-const { string } = require("yargs");
 
 const marks = mongoose.Schema({
     name: {

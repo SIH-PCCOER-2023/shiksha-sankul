@@ -30,16 +30,16 @@ router
 
 
 
-router
-.route('/manageparent')
-.get(facultyController.getAllParent)
-.post(facultyController.createOneParent)
+// router
+// .route('/manageparent')
+// .get(facultyController.getAllParent)
+// .post(facultyController.createOneParent)
 
-router
-.route("/manageparent/:id")
-.patch(facultyController.updateOneParent)
-.get(facultyController.getOneParent)
-.delete(facultyController.deleteOneParent)
+// router
+// .route("/manageparent/:id")
+// .patch(facultyController.updateOneParent)
+// .get(facultyController.getOneParent)
+// .delete(facultyController.deleteOneParent)
 
 
 module.exports=router;
