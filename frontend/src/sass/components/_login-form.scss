@@ -1,0 +1,166 @@
+.login {
+    height: 100vh;
+    position: relative;
+    background-image: url("./../assets/images/signup-1.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 50%;
+    overflow: hidden;
+
+    &__box {
+        position: absolute;
+        top: 0%;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: $color-white;
+        z-index: -1;
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    &--btn {
+        background: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+        padding: 1.2rem 3.5rem;
+        border-radius: 200px;
+        font-weight: 500;
+        color: $color-white;
+        margin-top: 3rem;
+    }
+}
+
+.login__form {
+    width: 45%;
+    height: 55rem;
+    padding: 3rem 15rem;
+    padding-left: 10rem;
+    border-radius: 5rem;
+    background-color: rgba($color-grey-light-2, 0.5);
+    margin-right: -5rem;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+
+    position: absolute;
+    top: 18%;
+    right: 0;
+
+    &--header {
+        text-align: center;
+        font-size: 3.5rem;
+        padding-bottom: 3rem;
+        letter-spacing: 1px;
+        font-weight: 600;
+
+        background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    &--group {
+        display: flex;
+        align-items: center;
+        padding-bottom: 2rem;
+    }
+
+    &--icon {
+        padding-right: 1.5rem;
+        cursor: pointer;
+        font-size: 2.5rem;
+        color: $color-grey-dark-3;
+    }
+
+    &--eye-icon {
+        font-size: 2rem;
+        display: inline-block;
+        margin-left: -5rem;
+        margin-right: 3rem;
+        cursor: pointer;
+        color: $color-grey-dark-3;
+    }
+
+    &--footer {
+        text-align: center;
+
+        & > p {
+            text-align: left;
+            font-size: 1.3rem;
+            font-weight: 500;
+            padding-left: 4rem;
+
+            & > a {
+                font-size: 1.5rem;
+                text-decoration: none;
+                font-weight: 700;
+                color: $color-secondary-light;
+                transition: all 0.1s;
+
+                &:hover {
+                    color: $color-secondary;
+                }
+            }
+
+            & > button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-family: inherit;
+                font-size: 1.5rem;
+                text-decoration: none;
+                font-weight: 700;
+                color: $color-secondary-light;
+                transition: all 0.1s;
+
+                &:hover {
+                    color: $color-secondary;
+                }
+            }
+        }
+    }
+
+    &--alt {
+        & > p {
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 2rem;
+            padding: 2rem 0;
+            font-weight: 700;
+            color: $color-grey-dark-1;
+        }
+
+        & > a > i {
+            font-size: 2rem;
+            background: linear-gradient(to right, $color-secondary-light, $color-secondary-dark);
+            padding: 1.2rem;
+            color: $color-white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+
+            &:hover {
+                box-shadow: 0px 0px 10px rgba($color-secondary-light, 1);
+            }
+        }
+
+        & > a {
+            &:not(:last-child) {
+                margin-right: 2rem;
+            }
+        }
+    }
+
+    &--error {
+        font-size: 1.3rem;
+        padding-bottom: 2rem;
+        padding-left: 4rem;
+        color: #d00000;
+        transition: all 0.2s;
+
+        & > i {
+            padding-right: 1rem;
+        }
+    }
+}

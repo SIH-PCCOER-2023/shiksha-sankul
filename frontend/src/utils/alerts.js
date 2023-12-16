@@ -1,0 +1,24 @@
+// type is 'success' or 'error'
+export const hideAlert = () => {
+  const el = document.querySelector('.alert');
+  if (el) {
+    el.parentElement.removeChild(el);
+  }
+};
+
+export const showAlert = (type, msg) => {
+  hideAlert();
+  let icon;
+  if (type === 'success') {
+    icon = `<i class="fa-solid fa-circle-check"></i>`;
+  } else {
+    icon = `<i class="fa-solid fa-circle-xmark"></i>`;
+  }
+  const markup = `
+      <div class="alert alert--${type}">${icon} ${msg}</div>
+      `;
+  document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
+  window.setTimeout(() => {
+    hideAlert();
+  }, 5000);
+};

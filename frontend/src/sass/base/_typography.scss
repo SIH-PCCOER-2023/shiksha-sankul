@@ -1,0 +1,16 @@
+.heading-secondary {
+    font-size: 1.6rem;
+    color: $color-secondary;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-family: inherit;
+    padding-bottom: 5px;
+}
+
+.heading-tertiary {
+    color: $color-secondary-dark-2;
+    font-size: 4rem;
+    font-family: inherit;
+    font-weight: 800;
+}

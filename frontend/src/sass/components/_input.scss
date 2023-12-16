@@ -1,0 +1,25 @@
+.control {
+    font-size: 1.5rem;
+    padding: 0.8rem 1.8rem;
+    border-radius: 8px;
+    outline: 2px solid transparent;
+    /* outline: none; */
+    font-family: inherit;
+    width: 100%;
+    margin-right: 1rem;
+    background-color: rgba(82, 104, 199, 0.1);
+    transition: all 0.2s;
+    border: none;
+    letter-spacing: 0.5px;
+}
+
+.control:active,
+.control:focus {
+    background-color: #f7f7f7;
+    outline: 2px solid rgba(253, 77, 10, 0.5);
+}
+
+.control.invalid {
+    outline: 2px solid rgba(255, 0, 0, 0.5);
+    background: #fbdada;
+}

@@ -1,0 +1,24 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+/*
+This defines what 1 rem is equal to
+By default 1rem = 16px;
+So to make 1rem to 10px we do 10/16 = 62.5%
+*/
+html {
+    font-size: 62.5%; // 1rem = 10px; 10px/16px = 62.5%
+}
+
+body {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    user-select: none;
+    line-height: 1.6;
+}
