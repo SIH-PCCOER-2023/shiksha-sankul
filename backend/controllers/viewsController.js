@@ -1,4 +1,4 @@
-const catchAsync = require('../../utils/catchAsync');
+const catchAsync = require('../utils/catchAsync');
 
 exports.getLoginUserType = catchAsync(async (req, res, next) => {
   res.status(200).render('login-user-type', {
