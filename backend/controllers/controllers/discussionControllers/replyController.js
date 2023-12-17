@@ -6,7 +6,3 @@ const factory=require('./handlerFactory');
 
 const Reply=require('../../models/discussionModels/replyModel')
 const User=require('../../models/discussionModels/userModel');
-
-
-
-exports.
