@@ -22,7 +22,7 @@ exports.bulkAddFaculty = catchAsync(async (req, res, next) => {
 
         // Everything went fine.
         importExcel(
-            __dirname + "/uploads/" + req.file.filename,
+            req.file.filename,
             (mappingCol2Key = {
                 A: "",
             })
