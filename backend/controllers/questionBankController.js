@@ -21,7 +21,8 @@ exports.getOne = catchAsync(async (req, res, next) => {
 });
 
 exports.getAll = catchAsync(async (req, res, next) => {
-    const docs = await QuestionBank.find();
+    const docs = await QuestionBank.aggregate().sample(2);
+    // console.log(docs);
     res.status(200).json({
         status: "success",
         count: docs.length,
@@ -32,7 +33,7 @@ exports.getAll = catchAsync(async (req, res, next) => {
                     url: req.originalUrl + "/" + doc._id,
                 },
             };
-            Object.assign(doc._doc, requestObject);
+            Object.assign(doc, requestObject);
             return doc;
         }),
     });

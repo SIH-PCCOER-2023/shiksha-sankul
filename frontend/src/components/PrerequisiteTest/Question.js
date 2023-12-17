@@ -1,15 +1,40 @@
-import { useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 import TestContext from "./testContext";
 
 const Question = (props) => {
+    const [checked, checkedState] = useState(null);
     const {
         questions,
         currentQuestion,
         handleAnswerSelection,
         handleNextQuestion,
+        handlePrevQuestion,
     } = useContext(TestContext);
-    console.log(questions, currentQuestion);
-    if (questions.length<=0) {
+
+    const getRadioProps = useCallback(
+        (id, value) => {
+            const ansMap = {
+                0: "a",
+                1: "b",
+                2: "c",
+                3: "d",
+            };
+            return {
+                id,
+                value,
+                type: "radio",
+                name: "discount",
+                checked: checked === value, // this will toggle the checked state
+                onChange: () => {
+                    checkedState(value);
+                    handleAnswerSelection(currentQuestion, ansMap[id]);
+                },
+            };
+        },
+        [checked, currentQuestion, handleAnswerSelection]
+    ); // update the props for all checkboxes, if the checked value changes
+
+    if (questions.length <= 0) {
         return <p>Loading...</p>;
     }
     return (
@@ -18,74 +43,37 @@ const Question = (props) => {
                 <div>
                     <h2>Question {currentQuestion + 1}</h2>
                     <h3>{questions[currentQuestion].question}</h3>
-                    {questions[currentQuestion].type === "radio" && (
-                        <ul>
-                            {questions[currentQuestion].options.map(
-                                (option, index) => (
-                                    <li key={index}>
+
+                    <ul>
+                        {questions[currentQuestion].options.map(
+                            (option, index) => (
+                                <li key={index}>
+                                    <div className="radiobtn">
                                         <input
-                                            type="radio"
-                                            name={`questions${currentQuestion}`}
-                                            value={option}
-                                            onChange={() =>
-                                                handleAnswerSelection(
-                                                    currentQuestion,
-                                                    option
-                                                )
-                                            }
+                                            {...getRadioProps(index, option)}
                                         />
-                                        {option}
-                                    </li>
-                                )
-                            )}
-                        </ul>
-                    )}
-                    {questions[currentQuestion].type === "checkbox" && (
-                        <ul>
-                            {questions[currentQuestion].options.map(
-                                (option, index) => (
-                                    <li key={index}>
-                                        <input
-                                            type="checkbox"
-                                            name={`question${currentQuestion}`}
-                                            value={option}
-                                            onChange={() =>
-                                                handleAnswerSelection(
-                                                    currentQuestion,
-                                                    option
-                                                )
-                                            }
-                                        />
-                                        {option}
-                                    </li>
-                                )
-                            )}
-                        </ul>
-                    )}
-                    {questions[currentQuestion].type === "input" && (
-                        <input
-                            type="text"
-                            onChange={(e) =>
-                                handleAnswerSelection(
-                                    currentQuestion,
-                                    e.target.value
-                                )
-                            }
-                        />
-                    )}
-                    {questions[currentQuestion].type === "textarea" && (
-                        <textarea
-                            rows="4"
-                            cols="50"
-                            onChange={(e) =>
-                                handleAnswerSelection(
-                                    currentQuestion,
-                                    e.target.value
-                                )
-                            }
-                        />
-                    )}
-                    <button onClick={handleNextQuestion}>Next Question</button>
+                                        <label htmlFor={index}>{option}</label>
+                                    </div>
+                                </li>
+                            )
+                        )}
+                    </ul>
+                    <button
+                        onClick={() => {
+                            checkedState(null);
+                            handlePrevQuestion();
+                        }}
+                    >
+                        Prev Question
+                    </button>
+                    <button
+                        onClick={() => {
+                            checkedState(null);
+                            handleNextQuestion();
+                        }}
+                    >
+                        Next Question
+                    </button>
                 </div>
             </div>
         </>

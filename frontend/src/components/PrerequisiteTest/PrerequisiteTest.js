@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import Question from "./Question";
 import { getQuestions } from "../../utils/questionbank";
 import TestContext from "./testContext";
+import { showAlert } from "../../utils/alerts";
 
 const PrerequisiteTest = (props) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -32,7 +33,7 @@ const PrerequisiteTest = (props) => {
         };
         // Call the function
         loadQuestions();
-    },[]);
+    }, []);
 
     const handleAnswerSelection = (questionIndex, selectedAnswer) => {
         const updatedAnswers = [...answers];
@@ -40,17 +41,43 @@ const PrerequisiteTest = (props) => {
         setAnswers(updatedAnswers);
     };
     const handleNextQuestion = () => {
+        if (!answers[currentQuestion]) {
+            showAlert("error", "Please select an option!");
+            return;
+        }
         if (
-            answers[currentQuestion] === questions[currentQuestion].answer ||
+            answers[currentQuestion] ===
+                questions[currentQuestion].correctanswer ||
             JSON.stringify(answers[currentQuestion]) ===
                 JSON.stringify(questions[currentQuestion].answer)
         ) {
-            setScore(score + 1);
+            setScore(score + questions[currentQuestion].marks);
+            console.log(
+                answers[currentQuestion],
+                questions[currentQuestion].correctanswer
+            );
         }
         if (currentQuestion + 1 < questions.length) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
             setShowScore(true);
+        }
+    };
+    const handlePrevQuestion = () => {
+        if (currentQuestion <= 0) {
+            showAlert("error", "This is the first question");
+            return;
+        }
+        if (
+            answers[currentQuestion] ===
+                questions[currentQuestion].correctanswer ||
+            JSON.stringify(answers[currentQuestion]) ===
+                JSON.stringify(questions[currentQuestion].answer)
+        ) {
+            setScore(score - questions[currentQuestion].marks);
+        }
+        if (currentQuestion > 0) {
+            setCurrentQuestion(currentQuestion - 1);
         }
     };
     return (
@@ -63,6 +90,7 @@ const PrerequisiteTest = (props) => {
                 currentQuestion,
                 handleAnswerSelection,
                 handleNextQuestion,
+                handlePrevQuestion
             }}
         >
             <div className="prereq-test-container">
