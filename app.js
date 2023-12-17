@@ -6,14 +6,17 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 
 const AppError = require("./utils/appError");
-const globalErrorHandler = require("./controllers/errorController");
+const globalErrorHandler = require("./backend/controllers/errorController");
 
 // Requiring modules
-const authRoutes = require("./routes/authRoutes");
-const viewRouter = require("./routes/viewRoutes");
-const studentRoutes = require("./routes/studentRoutes");
-const facultyRoutes = require("./routes/facultyRoutes");
-const adminRoutes = require("./routes/adminRoutes");
+const authRoutes = require("./backend/routes/authRoutes");
+const viewRouter = require("./backend/routes/viewRoutes");
+const studentRoutes = require("./backend/routes/studentRoutes");
+const facultyRoutes = require("./backend/routes/facultyRoutes");
+const adminRoutes = require("./backend/routes/adminRoutes");
+const postRoutes =require("./backend/routes/discussionForumRoutes/postsRoutes")
+const replyPost =require("./backend/routes/discussionForumRoutes/replyRoutes")
+const tagsPost =require("./backend/routes/discussionForumRoutes/tagsRoutes")
 
 
 // Create express app
@@ -63,6 +66,9 @@ app.use('/api/v1/auth', authRoutes);
 app.use("/api/v1/student", studentRoutes);
 app.use("/api/v1/faculty", facultyRoutes);
 app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/post",postRoutes);
+app.use("/api/v1/reply",replyPost);
+app.use("/api/v1/tags",tagsPost)
 
 // Rendered Routes
 app.use("/", viewRouter);

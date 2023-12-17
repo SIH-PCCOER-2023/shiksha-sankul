@@ -16,3 +16,5 @@ router
 .patch(postController.updatePost)
  
 module.exports=router;
+
+
