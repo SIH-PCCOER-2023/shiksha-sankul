@@ -1,12 +1,18 @@
-import React, { useState, useEffect, useReducer, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useRef,
+  useContext,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import validator from 'validator';
 import { sendPostRequest } from '../../utils/sendHttp';
 import { showAlert } from '../../utils/alerts';
 import Input from './../UI/Input/Input';
-
-// import loader from './../../assets/gifs/bookLoader.gif';
+import UserContext from '../../store/user-context';
+import AuthContext from '../../store/auth-context';
 
 const emailReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
@@ -20,15 +26,18 @@ const emailReducer = (state, action) => {
 
 const passwordReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
-    return { value: action.val, isValid: action.val.trim().length > 8 };
+    return { value: action.val, isValid: true };
   }
   if (action.type === 'INPUT_BLUR') {
-    return { value: state.value, isValid: state.value.trim().length > 8 };
+    return { value: state.value, isValid: true };
   }
   return { value: '', isValid: false };
 };
 
 const LoginForm = (props) => {
+  const userCtx = useContext(UserContext);
+  const authCtx = useContext(AuthContext);
+
   // Declared Refs
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -36,7 +45,7 @@ const LoginForm = (props) => {
   // Declared States
   const [formIsValid, setFormIsValid] = useState(false);
   const [error, setError] = useState(null);
-  const [isPassVisible, setPassVisible] = useState('visibility_off');
+  const [isPassVisible, setPassVisible] = useState(false);
 
   // Declared Navigate
   let navigate = useNavigate();
@@ -81,12 +90,12 @@ const LoginForm = (props) => {
     dispatchPassword({ type: 'INPUT_BLUR' });
   };
   const passwordVisibleHandler = (event) => {
-    if (event.target.innerHTML === 'visibility_off') {
-      event.target.parentElement.children[1].type = 'string';
-      setPassVisible('visibility');
+    if (isPassVisible === true) {
+      setPassVisible(false);
+      event.target.parentElement.parentElement.children[1].type = 'password';
     } else {
-      event.target.parentElement.children[1].type = 'password';
-      setPassVisible('visibility_off');
+      setPassVisible(true);
+      event.target.parentElement.parentElement.children[1].type = 'string';
     }
   };
 
@@ -100,36 +109,33 @@ const LoginForm = (props) => {
           email: emailState.value,
           password: passwordState.value,
         };
-        const res = await sendPostRequest('/api/v1/auth/login', data);
+        const res = await sendPostRequest(
+          'http://localhost:8080/api/v1/auth/login',
+          data
+        );
 
         if (res.data.status === 'success') {
           showAlert('success', 'Logged in successfully');
 
-          const user = res.data.data.user.user;
+          const user = res.data.data.user.type;
 
-          if (user === 'student') {
+          authCtx.login(res.data.token);
+          authCtx.loginUserType(user);
+
+          userCtx.userNameHandler(res.data.data.user.name);
+
+          if (user === 'STUDENT') {
             navigate('/student-dashboard');
-          } else if (user === 'alumni') {
-            navigate('/alumni-dashboard');
-          } else if (user === 'industry') {
-            navigate('/industry-dashboard');
-          } else if (user === 'institute') {
-            navigate('/institute-dashboard');
-          } else if (user === 'university') {
-            navigate('/university-dashboard');
-          } else if (user === 'aicte') {
-            navigate('/aicte-dashboard');
+          } else if (user === 'FACULTY') {
+            navigate('/faculty-dashboard');
           } else {
             showAlert('error', 'Invalid user type, Please try again.');
-            navigate('/login-select');
+            navigate('/');
           }
         }
       } else if (!emailIsValid) {
         emailInputRef.current.focus();
         setError('Please enter a valid email address');
-      } else {
-        passwordInputRef.current.focus();
-        setError('Length of password must be greater than 8');
       }
     } catch (err) {
       showAlert('error', err.response.data.message);
@@ -137,20 +143,16 @@ const LoginForm = (props) => {
         err.response.data.message ===
         'Invalid user type. Please enter valid user type'
       ) {
-        navigate('/login-select');
+        navigate('/');
       }
     }
   };
 
-  const getLogin = () => {
-    navigate('/signup');
-  };
   return (
     <>
-      {/* {isLoading && <img src={loader} alt="Loader" />} */}
       <form className="login__form" onSubmit={submitHandler}>
         <div className="login__form--header">
-          <p>Login</p>
+          <p>Welcome</p>
         </div>
 
         <div className="login__form--body">
@@ -158,9 +160,7 @@ const LoginForm = (props) => {
             <Input
               ref={emailInputRef}
               id="email"
-              label={
-                <span className="material-icons login__form--icon">email</span>
-              }
+              label={<i className="fa-solid fa-user login__form--icon"></i>}
               type="email"
               name="email"
               placeholder="Email"
@@ -176,9 +176,7 @@ const LoginForm = (props) => {
             <Input
               ref={passwordInputRef}
               id="password"
-              label={
-                <span className="material-icons login__form--icon">lock</span>
-              }
+              label={<i className="fa-solid fa-lock login__form--icon"></i>}
               type="password"
               name="password"
               placeholder="Password"
@@ -186,14 +184,13 @@ const LoginForm = (props) => {
               value={passwordState.value}
               onChange={passwordChangeHandler}
               onBlur={validatePasswordHandler}
-              // pattern="^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]$"
-              // title="The password must contain atleast 1 Uppercase, 1 Lowercase, 1 Number and 1 Symbol"
             />
-            <span
-              className="material-icons login__form--eye-icon"
-              onClick={passwordVisibleHandler}
-            >
-              {isPassVisible}
+            <span onClick={passwordVisibleHandler}>
+              <i
+                className={`fa-solid ${
+                  isPassVisible ? 'fa-eye' : 'fa-eye-slash'
+                } login__form--eye-icon`}
+              ></i>
             </span>
           </div>
 
@@ -206,14 +203,8 @@ const LoginForm = (props) => {
         </div>
 
         <div className="login__form--footer">
-          <p>
-            Don't have an account?
-            <button type="button" onClick={getLogin}>
-              Signup
-            </button>
-          </p>
           <button className="login--btn btn" type="submit">
-            Submit
+            Login
           </button>
         </div>
       </form>

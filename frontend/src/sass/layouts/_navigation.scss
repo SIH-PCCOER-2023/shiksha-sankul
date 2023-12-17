@@ -1,9 +1,33 @@
 .navigation {
-    padding: 1rem 0;
+    padding: 2rem 0;
     // STYLING
-    &__logo:not(:last-child) {
-        margin-top: 2rem;
-        margin-left: 3rem;
+    &__logo {
+        display: flex;
+        align-items: center;
+
+        &--left {
+            display: flex;
+            align-items: center;
+
+            & > p {
+                font-size: 2rem;
+                font-weight: 500;
+                color: $color-grey-dark-3;
+                cursor: pointer;
+            }
+        }
+
+        &--center {
+            margin-left: 30rem;
+            font-size: 2rem;
+            background-color: $color-grey-light-2;
+            padding: 0.5rem 10rem;
+            border-radius: 100px;
+        }
+
+        &:not(:last-child) {
+            margin-left: 4rem;
+        }
     }
 
     &__logo-img {

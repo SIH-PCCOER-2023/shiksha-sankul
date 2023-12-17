@@ -5,9 +5,7 @@ const Login = (props) => {
   return (
     <div className="login">
       <Header />
-      <div className="login__content">
-        <div className="login__box"></div>
-      </div>
+      <div className="login--bg"></div>
       <LoginForm />
     </div>
   );

@@ -1,0 +1,31 @@
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    // padding-top: 1.8rem;
+}
+
+.chart {
+    background-color: $color-white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    width: fit-content;
+    block-size: fit-content;
+
+    &__title {
+        font-size: 2rem;
+        // color: $color-black-2;
+        text-transform: capitalize;
+        font-weight: 600;
+
+        background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    &__content {
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+}
