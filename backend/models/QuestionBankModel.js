@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const questionSchema = mongoose.Schema({
-    title: {
+    question: {
         type: String,
-        required: [true, "Please enter your name"],
+        required: [true, "Please specify question"],
     },
     subject: {
         type: String,
-        required: [true, "please enter the topic "],
+        required: [true, "please enter the subject"],
     },
     topic: {
         type: String,
@@ -36,11 +36,11 @@ const questionSchema = mongoose.Schema({
     },
     marks: {
         type: Number,
-        required: [true, "please enter the topic "],
+        required: [true, "please enter the marks "],
     },
     level: {
         type: String,
-        required: [true, "please enter the topic "],
+        required: [true, "please enter the level "],
     },
     explanation: {
         type: String,

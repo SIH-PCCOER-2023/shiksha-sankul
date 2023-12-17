@@ -28,6 +28,8 @@ router
 .get(facultyController.getOneStudent)
 .delete(facultyController.deleteOneStudent)
 
+router.route('/uploadQuestionBank').post(facultyController.bulkAddQuestions)
+
 
 
 // router
