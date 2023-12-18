@@ -66,36 +66,6 @@ app.use("/api/v1/student", studentRoutes);
 app.use("/api/v1/faculty", facultyRoutes);
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/questions", questionBankRoutes);
-app.get("/test/getQuestions", catchAsync(async (req, res, next)=>{
-  const questions = [
-    {
-      question: 'What is the capital of France?',
-      type: 'radio',
-      options: ['Paris', 'Berlin', 'London', 'Rome'],
-      answer: 'Paris',
-    },
-    {
-      question: 'Which planets are considered gas giants? (Select all that apply)',
-      type: 'checkbox',
-      options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
-      answer: ['Jupiter', 'Saturn'],
-    },
-    {
-      question: 'Who is the CEO of Tesla?',
-      type: 'input',
-      answer: 'Elon Musk',
-    },
-    {
-      question: 'Share your feedback about this quiz:',
-      type: 'textarea',
-      answer: '',
-    },
-    // Add more questions here
-  ];
-  res.status(200).json(questions);
-//   console.log(questions);
-  // return questions;
-}));
 
 // Rendered Routes
 app.use("/", viewRouter);
