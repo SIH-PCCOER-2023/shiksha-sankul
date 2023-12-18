@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const { Decimal128 } = require("bson");
-const { string } = require("yargs");
 
 const marks = mongoose.Schema({
     name: {
@@ -44,7 +43,7 @@ const studentSchema = mongoose.Schema(
             required: [true, "Enter the roll no "],
         },
         marks: [marks],
-        dataUpdated: {
+        prereqCompleted: {
             type: Boolean,
             default: false,
             select: false,

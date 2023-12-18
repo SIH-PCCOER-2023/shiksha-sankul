@@ -1,79 +1,74 @@
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
-const APIFeatures = require('../utils/apiFeatures');
+const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
+const APIFeatures = require("../utils/apiFeatures");
+const { upload, importExcel } = require("../utils/excellImportApi");
 
-const factory=require('./handlerFactory');
-const Faculty=require('../models/facultyModel')
-const Student=require('../models/studentModel');
-const Parent=require('../models/parentModel');
-const User = require('../models/userModel');
+const factory = require("./handlerFactory");
+const Faculty = require("../models/facultyModel");
+const studentController = require("./studentController");
+const User = require("../models/userModel");
+const multer = require("multer");
 
-exports.deleteOne=catchAsync(async(req,res,next)=>{
-    const doc= await Faculty.findByIdAndDelete(req.params.id);
+exports.deleteOne = catchAsync(async (req, res, next) => {
+    const doc = await Faculty.findByIdAndDelete(req.params.id);
 
-
-    if(!doc){
-        return next(
-            new AppError('No document found with that ID',404)
-        );
+    if (!doc) {
+        return next(new AppError("No document found with that ID", 404));
     }
 
     res.status(204).json({
-        status:'success',
-        data:null//data deleted
+        status: "success",
+        data: null, //data deleted
     });
 });
 
-exports.updateOne=catchAsync(async(req,res,next)=>{
-    const doc= await User.findByIdAndUpdate(req.params.id,req.body,{
-        new:true,
-        runValidators:true   
+exports.updateOne = catchAsync(async (req, res, next) => {
+    const doc = await User.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
     });
 
-    if(!doc){
-        return next(
-            new AppError('No document found with that ID',404)
-        );
+    if (!doc) {
+        return next(new AppError("No document found with that ID", 404));
     }
     res.status(200).json({
-        status: 'success',
+        status: "success",
         data: {
-          data: doc, // Updated doc
+            data: doc, // Updated doc
         },
-      });
-});
-
-
-exports.createOne=catchAsync(async(req,res,next)=>{
-    const doc=await Faculty.create(req.body);
-
-    res.status(201).json({
-        status:'success',
-        data:{
-            data:doc//created doc
-        }
     });
 });
 
-exports.getOne=catchAsync(async(req,res,next)=>{
-    const doc=await Faculty.findById(req.params.id).populate("user");
+exports.createOne = catchAsync(async (req, res, next) => {
+    const doc = await Faculty.create(req.body);
+
+    res.status(201).json({
+        status: "success",
+        data: {
+            data: doc, //created doc
+        },
+    });
+});
+
+exports.getOne = catchAsync(async (req, res, next) => {
+    const doc = await Faculty.findById(req.params.id).populate("user");
 
     if (!doc) {
         return next(
-          new AppError('A document with that ID could not be found', 404)
+            new AppError("A document with that ID could not be found", 404)
         );
-      }
+    }
 
     res.status(200).json({
-        status:'success',
-        data:{
-            data:doc//document fetched
-        }
+        status: "success",
+        data: {
+            data: doc, //document fetched
+        },
     });
 });
 
-exports.getAll=catchAsync(async(req,res,next)=>{
-    const docs=await Faculty.find().populate("user");
+exports.getAll = catchAsync(async (req, res, next) => {
+    const docs = await Faculty.find().populate("user");
 
     res.status(200).json({
         status: "success",
@@ -89,23 +84,17 @@ exports.getAll=catchAsync(async(req,res,next)=>{
             return doc;
         }),
     });
-})
-
-exports.getAllStudent=factory.getAll(Student);
-exports.deleteOneStudent = factory.deleteOne(Student);
-exports.createOneStudent=factory.createOne(Student);
-exports.getOneStudent=factory.getOne(Student);
-exports.updateOneStudent=factory.updateOne(Student);
-
-exports.getAllParent=factory.getAll(Parent);
-exports.deleteOneParent = factory.deleteOne(Parent);
-exports.createOneParent=factory.createOne(Parent);
-exports.getOneParent=factory.getOne(Parent);
-exports.updateOneParent=factory.updateOne(Parent);
+});
 
 
+exports.getAllStudent = studentController.getAll;
+exports.deleteOneStudent = studentController.deleteOne;
+exports.createOneStudent = factory.createOne(User);
+exports.getOneStudent = studentController.getOne;
+exports.updateOneStudent = factory.createOne(User);
 
-
-
-
-
+// exports.getAllParent=Parent.getAll;
+// exports.deleteOneParent = Parent.deleteOne;
+// exports.createOneParent=Parent.createOne;
+// exports.getOneParent=Parent.getOne;
+// exports.updateOneParent=Parent.updateOne;

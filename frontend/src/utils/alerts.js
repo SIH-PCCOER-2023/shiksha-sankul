@@ -15,7 +15,7 @@ export const showAlert = (type, msg) => {
     icon = `<i class="fa-solid fa-circle-xmark"></i>`;
   }
   const markup = `
-      <div class="alert alert--${type}">${icon} ${msg}</div>
+      <div class="alert alert--${type}" color=#000>${icon} ${msg}</div>
       `;
   document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
   window.setTimeout(() => {

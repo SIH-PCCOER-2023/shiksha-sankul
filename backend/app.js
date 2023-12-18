@@ -14,6 +14,8 @@ const viewRouter = require("./routes/viewRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const facultyRoutes = require("./routes/facultyRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const questionBankRoutes = require("./routes/questionBankRoutes");
+const catchAsync = require("./utils/catchAsync");
 
 
 // Create express app
@@ -63,6 +65,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use("/api/v1/student", studentRoutes);
 app.use("/api/v1/faculty", facultyRoutes);
 app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/questions", questionBankRoutes);
 
 // Rendered Routes
 app.use("/", viewRouter);

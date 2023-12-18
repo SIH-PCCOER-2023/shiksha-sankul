@@ -1,10 +1,11 @@
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
-const APIFeatures = require('../utils/apiFeatures');
-const factory=require('./handlerFactory');
+const catchAsync = require('../../utils/catchAsync');
+const AppError = require('../../utils/appError');
+const APIFeatures = require('../../utils/apiFeatures');
+const factory=require('../handlerFactory');
 
 const Post=require('../../models/discussionModels/postModel');
-const User=require('../../models/discussionModels/userModel');
+const User=require('../../models/userModel');
+const Tag=require('../../models/discussionModels/tagModel')
 
 
 exports.getAllPost=catchAsync(async(req,res,next)=>{
@@ -53,19 +54,19 @@ exports.getPost=catchAsync(async(req,res,next)=>{
 
 
 exports.createPost=catchAsync(async(req,res,next)=>{
-    const tags = req.body.tags;
-    const tags_array = [];
-    for (let i = 0; i < tags.length; i++) {
-      const tag_in_db = await Tag.findById(tags[i]);
-      if (!tag_in_db) return res.status(400).send("Invalid Tag");
-      tags_array.push(tag_in_db);
-    }
+    // const tags = req.body.tags;
+    // const tags_array = [];
+    // for (let i = 0; i < tags.length; i++) {
+    //   const tag_in_db = await Tag.findById(tags[i]);
+    //   if (!tag_in_db) return res.status(400).send("Invalid Tag");
+    //   tags_array.push(tag_in_db);
+    // }
 
     const post = new Post({
         title: req.body.title,
-        tags: tags_array,
+       // tags: tags_array,
         description: req.body.description,
-        author: req.user._id,
+        author: "asdafdfaf",
         views: 1,
     });
 

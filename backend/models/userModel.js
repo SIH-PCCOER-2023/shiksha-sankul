@@ -3,11 +3,10 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
-const Admin = require("./adminModel")
-const Student = require("./studentModel")
-const Faculty = require("./facultyModel")
-const Parent = require("./parentModel")
-
+const Admin = require("./adminModel");
+const Student = require("./studentModel");
+const Faculty = require("./facultyModel");
+const Parent = require("./parentModel");
 
 // Creating user schema
 const userSchema = mongoose.Schema(
@@ -30,7 +29,7 @@ const userSchema = mongoose.Schema(
         },
         phoneno: {
             type: String,
-            trim:true,
+            trim: true,
             required: [true, "Please enter you phone no."],
         },
         type: {
@@ -66,7 +65,7 @@ const userSchema = mongoose.Schema(
             select: false,
         },
     },
-    { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+    { toJSON: { virtuals: true }, toObject: { virtuals: true }, strict:false }
 );
 
 // Document middleware - Pre hook
@@ -90,13 +89,13 @@ userSchema.pre("save", function (next) {
     next();
 });
 
-userSchema.post('save', async function(doc) {
-    console.log('%s has been saved', doc._id);
+userSchema.post("save", async function (doc) {
+    console.log("%s has been saved", doc._id);
     if (doc.type === "STUDENT") {
         await Student.create({
             user: doc._id,
-            // class: req.body.class,
-            // rollno: req.body.rollno,
+            class: this.class,
+            rollno: this.rollno,
         });
     } else if (doc.type === "FACULTY") {
         await Faculty.create({
@@ -111,8 +110,7 @@ userSchema.post('save', async function(doc) {
             user: doc._id,
         });
     }
-  });
-
+});
 
 // Query middleware - Pre hook
 userSchema.pre(/^find/, function (next) {

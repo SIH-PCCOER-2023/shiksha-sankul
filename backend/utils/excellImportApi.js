@@ -2,54 +2,55 @@ var mongoose = require("mongoose");
 var path = require("path");
 var excelToJson = require("convert-excel-to-json");
 var multer = require("multer");
+const fs = require("fs");
 
 var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, "uploads"));
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    },
 });
 
 var upload = multer({ storage: storage });
 
 function importExcel2JSON(
-  filePath,
-  sheetName = "Sheet1",
-  mappingCol2Key,
-  model,
+    filePath,
+    sheetName = "Sheet1",
+    mappingCol2Key,
+    model
 ) {
-  // -> Read Excel File to Json Data
-  // requires uploaded file path,
-  const excelData = excelToJson({
-    sourceFile: filePath,
-    sheets: [
-      {
-        // Excel Sheet Name
-        name: sheetName,
+    // -> Read Excel File to Json Data
+    // requires uploaded file path,
+    const excelData = excelToJson({
+        sourceFile: filePath,
+        sheets: [
+            {
+                // Excel Sheet Name
+                name: sheetName,
 
-        // Header Row -> be skipped and will not be present at our result object.
-        header: {
-          rows: 1,
-        },
+                // Header Row -> be skipped and will not be present at our result object.
+                header: {
+                    rows: 1,
+                },
 
-        // Mapping columns to keys
-        // columnToKey: {
-        //   A: "_id",
-        //   B: "name",
-        //   C: "address",
-        //   D: "age",
-        // },
-        columnToKey: mappingCol2Key,
-      },
-    ],
-  });
+                // Mapping columns to keys
+                // columnToKey: {
+                //   A: "_id",
+                //   B: "name",
+                //   C: "address",
+                //   D: "age",
+                // },
+                columnToKey: mappingCol2Key,
+            },
+        ],
+    });
 
-  // -> Log Excel Data to Console
-  console.log(excelData);
+    // -> Log Excel Data to Console
+    //   console.log(excelData);
 
-  /**
+    /**
     { 
         Customers:
         [ 
@@ -62,26 +63,22 @@ function importExcel2JSON(
     }
     */
 
-  // Insert Json-Object to MongoDB
-  // model.insertMany(jsonObj, (err, data) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     res.redirect("/");
-  //   }
-  // });
+    // Insert Json-Object to MongoDB
+    // model.insertMany(jsonObj, (err, data) => {
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     res.redirect("/");
+    //   }
+    // });
 
-  fs.unlinkSync(filePath);
+    fs.unlinkSync(filePath);
+    return excelData;
 }
 
-exports.importExcel = (filename,sheetName, mappingCol2Key, model) => {
-    importExcel2JSON(
-      __dirname + "/uploads/" + filename,
-      sheetName,
-      mappingCol2Key,
-      model,
-    );
-    console.log(res);
+exports.importExcel = (filename, sheetName, mappingCol2Key, model) => {
+    const res = importExcel2JSON(filename, sheetName, mappingCol2Key, model);
+    return res[sheetName];
 };
 
 exports.upload = upload;

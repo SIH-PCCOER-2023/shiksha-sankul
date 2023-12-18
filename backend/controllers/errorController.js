@@ -1,4 +1,4 @@
-const AppError = require('./../utils/appError');
+const AppError = require('../utils/appError');
 
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}`;
@@ -92,7 +92,7 @@ module.exports = (err, req, res, next) => {
   err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') {
-    console.log('Error in development');
+    console.log('Error in development : ', err.message, "\n", err.stact);
     sendErrorDev(err, req, res);
   } else if (process.env.NODE_ENV === 'production') {
     console.log('Error in production');
