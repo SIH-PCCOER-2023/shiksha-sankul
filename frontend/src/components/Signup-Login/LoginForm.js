@@ -151,9 +151,7 @@ const LoginForm = (props) => {
   return (
     <>
       <form className="login__form" onSubmit={submitHandler}>
-        <div className="login__form--header">
-          <p>Welcome</p>
-        </div>
+        <div className="login__form--header">Welcome</div>
 
         <div className="login__form--body">
           <div className="login__form--group">

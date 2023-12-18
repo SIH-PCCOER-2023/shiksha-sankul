@@ -24,6 +24,21 @@ const StudentDashboard = (props) => {
       text: 'Our Recommendations',
       url: 'recommendations.html',
     },
+    {
+      icon: 'fa-solid fa-file-pdf',
+      text: 'Certificates',
+      url: 'certificates.html',
+    },
+    {
+      icon: 'fa-solid fa-chart-pie',
+      text: 'Performance',
+      url: 'performance.html',
+    },
+    {
+      icon: 'fa-solid fa-comments',
+      text: 'Discussion Forum',
+      url: 'discussion.html',
+    },
   ];
 
   return (

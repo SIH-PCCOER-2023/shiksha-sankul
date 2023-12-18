@@ -400,7 +400,8 @@ p {
       margin-right: 2rem;
       cursor: pointer; }
     .dash-header__logo p {
-      font-size: 2rem;
+      font-family: "Berkshire Swash";
+      font-size: 2.2rem;
       font-weight: 500;
       color: #333;
       cursor: pointer; }
@@ -487,8 +488,9 @@ p {
       display: flex;
       align-items: center; }
       .navigation__logo--left > p {
-        font-size: 2rem;
-        font-weight: 500;
+        font-family: "Berkshire Swash";
+        font-size: 2.2rem;
+        font-weight: 400;
         color: #333;
         cursor: pointer; }
     .navigation__logo--center {
