@@ -1,21 +1,42 @@
-const Sidebar = (props) => {
-  return (
-    <ul className="sidebar">
-      {Object.entries(props.icons).map((icon, index) => {
-        const disabledItemStyle = props.disabled.includes(icon[0])
-          ? 'sidebar__item sidebar__link--disabled'
-          : 'sidebar__item';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
-        return (
-          <li className={disabledItemStyle} key={index}>
-            <i className={`sidebar__icon ${icon[1]}`}></i>
-            <a className="sidebar__link" href={icon[0]}>
-              {icon[0]}
-            </a>
-          </li>
-        );
-      })}
-    </ul>
+import profilePic from '../../assets/images/pic-1.jpg';
+
+import UserContext from '../../store/user-context';
+
+const Sidebar = (props) => {
+  const userCtx = useContext(UserContext);
+
+  const { navLinks } = props;
+
+  return (
+    <div className="sidebar">
+      {/* <div className="sidebar__closebtn">
+        <i className="fas fa-times"></i>
+      </div> */}
+
+      <div className="sidebar__profile">
+        <img
+          src={profilePic}
+          className="sidebar__profile--image"
+          alt="ProfilePic"
+        />
+        <h3 className="sidebar__profile--name">{userCtx.userName}</h3>
+        <Link to="/profile" className="sidebar__btn">
+          View Profile
+        </Link>
+      </div>
+
+      <nav className="sidebar__navbar">
+        {navLinks.map((link, index) => (
+          <Link key={index} to={link.url} className="sidebar__navbar--link">
+            <i className={`fas ${link.icon} sidebar__navbar--icon`}></i>
+            <span className="sidebar__navbar--text">{link.text}</span>
+          </Link>
+        ))}
+      </nav>
+    </div>
   );
 };
 

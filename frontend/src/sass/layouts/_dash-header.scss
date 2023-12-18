@@ -1,0 +1,136 @@
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 5rem;
+    margin-left: 30rem;
+    padding: 4rem 2.5rem;
+    z-index: 1000;
+    border-bottom: 0.1rem solid rgba(0, 0, 0, 0.2);
+
+    &__logo {
+        display: flex;
+        align-items: center;
+
+        & img {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 2rem;
+            cursor: pointer;
+        }
+
+        & p {
+            font-family: "Berkshire Swash";
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: $color-grey-dark-3;
+            cursor: pointer;
+        }
+    }
+
+    &__center {
+        font-size: 1.5rem;
+        background-color: $color-grey-light-2;
+        padding: 0.5rem 5rem;
+        border-radius: 100px;
+    }
+
+    &__right {
+        & div {
+            font-size: 2rem;
+            color: $color-black-2;
+            border-radius: 50%;
+            height: 4.5rem;
+            width: 4.5rem;
+            line-height: 4.5rem;
+            cursor: pointer;
+            text-align: center;
+            margin-left: 0.7rem;
+            transition: all 0.1s ease-in;
+
+            &:hover {
+                background-color: $color-black-2;
+                color: $color-white;
+            }
+        }
+    }
+
+    &__profile {
+        position: absolute;
+        top: 12%;
+        right: 2rem;
+        background-color: $color-white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        text-align: center;
+        overflow: hidden;
+        transform-origin: top right;
+        transform: scale(0);
+        transition: 0.2s linear;
+        width: 30rem;
+        border: 1px solid $color-black-2;
+        z-index: 10000;
+
+        &--cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        & .image {
+            height: 10rem;
+            width: 10rem;
+            border-radius: 200px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        & .name {
+            font-size: 2rem;
+            color: $color-black-2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        & .role {
+            font-size: 1.5rem;
+            color: $color-light;
+        }
+
+        & .link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 1rem 3rem;
+            background-color: $color-secondary;
+            color: $color-white;
+
+            font-size: 1.5rem;
+            font-weight: 500;
+
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.2s;
+
+            &:hover {
+                background-color: $color-secondary-dark;
+            }
+
+            &:last-child {
+                background-color: $color-primary;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $color-primary-dark;
+                }
+            }
+        }
+    }
+
+    &__profile.active {
+        transform: scale(1);
+    }
+}
