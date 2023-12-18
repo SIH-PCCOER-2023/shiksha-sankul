@@ -43,7 +43,7 @@ const studentSchema = mongoose.Schema(
             required: [true, "Enter the roll no "],
         },
         marks: [marks],
-        dataUpdated: {
+        prereqCompleted: {
             type: Boolean,
             default: false,
             select: false,
