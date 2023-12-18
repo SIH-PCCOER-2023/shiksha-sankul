@@ -1,0 +1,64 @@
+.box-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 2.5rem;
+}
+
+.box {
+    background-color: $color-white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    width: fit-content;
+    block-size: fit-content;
+
+    &__title {
+        font-size: 2rem;
+        // color: $color-black-2;
+        text-transform: capitalize;
+        font-weight: 600;
+
+        background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    &__content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 2rem;
+
+        & button {
+            background-color: $color-light-bg;
+            border-radius: 0.5rem;
+            padding: 1rem 1.5rem;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+                // background-color: $color-black-2;
+                background-color: $color-secondary-light;
+
+                & span {
+                    color: $color-white;
+                }
+
+                & i {
+                    color: $color-white;
+                }
+            }
+
+            & i {
+                margin-right: 1rem;
+                color: $color-black-2;
+            }
+
+            & span {
+                color: $color-light;
+            }
+        }
+    }
+}

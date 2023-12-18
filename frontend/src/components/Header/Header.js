@@ -1,6 +1,4 @@
-import logo_1 from './../../assets/images/aicte-logo.png';
-import logo_2 from './../../assets/images/logo.png';
-import logo_name from './../../assets/images/logo-name.png';
+import logo_1 from './../../assets/images/logo.png';
 
 const BtnClickNavigation = (event) => {
   if (!event.target.checked) {
@@ -13,14 +11,16 @@ const Header = (props) => {
   return (
     <div className="navigation">
       <div className="navigation__logo">
-        <img src={logo_1} alt="Logo 1" className="navigation__logo-img"></img>
-        <img src={logo_2} alt="Logo 2" className="navigation__logo-img"></img>
-        <img
-          src={logo_name}
-          alt="Logo Name"
-          className="navigation__logo-img"
-        ></img>
+        <div className="navigation__logo--left">
+          <img src={logo_1} alt="Logo 1" className="navigation__logo-img"></img>
+          <p>Shiksha Sankul</p>
+        </div>
+
+        <div className="navigation__logo--center">
+          <p>Learn, Adapt N' Thrive</p>
+        </div>
       </div>
+
       <input
         type="checkbox"
         className="navigation__checkbox"
