@@ -48,6 +48,14 @@ const studentSchema = mongoose.Schema(
             default: false,
             select: false,
         },
+        learnerType:{
+            type:String,
+            enum:{
+                values:["SLOW", "FAST", "UNKNOWN"]
+            },
+            default:"UNKNOWN",
+            required:[true, "Learner type required"]
+        }
     },
     { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
