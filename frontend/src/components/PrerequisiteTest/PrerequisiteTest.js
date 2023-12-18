@@ -1,121 +1,112 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Header from "../Header/Header";
-import Question from "./Question";
-import { getQuestions } from "../../utils/questionbank";
-import TestContext from "./testContext";
-import { showAlert } from "../../utils/alerts";
+import Question from './Question';
+import { getQuestions } from '../../utils/questionbank';
+import TestContext from './testContext';
+import { showAlert } from '../../utils/alerts';
+import Sidebar from '../Sidebar/Sidebar';
+import DashboardHeader from '../Header/DashboardHeader';
 
 const PrerequisiteTest = (props) => {
-    const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [score, setScore] = useState(0);
-    const [answers, setAnswers] = useState([]);
-    const [questions, setQuestions] = useState([]);
-    const [showScore, setShowScore] = useState(false);
-    const [Loading, setLoading] = useState(true);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [answers, setAnswers] = useState([]);
+  const [questions, setQuestions] = useState([]);
+  const [showScore, setShowScore] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [testStarted, setTestStarted] = useState(false);
 
-    useEffect(() => {
-        const loadQuestions = async () => {
-            // Till the data is fetch using API
-            // the Loading page will show.
-            setLoading(true);
+  useEffect(() => {
+    const loadQuestions = async () => {
+      setLoading(true);
 
-            // Await make wait until that
-            // promise settles and return its result
-            const response = await getQuestions();
-            // const data = await response.data;
+      const response = await getQuestions();
 
-            // After fetching data stored it in posts state.
-            setQuestions(response);
+      setQuestions(response);
 
-            // Closed the loading page
-            setLoading(false);
-        };
-        // Call the function
-        loadQuestions();
-    }, []);
-
-    const handleAnswerSelection = (questionIndex, selectedAnswer) => {
-        const updatedAnswers = [...answers];
-        updatedAnswers[questionIndex] = selectedAnswer;
-        setAnswers(updatedAnswers);
+      setLoading(false);
     };
-    const handleNextQuestion = () => {
-        if (!answers[currentQuestion]) {
-            showAlert("error", "Please select an option!");
-            return;
-        }
-        if (
-            answers[currentQuestion] ===
-                questions[currentQuestion].correctanswer ||
-            JSON.stringify(answers[currentQuestion]) ===
-                JSON.stringify(questions[currentQuestion].answer)
-        ) {
-            setScore(score + questions[currentQuestion].marks);
-            console.log(
-                answers[currentQuestion],
-                questions[currentQuestion].correctanswer
-            );
-        }
-        if (currentQuestion + 1 < questions.length) {
-            setCurrentQuestion(currentQuestion + 1);
-        } else {
-            setShowScore(true);
-        }
-    };
-    const handlePrevQuestion = () => {
-        if (currentQuestion <= 0) {
-            showAlert("error", "This is the first question");
-            return;
-        }
-        if (
-            answers[currentQuestion] ===
-                questions[currentQuestion].correctanswer ||
-            JSON.stringify(answers[currentQuestion]) ===
-                JSON.stringify(questions[currentQuestion].answer)
-        ) {
-            setScore(score - questions[currentQuestion].marks);
-        }
-        if (currentQuestion > 0) {
-            setCurrentQuestion(currentQuestion - 1);
-        }
-    };
-    return (
-        <TestContext.Provider
-            value={{
-                score,
-                Loading,
-                showScore,
-                questions,
-                currentQuestion,
-                handleAnswerSelection,
-                handleNextQuestion,
-                handlePrevQuestion
-            }}
-        >
-            <div className="prereq-test-container">
-                <Header />
+    loadQuestions();
+  }, []);
 
-                {Loading ? (
-                    <>Loading</>
-                ) : (
-                    <>
-                        {showScore ? (
-                            <div>
-                                <h2>Quiz Complete!</h2>
-                                <h3>Your Score: {score}</h3>
-                            </div>
-                        ) : (
-                            <div>
-                                {/* <>{questions}</> */}
-                                <Question />
-                            </div>
-                        )}
-                    </>
-                )}
-            </div>
-        </TestContext.Provider>
-    );
+  const handleAnswerSelection = (questionIndex, selectedAnswer) => {
+    const updatedAnswers = [...answers];
+    updatedAnswers[questionIndex] = selectedAnswer;
+    setAnswers(updatedAnswers);
+  };
+  const handleNextQuestion = () => {
+    if (!answers[currentQuestion]) {
+      showAlert('error', 'Please select an option!');
+      return;
+    }
+    if (
+      answers[currentQuestion] === questions[currentQuestion].correctanswer ||
+      JSON.stringify(answers[currentQuestion]) ===
+        JSON.stringify(questions[currentQuestion].answer)
+    ) {
+      setScore(score + questions[currentQuestion].marks);
+      console.log(
+        answers[currentQuestion],
+        questions[currentQuestion].correctanswer
+      );
+    }
+    if (currentQuestion + 1 < questions.length) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      setShowScore(true);
+    }
+  };
+
+  const handleTestStart = () => {
+    setTestStarted(true);
+  };
+
+  return (
+    <>
+      <Sidebar
+        navLinks={[
+          {
+            icon: 'fa-pen',
+            text: 'Pre-requisite Test',
+            url: '/pre-requisite',
+          },
+        ]}
+      />
+
+      <DashboardHeader />
+
+      <TestContext.Provider
+        value={{
+          score,
+          loading,
+          showScore,
+          questions,
+          currentQuestion,
+          handleAnswerSelection,
+          handleNextQuestion,
+        }}
+      >
+        <div className="prereq">
+          <div class="prereq__startbtn">
+            {!testStarted && (
+              <button onClick={handleTestStart}>Start Quiz</button>
+            )}
+          </div>
+          {loading ? (
+            <>Loading</>
+          ) : (
+            <>
+              {testStarted && (
+                <div>
+                  <Question activeClass="activeTest" />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </TestContext.Provider>
+    </>
+  );
 };
 
 export default PrerequisiteTest;

@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 
 const UserContext = React.createContext({
-  userName: '',
-  userNameHandler: () => {},
+  user: {},
+  userHandler: () => {},
 });
 
 export const UserContextProvider = (props) => {
-  const [name, setName] = useState(null);
+  const [user, setUser] = useState({});
 
-  const nameHandler = (name) => {
-    setName(name);
+  const userHandler = (user) => {
+    setUser(user);
   };
 
   const contextValue = {
-    userName: name,
-    userNameHandler: nameHandler,
+    user: user,
+    userHandler: userHandler,
   };
 
   return (

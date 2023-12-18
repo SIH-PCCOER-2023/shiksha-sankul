@@ -30,6 +30,8 @@ const DashboardHeader = (props) => {
       showAlert('success', 'Logged out successfully');
 
       authCtx.logout();
+      userCtx.userHandler({});
+
       navigate('/');
     }
   };
@@ -56,7 +58,7 @@ const DashboardHeader = (props) => {
         className={`dash-header__profile ${isProfileActive ? 'active' : ''}`}
       >
         <img src={ProfilePic} className="image" alt="" />
-        <h3 className="name">{userCtx.userName}</h3>
+        <h3 className="name">{userCtx.user.name}</h3>
         <p className="role">{authCtx.userType}</p>
         <div className="dash-header__profile--cta">
           <Link to="/profile" className="link">

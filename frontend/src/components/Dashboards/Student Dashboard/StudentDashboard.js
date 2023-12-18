@@ -1,8 +1,14 @@
+import { useContext } from 'react';
+
 import DashboardHeader from '../../Header/DashboardHeader';
 import Sidebar from '../../Sidebar/Sidebar';
 import Dashboard from './Dashboard';
+import PrerequisiteTest from '../../PrerequisiteTest/PrerequisiteTest';
+import UserContext from '../../../store/user-context';
 
 const StudentDashboard = (props) => {
+  const userCtx = useContext(UserContext);
+
   const sidebarLinks = [
     {
       icon: 'fa-home',
@@ -43,9 +49,22 @@ const StudentDashboard = (props) => {
 
   return (
     <>
-      <DashboardHeader />
-      <Sidebar navLinks={sidebarLinks} />
-      <Dashboard />
+      {userCtx.user.prereqCompleted && <DashboardHeader />}
+      <Sidebar
+        navLinks={
+          userCtx.user.prereqCompleted
+            ? sidebarLinks
+            : [
+                {
+                  icon: 'fa-pen',
+                  text: 'Prerequisite Test',
+                  url: '/pre-requisiste',
+                },
+              ]
+        }
+      />
+      {/* <Dashboard /> */}
+      {!userCtx.user.prereqCompleted && <PrerequisiteTest />}
     </>
   );
 };

@@ -8,6 +8,7 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 
 import validator from 'validator';
+import axios from 'axios';
 import { sendPostRequest } from '../../utils/sendHttp';
 import { showAlert } from '../../utils/alerts';
 import Input from './../UI/Input/Input';
@@ -117,16 +118,20 @@ const LoginForm = (props) => {
         if (res.data.status === 'success') {
           showAlert('success', 'Logged in successfully');
 
-          const user = res.data.data.user.type;
+          const userType = res.data.data.user.type;
 
           authCtx.login(res.data.token);
-          authCtx.loginUserType(user);
+          authCtx.loginUserType(userType);
 
-          userCtx.userNameHandler(res.data.data.user.name);
+          userCtx.userHandler(res.data.data.user);
 
-          if (user === 'STUDENT') {
+          axios.defaults.headers.common[
+            'Authorization'
+          ] = `Bearer ${res.data.token}`;
+
+          if (userType === 'STUDENT') {
             navigate('/student-dashboard');
-          } else if (user === 'FACULTY') {
+          } else if (userType === 'FACULTY') {
             navigate('/faculty-dashboard');
           } else {
             showAlert('error', 'Invalid user type, Please try again.');

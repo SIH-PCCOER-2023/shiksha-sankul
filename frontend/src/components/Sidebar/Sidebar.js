@@ -22,7 +22,7 @@ const Sidebar = (props) => {
           className="sidebar__profile--image"
           alt="ProfilePic"
         />
-        <h3 className="sidebar__profile--name">{userCtx.userName}</h3>
+        <h3 className="sidebar__profile--name">{userCtx.user.name}</h3>
         <Link to="/profile" className="sidebar__btn">
           View Profile
         </Link>
