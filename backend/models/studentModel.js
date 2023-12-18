@@ -1,29 +1,29 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const { Decimal128 } = require("bson");
+const mongoose = require('mongoose');
+const validator = require('validator');
+const { Decimal128 } = require('bson');
 
 const marks = mongoose.Schema({
-    name: {
-        type: String,
-        enum: {
-            values: [
-                "10th",
-                "12th",
-                "FE SEM1",
-                "FE SEM2",
-                "SE SEM1",
-                "SE SEM2",
-                "TE SEM1",
-                "TE SEM2",
-                "BE SEM1",
-                "BE SEM2",
-            ],
-            message: "The value {VALUE} is not supported",
-        },
+  name: {
+    type: String,
+    enum: {
+      values: [
+        '10th',
+        '12th',
+        'FE SEM1',
+        'FE SEM2',
+        'SE SEM1',
+        'SE SEM2',
+        'TE SEM1',
+        'TE SEM2',
+        'BE SEM1',
+        'BE SEM2',
+      ],
+      message: 'The value {VALUE} is not supported',
     },
-    completionDate: Date,
-    marksObtained: Decimal128,
-    totalMarks: Number,
+  },
+  completionDate: Date,
+  marksObtained: Decimal128,
+  totalMarks: Number,
 });
 
 const studentSchema = mongoose.Schema(
@@ -60,6 +60,6 @@ const studentSchema = mongoose.Schema(
     { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-const Student = mongoose.model("Student", studentSchema);
+const Student = mongoose.model('Student', studentSchema);
 
 module.exports = Student;

@@ -33,6 +33,12 @@
         text-transform: capitalize;
         font-weight: 600;
     }
+
+    &-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 .video-container {

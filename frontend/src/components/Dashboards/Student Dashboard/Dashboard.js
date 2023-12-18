@@ -27,10 +27,20 @@ const Dashboard = (props) => {
     height: '300px',
   };
 
-  const videoData = {
-    title: 'Stack',
-    embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
-  };
+  const videoData = [
+    {
+      title: 'Stack',
+      embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+    },
+    {
+      title: 'Stack',
+      embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+    },
+    {
+      title: 'Stack',
+      embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+    },
+  ];
 
   return (
     <>
@@ -43,7 +53,9 @@ const Dashboard = (props) => {
         </div>
 
         <div className="student-dash__heading">Recommendations</div>
-        <YouTubeCard videoData={videoData} />
+        <div className="youtube-card-container">
+          <YouTubeCard videoData={videoData} />
+        </div>
       </div>
     </>
   );

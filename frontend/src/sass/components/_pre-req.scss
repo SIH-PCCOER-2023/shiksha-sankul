@@ -1,0 +1,32 @@
+.prereq {
+    height: 88.5vh;
+    margin-left: 30rem;
+    position: relative;
+    background-color: $color-light-bg;
+    width: 100vw;
+
+    background-image: url("../assets/images/login-bg.jpg");
+    background-size: cover;
+
+    &__startbtn {
+        position: absolute;
+        top: 50%;
+        left: 40%;
+        transform: translate(-50%, -50%);
+        box-shadow:
+            0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+        & button {
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: #fff;
+            padding: 1.5rem 3rem;
+            outline: none;
+            border: none;
+            border-radius: 0.5rem;
+            background: $color-secondary-light;
+            cursor: pointer;
+        }
+    }
+}
