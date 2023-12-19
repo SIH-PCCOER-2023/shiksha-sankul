@@ -10,15 +10,19 @@
 @import "components/box.scss";
 @import "components/btn.scss";
 @import "components/chart.scss";
+@import "components/file-upload.scss";
 @import "components/input.scss";
 @import "components/login-form.scss";
 @import "components/modal.scss";
 @import "components/profile.scss";
 @import "components/pre-req.scss";
 @import "components/question.scss";
+@import "components/student-assessments.scss";
+@import "components/student-mgmt.scss";
 
 @import "layouts/dash-header.scss";
 @import "layouts/navigation";
 @import "layouts/sidebar";
 
 @import "pages/student-dash.scss";
+@import "pages/faculty-dash.scss";

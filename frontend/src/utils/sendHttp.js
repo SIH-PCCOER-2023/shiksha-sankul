@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 export const sendPatchRequest = async (url, data) => {
   const res = await axios({
     method: 'patch',
