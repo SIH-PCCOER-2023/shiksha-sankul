@@ -1,14 +1,9 @@
-import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import DashboardHeader from '../../Header/DashboardHeader';
 import Sidebar from '../../Sidebar/Sidebar';
-import Dashboard from './Dashboard';
-import PrerequisiteTest from '../../PrerequisiteTest/PrerequisiteTest';
-import UserContext from '../../../store/user-context';
 
-const StudentDashboard = (props) => {
-  const userCtx = useContext(UserContext);
-
+const Assessments = (props) => {
   const sidebarLinks = [
     {
       icon: 'fa-home',
@@ -55,24 +50,21 @@ const StudentDashboard = (props) => {
   return (
     <>
       <DashboardHeader />
-      <Sidebar
-        navLinks={
-          // userCtx.user.prereqCompleted
-          //   ? sidebarLinks
-          //   : [
-          //       {
-          //         icon: 'fa-pen',
-          //         text: 'Prerequisite Test',
-          //         url: '/pre-requisiste',
-          //       },
-          //     ]
-          sidebarLinks
-        }
-      />
-      <Dashboard />
-      {/* {!userCtx.user.prereqCompleted && <PrerequisiteTest />} */}
+      <Sidebar navLinks={sidebarLinks} />
+      <div className="student-assessments">
+        <div className="student-grid">
+          <Link className="student-assessments__academic" to="/pre-requisite">
+            Academic Tests
+          </Link>
+          <div className="student-assessments__cognitive">Cognitive Tests</div>
+          <div className="student-assessments__learning">
+            Learning Style Tests
+          </div>
+          <div className="student-assessments__comm">Communication Tests</div>
+        </div>
+      </div>
     </>
   );
 };
 
-export default StudentDashboard;
+export default Assessments;

@@ -158,6 +158,29 @@ body {
     gap: 1.5rem;
     margin-top: 2rem; }
 
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px; }
+
+.drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease; }
+
+.upload-icon {
+  font-size: 24px;
+  margin-bottom: 8px; }
+
+.selected-file {
+  margin-top: 10px;
+  color: #4caf50;
+  /* Green color for success state */ }
+
 .control {
   font-size: 1.5rem;
   padding: 0.8rem 1.8rem;
@@ -386,8 +409,8 @@ p {
   position: relative;
   background-color: #eee;
   width: 100vw;
-  background-image: url("../assets/images/login-bg.jpg");
-  background-size: cover; }
+  background-image: url("../assets/images/academic-bg.png");
+  background-size: contain; }
   .prereq__startbtn {
     position: absolute;
     top: 50%;
@@ -500,6 +523,76 @@ p {
   color: #004085;
   background: #cce5ff;
   border: 1px solid #b8daff; }
+
+.student-assessments {
+  margin-left: 30rem;
+  padding: 3rem 10rem;
+  background-color: #eee; }
+  .student-assessments__comm {
+    background-image: url("../assets/images/communication-test-bg.png");
+    background-size: cover; }
+  .student-assessments__academic {
+    background-image: url("../assets/images/academic-test-bg.png");
+    background-size: cover;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: #000; }
+    .student-assessments__academic:hover {
+      transform: scale(0.95); }
+  .student-assessments__cognitive {
+    background-image: url("../assets/images/cognitive-test-bg.png");
+    background-size: cover; }
+  .student-assessments__learning {
+    background-image: url("../assets/images/interactive.png");
+    background-size: cover; }
+
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3rem;
+  height: 80vh;
+  margin: 0; }
+  .student-grid div {
+    border-radius: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: all 0.2s ease; }
+    .student-grid div:hover {
+      transform: scale(0.95); }
+
+.student-mgmt--bulk {
+  display: flex;
+  align-items: flex-start; }
+  .student-mgmt--bulk p {
+    font-size: 1.5rem; }
+
+.student-mgmt__heading--primary {
+  padding-bottom: 1.8rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 2.5rem;
+  font-weight: 500;
+  background-image: linear-gradient(to right bottom, #5268c7, #2c3d87);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent; }
 
 .dash-header {
   display: flex;
@@ -776,7 +869,8 @@ p {
   .sidebar__navbar {
     margin-top: 2rem; }
     .sidebar__navbar--link {
-      display: block;
+      display: flex;
+      align-items: center;
       padding: 1.5rem 2rem;
       color: #ccc;
       text-decoration: none;
@@ -797,7 +891,8 @@ p {
   margin-left: 30rem;
   padding: 2rem 3rem;
   background-color: #eee;
-  padding-bottom: 5rem; }
+  padding-bottom: 5rem;
+  height: 88vh; }
   .student-dash__heading {
     padding-bottom: 1.8rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -829,3 +924,9 @@ p {
 .video-container {
   position: relative;
   overflow: hidden; }
+
+.faculty-dash {
+  margin-left: 30rem;
+  padding: 2rem 3rem;
+  background-color: #eee;
+  padding-bottom: 5rem; }

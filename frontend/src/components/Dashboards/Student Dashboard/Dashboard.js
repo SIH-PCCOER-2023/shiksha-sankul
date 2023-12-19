@@ -5,24 +5,26 @@ import YouTubeCard from './YoutubeCard';
 const Dashboard = (props) => {
   const boxData = [
     {
-      title: 'Data Structures',
+      title: 'Individual Learning Plan',
       data: [
-        { iconClass: 'fas fa-code', label: 'development' },
-        { iconClass: 'fas fa-chart-simple', label: 'business' },
+        { iconClass: 'fa-solid fa-bullseye', label: 'Goals' },
+        { iconClass: 'fa-solid fa-book', label: 'Learning Resources' },
+        { iconClass: 'fa-solid fa-book', label: 'Grade' },
+        { iconClass: 'fa-solid fa-book', label: 'Learning Style' },
       ],
     },
     {
-      title: 'Algorithms',
+      title: 'Notifications',
       data: [
-        { iconClass: 'fas fa-code', label: 'development' },
-        { iconClass: 'fas fa-chart-simple', label: 'business' },
+        { iconClass: 'fas fa-clock', label: 'Faculty meet @9.00' },
+        { iconClass: 'fas fa-check', label: 'Goals achieved' },
       ],
     },
   ];
 
   const chartData = {
     title: 'Progress',
-    chartId: '657be61c-32fd-4a94-8363-e9cde12a05df',
+    chartId: '6581920d-613e-413e-8f74-8bf49512f6a5',
     width: '450px',
     height: '300px',
   };
@@ -52,10 +54,10 @@ const Dashboard = (props) => {
           <Chart chartData={chartData} />
         </div>
 
-        <div className="student-dash__heading">Recommendations</div>
+        {/* <div className="student-dash__heading">Recommendations</div>
         <div className="youtube-card-container">
           <YouTubeCard videoData={videoData} />
-        </div>
+        </div> */}
       </div>
     </>
   );

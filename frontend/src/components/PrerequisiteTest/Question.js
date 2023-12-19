@@ -40,7 +40,7 @@ const Question = ({ activeClass }) => {
       {!testCompleted && (
         <div className={`test__box ${activeClass}`}>
           <div className="test__box--header">
-            <div>Pre-Requisite Test</div>
+            <div>Academic Test</div>
           </div>
 
           <section className="test__box--content">
