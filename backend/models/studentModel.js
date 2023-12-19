@@ -27,29 +27,37 @@ const marks = mongoose.Schema({
 });
 
 const studentSchema = mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
+    {
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+        },
+        class: {
+            type: String,
+            trim: true,
+            required: [true, "enter the class"],
+        },
+        rollno: {
+            type: String,
+            trim: true,
+            required: [true, "Enter the roll no "],
+        },
+        marks: [marks],
+        prereqCompleted: {
+            type: Boolean,
+            default: false,
+            select: false,
+        },
+        learnerType:{
+            type:String,
+            enum:{
+                values:["SLOW", "FAST", "UNKNOWN"]
+            },
+            default:"UNKNOWN",
+            required:[true, "Learner type required"]
+        }
     },
-    class: {
-      type: String,
-      trim: true,
-      required: [true, 'enter the class'],
-    },
-    rollno: {
-      type: String,
-      trim: true,
-      required: [true, 'Enter the roll no '],
-    },
-    marks: [marks],
-    prereqCompleted: {
-      type: Boolean,
-      default: false,
-      select: false,
-    },
-  },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+    { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 const Student = mongoose.model('Student', studentSchema);
