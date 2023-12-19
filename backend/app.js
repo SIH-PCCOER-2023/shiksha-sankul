@@ -19,7 +19,7 @@ const questionBankRoutes = require('./routes/questionBankRoutes');
 const assessments = require('./routes/assessmentsRoutes');
 const ILPRoutes = require('./routes/ILPRoutes/ILPRoutes');
 const ILPTemplateRoutes = require('./routes/ILPRoutes/ILPTemplateRoutes');
-
+const learningResourceRoutes = require('./routes/learningResourceRoutes')
 // Create express app
 const app = express();
 app.enable('trust-proxy');
@@ -78,7 +78,9 @@ app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/questions', questionBankRoutes);
 app.use('/api/v1/assessments', assessments);
 app.use('/api/v1/ilps', ILPRoutes);
-app.use('api/v1/ilptemplates', ILPTemplateRoutes);
+app.use('/api/v1/ilptemplates', ILPTemplateRoutes);
+app.use('/api/v1/learningresources', learningResourceRoutes);
+
 
 // Rendered Routes
 app.use('/', viewRouter);

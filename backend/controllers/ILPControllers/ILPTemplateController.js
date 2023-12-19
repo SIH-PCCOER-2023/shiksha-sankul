@@ -1,4 +1,7 @@
+const { types } = require('node-sass');
 const { ILP, ILPTemplate } = require('../../models/ILPModels/ILPModel');
+const { LearningResources } = require('../../models/learningResourcesModel');
+const AppError = require("../../utils/appError");
 
 // Get ILP by ID
 exports.getILPTemplate = async (req, res) => {
@@ -24,9 +27,13 @@ exports.createILPTemplate = async (req, res) => {
 // Update ILP by ID
 exports.updateILPTemplate = async (req, res) => {
   try {
-    const updatedILP = await ILPTemplatefindByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const updatedILP = await ILPTemplate.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
     res.json(updatedILP);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -56,6 +63,7 @@ exports.createILPTemplate = async (req, res) => {
 // Get all ILP templates
 exports.getAllILPTemplates = async (req, res) => {
   try {
+    console.log(ILP);
     const ilpTemplates = await ILPTemplate.find();
     res.json(ilpTemplates);
   } catch (error) {
@@ -63,20 +71,23 @@ exports.getAllILPTemplates = async (req, res) => {
   }
 };
 
-exports.generateILPfromTemplate = async (req, res) => {
-  try {
-    var ilptemplateId = req.params.id;
-    var userId = req.cookies.id;
-    const ilptemplate = await ILPTemplate.findById(req.params.id);
-    var ilp = new ILP(ilptemplate.model);
-    try {
-      const newILP = await ilp.save();
-      res.status(201).json(newILP);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
-    res.json(ilp);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+exports.generateILPfromTemplate = async (req, res,next) => {
+  var ilptemplateId = req.params.templateId;
+  var userId = req.params.userId;
+  const ilptemplate = await ILPTemplate.findById(ilptemplateId);
+  var ilp = new ILP(ilptemplate.model);
+  ilp['userId'] = userId;
+  var ilp_lr = ilp['learningResources'];
+
+//   const learningResources = await LearningResources.findOne({ types: ilp_lr });
+  const learningResources = [{title:"1", type:"visual", url:"localhost:8080/index.html"}]
+  if (!learningResources) {
+    return next(new AppError('No document found with that ID', 404));
   }
+  ilp['learningResources'] = learningResources;
+  const newILP = await ilp.save();
+  if (!newILP) {
+    return next(new AppError('Failed to save the ILP', 404));
+  }
+  res.status(201).json(newILP);
 };

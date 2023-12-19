@@ -1,6 +1,5 @@
 const express = require('express');
 var multer = require('multer');
-const ILPController = require('../../controllers/ILPControllers/ILPController');
 const ILPTemplateController = require('../../controllers/ILPControllers/ILPTemplateController');
 const router = express.Router();
 
@@ -15,6 +14,6 @@ router
   .get(ILPTemplateController.getILPTemplate)
   .delete(ILPTemplateController.deleteILPTemplate);
 
-router.route('/generateILP/:id').get(ILPTemplateController.generateILPfromTemplate)
+router.route('/generateILP/:templateId/:userId').get(ILPTemplateController.generateILPfromTemplate)
 
 module.exports = router;

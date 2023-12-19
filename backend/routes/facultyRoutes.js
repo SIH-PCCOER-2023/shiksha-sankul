@@ -1,31 +1,23 @@
 const express = require('express');
-const facultyController=require('../controllers/facultyController');
-
-const router=express.Router();
-
-
-router
-.route('/')
-.get(facultyController.getAll)
-.post(facultyController.createOne)
-
-router
-.route("/:id")
-.patch(facultyController.updateOne)
-.get(facultyController.getOne)
-.delete(facultyController.deleteOne)
+const facultyController = require('../controllers/facultyController');
+const ILPTemplateRoutes = require('./ILPRoutes/ILPTemplateRoutes');
+const StudentRoutes = require('./studentRoutes.js');
+const router = express.Router();
 
 
+router.use('/manageilptemplates/', ILPTemplateRoutes);
+router.use('/managestudent', StudentRoutes)
 
 router
-.route('/managestudent/')
-.get(facultyController.getAllStudent)
-.post(facultyController.createOneStudent)
+  .route('/')
+  .get(facultyController.getAll)
+  .post(facultyController.createOne);
 
 router
-.route("/managestudent/:id")
-.patch(facultyController.updateOneStudent)
-.get(facultyController.getOneStudent)
-.delete(facultyController.deleteOneStudent)
+  .route('/:id')
+  .patch(facultyController.updateOne)
+  .get(facultyController.getOne)
+  .delete(facultyController.deleteOne);
 
-module.exports=router;
+
+module.exports = router;
