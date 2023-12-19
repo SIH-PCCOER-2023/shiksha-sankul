@@ -1,17 +1,17 @@
-const { ILP, ILPTemplate } = require("../models/ILPModel");
+const { ILP, ILPTemplate } = require('../../models/ILPModels/ILPModel');
 
 // Get ILP by ID
-exports.getILP = async (req, res) => {
+exports.getILPTemplate = async (req, res) => {
   try {
-    const ilp = await ILP.findById(req.params.id);
+    const ilp = await ILPTemplatefindById(req.params.id);
     res.json(ilp);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Create a new ILP
-exports.createILP = async (req, res) => {
+// Create a new ILP Template
+exports.createILPTemplate = async (req, res) => {
   const ilp = new ILP(req.body);
   try {
     const newILP = await ilp.save();
@@ -22,9 +22,9 @@ exports.createILP = async (req, res) => {
 };
 
 // Update ILP by ID
-exports.updateILP = async (req, res) => {
+exports.updateILPTemplate = async (req, res) => {
   try {
-    const updatedILP = await ILP.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedILP = await ILPTemplatefindByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     res.json(updatedILP);
@@ -34,17 +34,16 @@ exports.updateILP = async (req, res) => {
 };
 
 // Delete ILP by ID
-exports.deleteILP = async (req, res) => {
+exports.deleteILPTemplate = async (req, res) => {
   try {
-    await ILP.findByIdAndDelete(req.params.id);
-    res.json({ message: "ILP deleted" });
+    await ILPTemplatefindByIdAndDelete(req.params.id);
+    res.json({ message: 'ILP deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// ILP Template controller code
-
+// generate ilp
 exports.createILPTemplate = async (req, res) => {
   const ilptemplate = new ILPTemplate(req.body);
   try {
@@ -66,8 +65,8 @@ exports.getAllILPTemplates = async (req, res) => {
 
 exports.generateILPfromTemplate = async (req, res) => {
   try {
-		var ilptemplateId = req.params.id;
-		var userId = req.cookies.id;
+    var ilptemplateId = req.params.id;
+    var userId = req.cookies.id;
     const ilptemplate = await ILPTemplate.findById(req.params.id);
     var ilp = new ILP(ilptemplate.model);
     try {
