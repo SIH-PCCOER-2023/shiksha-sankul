@@ -16,6 +16,7 @@ const studentRoutes = require('./routes/studentRoutes');
 const facultyRoutes = require('./routes/facultyRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const questionBankRoutes = require('./routes/questionBankRoutes');
+const assessments = require("./routes/assessmentsRoutes");
 
 // Create express app
 const app = express();
@@ -30,7 +31,11 @@ app.set('views', path.join(__dirname, 'views', 'templates'));
 app.use(cors());
 
 // Access-Control-Allow-Origin *
-app.options('*', cors());
+// app.options('*', cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }));
 
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -67,6 +72,8 @@ app.use('/api/v1/student', studentRoutes);
 app.use('/api/v1/faculty', facultyRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/questions', questionBankRoutes);
+app.use('/api/v1/assessments', assessments);
+
 
 // Rendered Routes
 app.use('/', viewRouter);

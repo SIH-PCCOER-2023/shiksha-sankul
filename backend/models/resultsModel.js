@@ -7,10 +7,6 @@ const resultSchema=mongoose.Schema(
             type:mongoose.Types.ObjectId,
             ref:'Student'
         },
-        timestamp:{
-            type:date,
-        
-        },
         score:{
             type:Number,
             required:[true,'score is required']
@@ -19,9 +15,9 @@ const resultSchema=mongoose.Schema(
             type:Number,
             required:[true,'score is required']
         },
-        
-
-
-
-    }
+        },{ timestamps: true }
 )
+
+const Results = mongoose.model("Results", resultSchema);
+
+module.exports = Results;
