@@ -87,21 +87,16 @@ const PrerequisiteTest = (props) => {
         }}
       >
         <div className="prereq">
-          <div class="prereq__startbtn">
+          <div className="prereq__startbtn">
             {!testStarted && (
               <button onClick={handleTestStart}>Start Quiz</button>
             )}
           </div>
-          {loading ? (
-            <>Loading</>
-          ) : (
-            <>
-              {testStarted && (
-                <div>
-                  <Question activeClass="activeTest" />
-                </div>
-              )}
-            </>
+
+          {testStarted && (
+            <div>
+              <Question activeClass="activeTest" />
+            </div>
           )}
         </div>
       </TestContext.Provider>
