@@ -1,12 +1,12 @@
 const express = require('express');
 var multer = require('multer');
-const ILPController=require('../controllers/ILPController');
+const ILPController=require('../controllers/ILPController.js');
 const router=express.Router();
 
 router
 .route('/')
 // .get(ILPController.getAll)
-.post(ILPController.createOne)
+.post(ILPController.createILP)
 
 router
 .route("/:id")
@@ -18,7 +18,7 @@ router
 router
 .route('/templates/')
 .get(ILPController.getAllILPTemplates)
-.post(ILPController.createTemplate)
+.post(ILPController.createILPTemplate)
 
 router
 .route("/:id")

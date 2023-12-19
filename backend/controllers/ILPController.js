@@ -45,7 +45,7 @@ exports.deleteILP = async (req, res) => {
 
 // ILP Template controller code
 
-exports.createILP = async (req, res) => {
+exports.createILPTemplate = async (req, res) => {
   const ilptemplate = new ILPTemplate(req.body);
   try {
     const newILP = await ilptemplate.save();
