@@ -4,6 +4,7 @@ const questionBankController = require("../controllers/questionBankController");
 const router = express.Router();
 
 router.route("/").get(questionBankController.getAll);
+router.route("/getSet/:count").get(questionBankController.getCount);
 // .post(questionBankController.createOne)
 
 router
@@ -15,5 +16,4 @@ router
 router
     .route("/uploadQuestionBank")
     .post(questionBankController.bulkAddQuestions);
-
 module.exports = router;
