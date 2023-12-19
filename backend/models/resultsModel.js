@@ -15,7 +15,8 @@ const resultSchema=mongoose.Schema(
             type:Number,
             required:[true,'score is required']
         },
-        },{ timestamps: true }
+        timestamp:{type:Date,default: Date.now}
+        }
 )
 
 const Results = mongoose.model("Results", resultSchema);
