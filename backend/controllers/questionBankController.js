@@ -22,8 +22,8 @@ exports.getOne = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.getAll = catchAsync(async (req, res, next) => {
-    const docs = await QuestionBank.aggregate().sample(2);
+exports.getCount = catchAsync(async (req, res, next) => {
+    const docs = await QuestionBank.aggregate().sample(parseInt(req.params.count) || 20);
     // console.log(docs);
     res.status(200).json({
         status: "success",
@@ -32,7 +32,26 @@ exports.getAll = catchAsync(async (req, res, next) => {
             const requestObject = {
                 request: {
                     type: "GET",
-                    url: req.originalUrl + "/" + doc._id,
+                    url: req.originalUrl + "" + doc._id,
+                },
+            };
+            Object.assign(doc, requestObject);
+            return doc;
+        }),
+    });
+});
+
+exports.getAll = catchAsync(async (req, res, next) => {
+    const docs = await QuestionBank.find();
+    // console.log(docs);
+    res.status(200).json({
+        status: "success",
+        count: docs.length,
+        data: docs.map((doc) => {
+            const requestObject = {
+                request: {
+                    type: "GET",
+                    url: req.originalUrl + "" + doc._id,
                 },
             };
             Object.assign(doc, requestObject);
