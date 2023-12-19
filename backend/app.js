@@ -17,6 +17,7 @@ const facultyRoutes = require('./routes/facultyRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const questionBankRoutes = require('./routes/questionBankRoutes');
 const assessments = require("./routes/assessmentsRoutes");
+const ILPRoutes = require("./routes/ILPRoutes")
 
 // Create express app
 const app = express();
@@ -73,6 +74,7 @@ app.use('/api/v1/faculty', facultyRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/questions', questionBankRoutes);
 app.use('/api/v1/assessments', assessments);
+app.use('/api/v1/ilps',ILPRoutes)
 
 
 // Rendered Routes
