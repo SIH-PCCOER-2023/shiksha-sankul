@@ -19,6 +19,7 @@ const Test = ({ testType }) => {
   // const [showScore, setShowScore] = useState(false);
   // const [loading, setLoading] = useState(true);
   const [testStarted, setTestStarted] = useState(false);
+  const [testCompleted, setTestCompleted] = useState(false);
 
   useEffect(() => {
     const loadQuestions = async () => {
@@ -61,7 +62,11 @@ const Test = ({ testType }) => {
       setCurrentQuestion(currentQuestion + 1);
     }
 
-    setTotalScore(totalScore + questions[currentQuestion].marks);
+    setTotalScore(totalScore + questions[currentQuestion].amrks);
+
+    if (currentQuestion === questions.length - 1) {
+      setTestCompleted(true);
+    }
   };
 
   const handleTestStart = () => {
@@ -117,6 +122,7 @@ const Test = ({ testType }) => {
           currentQuestion,
           handleAnswerSelection,
           handleNextQuestion,
+          testCompleted,
         }}
       >
         <div className="prereq">

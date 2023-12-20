@@ -1,16 +1,18 @@
+import { useEffect, useState } from 'react';
 import DashboardHeader from '../../Header/DashboardHeader';
 import Sidebar from '../../Sidebar/Sidebar';
+import { sendGetRequest } from '../../../utils/sendHttp';
 
 const sidebarLinks = [
   {
     icon: 'fa-home',
     text: 'Dashboard',
-    url: '/student-dashboard',
+    url: '/faculty-dashboard',
   },
   {
     icon: 'fa-calendar',
     text: 'Individual Learning Plan',
-    url: '/ilp',
+    url: '/faculty-dashboard/ilp',
   },
   {
     icon: 'fa-book-open',
@@ -45,11 +47,52 @@ const sidebarLinks = [
 ];
 
 const ILP = (props) => {
+  const [ilps, setIlps] = useState([]);
+
+  useEffect(() => {
+    const loadIlps = async () => {
+      try {
+        const res = await sendGetRequest(
+          'http://localhost:8080/api/v1/ilptemplates'
+        );
+
+        if (res.status === 200) {
+          setIlps(res.data);
+        }
+      } catch (error) {}
+
+      // setLoading(false);
+    };
+
+    loadIlps();
+  }, []);
+
   return (
-    <div className="faculty__ilp">
+    <>
       <DashboardHeader />
       <Sidebar navLinks={sidebarLinks} />
-    </div>
+      <div className="faculty__ilp">
+        {/* {ilps &&
+          ilps.map((ilp, index) => (
+            <div key={index}>
+              <select id="templateOptions">
+                {Object.entries(ilp).map((key, value) => (
+                  <option key={key} value={key[1]}>
+                    {key[0] === 'templateName' ? key[1] : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))} */}
+
+        <select>
+          {ilps &&
+            ilps.map((ilp, index) => (
+              <option key={index}>{ilp.templateName}</option>
+            ))}
+        </select>
+      </div>
+    </>
   );
 };
 

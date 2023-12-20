@@ -597,7 +597,8 @@ p {
   display: flex;
   align-items: center; }
   .student-mgmt--get p {
-    font-size: 1.5rem; }
+    font-size: 1.5rem;
+    padding-right: 2rem; }
   .student-mgmt--get button {
     border: none;
     outline: none;
@@ -609,6 +610,20 @@ p {
     width: 4rem;
     cursor: pointer;
     background-color: #777; }
+
+.student-mgmt--student {
+  padding: 2rem;
+  background-color: #777;
+  border-radius: 2px;
+  margin-right: 2rem; }
+  .student-mgmt--student p {
+    color: #fff; }
+  .student-mgmt--student:empty {
+    display: none; }
+
+.student-mgmt--create {
+  border: none;
+  background-color: #fff; }
 
 .dash-header {
   display: flex;
@@ -942,6 +957,12 @@ p {
   overflow: hidden; }
 
 .faculty-dash {
+  margin-left: 30rem;
+  padding: 2rem 3rem;
+  background-color: #eee;
+  padding-bottom: 5rem; }
+
+.faculty__ilp {
   margin-left: 30rem;
   padding: 2rem 3rem;
   background-color: #eee;

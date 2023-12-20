@@ -11,7 +11,7 @@ const Question = ({ activeClass, testType }) => {
   const navigate = useNavigate();
 
   const [checked, checkedState] = useState(null);
-  const [testCompleted, setTestCompleted] = useState(false);
+  // const [testCompleted, setTestCompleted] = useState(false);
 
   const {
     questions,
@@ -20,6 +20,7 @@ const Question = ({ activeClass, testType }) => {
     handleNextQuestion,
     totalScore,
     obtainedScore,
+    testCompleted,
   } = useContext(TestContext);
 
   const getRadioProps = useCallback(
@@ -61,7 +62,8 @@ const Question = ({ activeClass, testType }) => {
         );
 
         if (res.data.status === 'success') {
-          showAlert('success', `${testType} TEST Completed`);
+          showAlert('success', `Score: ${obtainedScore} out of ${totalScore}`);
+          // showAlert('success', `${testType} TEST Completed`);
           navigate('/student-dashboard');
         }
       } catch (err) {
@@ -83,7 +85,7 @@ const Question = ({ activeClass, testType }) => {
   ]);
 
   return (
-    <>
+    <TestContext.Provider>
       {!testCompleted && (
         <div className={`test__box ${activeClass}`}>
           <div className="test__box--header">
@@ -125,9 +127,8 @@ const Question = ({ activeClass, testType }) => {
               className="test__box--nextBtn"
               onClick={() => {
                 checkedState(null);
-                if (currentQuestion === questions.length - 1) {
-                  setTestCompleted(true);
-                } else {
+
+                if (currentQuestion < questions.length) {
                   handleNextQuestion();
                 }
               }}
@@ -137,9 +138,14 @@ const Question = ({ activeClass, testType }) => {
                 : 'Next Question'}
             </button>
           </div>
+          {/* {testCompleted &&
+            showAlert(
+              'success',
+              `Score: ${obtainedScore} out of ${totalScore}`
+            )} */}
         </div>
       )}
-    </>
+    </TestContext.Provider>
   );
 };
 

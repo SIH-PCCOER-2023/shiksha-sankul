@@ -27,6 +27,7 @@
 
         & p {
             font-size: 1.5rem;
+            padding-right: 2rem;
         }
 
         & button {
@@ -43,5 +44,26 @@
 
             background-color: $color-grey-dark-1;
         }
+    }
+
+    &--student {
+        // display: flex;
+        padding: 2rem;
+        background-color: $color-grey-dark-1;
+        border-radius: 2px;
+        margin-right: 2rem;
+
+        & p {
+            color: $color-white;
+        }
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    &--create {
+        border: none;
+        background-color: $color-white;
     }
 }

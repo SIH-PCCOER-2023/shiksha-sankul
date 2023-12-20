@@ -3,11 +3,6 @@ const QuestionBank = require('../models/QuestionBankModel');
 const catchAsync = require('../utils/catchAsync');
 const multer = require('multer');
 const AppError = require('../utils/appError');
-const { upload, importExcel } = require('../utils/excellImportApi');
-const QuestionBank = require('../models/QuestionBankModel');
-const catchAsync = require('../utils/catchAsync');
-const multer = require('multer');
-const AppError = require('../utils/appError');
 
 exports.getOne = catchAsync(async (req, res, next) => {
   const doc = await QuestionBank.findById(req.params.id);
