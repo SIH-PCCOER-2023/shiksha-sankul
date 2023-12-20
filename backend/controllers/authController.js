@@ -30,6 +30,7 @@ const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user);
 
   res.cookie('jwt', token, cookieOptions);
+  res.cookie('user',user,cookieOptions);
 
   res.status(statusCode).json({
     status: 'success',

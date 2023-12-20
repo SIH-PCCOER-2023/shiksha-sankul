@@ -3,6 +3,11 @@ const QuestionBank = require('../models/QuestionBankModel');
 const catchAsync = require('../utils/catchAsync');
 const multer = require('multer');
 const AppError = require('../utils/appError');
+const { upload, importExcel } = require('../utils/excellImportApi');
+const QuestionBank = require('../models/QuestionBankModel');
+const catchAsync = require('../utils/catchAsync');
+const multer = require('multer');
+const AppError = require('../utils/appError');
 
 exports.getOne = catchAsync(async (req, res, next) => {
   const doc = await QuestionBank.findById(req.params.id);
@@ -82,18 +87,19 @@ exports.bulkAddQuestions = catchAsync(async (req, res, next) => {
       req.file.path,
       'Sheet1',
       (mappingCol2Key = {
-        A: 'subject',
-        B: 'topic',
-        C: 'subtopic',
-        E: 'level',
-        F: 'question',
-        G: 'A',
-        H: 'B',
-        I: 'C',
-        J: 'D',
-        K: 'correctanswer',
-        L: 'explanation',
-        M: 'marks',
+        A: 'class',
+        B: 'questionType',
+        C: 'subject',
+        D: 'topic',
+        E: 'subtopic',
+        G: 'level',
+        H: 'question',
+        I: 'A',
+        J: 'B',
+        K: 'C',
+        L: 'D',
+        M: 'correctanswer',
+        N: 'marks',
       })
     );
     // console.log(exceldata);
