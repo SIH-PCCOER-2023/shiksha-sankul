@@ -20,6 +20,12 @@ const ILPRoutes = require('./routes/ILPRoutes/ILPRoutes');
 const ILPTemplateRoutes = require('./routes/ILPRoutes/ILPTemplateRoutes');
 const resourceRoutes = require('./routes/resourceRoutes');
 const testRoutes = require('./routes/testRoutes');
+const catchAsync = require('./utils/catchAsync');
+
+const User = require('./models/userModel');
+
+// const predict = require('./ML/predict');
+
 // Create express app
 const app = express();
 app.enable('trust-proxy');
@@ -69,8 +75,47 @@ app.use(
   })
 );
 
+app.get(
+  '/api/v1/mlprediction',
+  catchAsync(async (req, res, next) => {
+    const newFeatures = req.body.newFeatures;
+    let independantFeatures = [];
+    let dependantFeature = [];
+
+    const users = await User.find();
+
+    for (let user of users) {
+      let marks;
+
+      if (user.marks) {
+        marks = user.marks;
+      }
+
+      marks && independantFeatures.push(marks.slice(3));
+      marks && dependantFeature.push(marks[marks.length - 1]);
+    }
+
+    // Run the Python script as a child process
+    // const command = `python model.py '${JSON.stringify({ oldFeatures })}'`;
+
+    // exec(command, (error, stdout, stderr) => {
+    //   if (error) {
+    //     console.error(`Error: ${error.message}`);
+    //     return res.status(500).json({ error: 'Internal Server Error' });
+    //   }
+    //   const predictions = JSON.parse(stdout).predictions;
+
+    //   res.status(200).json({ data: predictions });
+    // });
+    res.status(200).json({
+      dependantFeature,
+      independantFeatures,
+    });
+  })
+);
+
 app.use('/api/v1/auth', authRoutes);
-app.use(protect);
+// app.use(protect);
 app.use('/api/v1/student', studentRoutes);
 app.use('/api/v1/faculty', facultyRoutes);
 app.use('/api/v1/admin', adminRoutes);
@@ -79,12 +124,11 @@ app.use('/api/v1/ilps', ILPRoutes);
 app.use('/api/v1/ilptemplates', ILPTemplateRoutes);
 app.use('/api/v1/resources', resourceRoutes);
 app.use('/api/v1/tests', testRoutes);
+// app.get('/api/v1/ml-prediction', predict);
 
 // Rendered Routes
 
-
 app.use('/', viewRouter);
-
 
 app.all('*', function (req, res, next) {
   // Other than defined route
