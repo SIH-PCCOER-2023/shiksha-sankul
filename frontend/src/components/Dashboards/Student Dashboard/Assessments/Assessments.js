@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import DashboardHeader from '../../Header/DashboardHeader';
-import Sidebar from '../../Sidebar/Sidebar';
+import DashboardHeader from '../../../Header/DashboardHeader';
+import Sidebar from '../../../Sidebar/Sidebar';
 
 const Assessments = (props) => {
   const sidebarLinks = [
@@ -25,26 +25,16 @@ const Assessments = (props) => {
       text: 'Assessments',
       url: '/assessments',
     },
-    // {
-    //   icon: 'fa-thumbs-up',
-    //   text: 'Our Recommendations',
-    //   url: 'recommendations.html',
-    // },
-    // {
-    //   icon: 'fa-solid fa-file-pdf',
-    //   text: 'Certificates',
-    //   url: 'certificates.html',
-    // },
     {
       icon: 'fa-solid fa-chart-pie',
       text: 'Performance',
       url: 'performance.html',
     },
-    {
-      icon: 'fa-solid fa-comments',
-      text: 'Discussion Forum',
-      url: 'discussion.html',
-    },
+    // {
+    //   icon: 'fa-solid fa-comments',
+    //   text: 'Discussion Forum',
+    //   url: 'discussion.html',
+    // },
   ];
 
   return (
@@ -53,14 +43,33 @@ const Assessments = (props) => {
       <Sidebar navLinks={sidebarLinks} />
       <div className="student-assessments">
         <div className="student-grid">
-          <Link className="student-assessments__academic" to="/pre-requisite">
+          <Link
+            className="student-assessments__academic"
+            to="/assessments/academic-test"
+          >
             Academic Tests
           </Link>
-          <div className="student-assessments__cognitive">Cognitive Tests</div>
-          <div className="student-assessments__learning">
+
+          <Link
+            className="student-assessments__cognitive"
+            to="/assessments/cognitive-test"
+          >
+            Cognitive Tests
+          </Link>
+
+          <Link
+            className="student-assessments__learning"
+            to="/assessments/learning-test"
+          >
             Learning Style Tests
-          </div>
-          <div className="student-assessments__comm">Communication Tests</div>
+          </Link>
+
+          <Link
+            className="student-assessments__comm"
+            to="/assessments/communication-test"
+          >
+            Communication Tests
+          </Link>
         </div>
       </div>
     </>

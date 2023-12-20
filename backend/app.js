@@ -16,8 +16,8 @@ const studentRoutes = require('./routes/studentRoutes');
 const facultyRoutes = require('./routes/facultyRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const questionBankRoutes = require('./routes/questionBankRoutes');
-const assessments = require("./routes/assessmentsRoutes");
-const ILPRoutes = require("./routes/ILPRoutes")
+const testRoutes = require('./routes/testRoutes');
+const ILPRoutes = require('./routes/ILPRoutes');
 
 // Create express app
 const app = express();
@@ -34,10 +34,12 @@ app.set('views', path.join(__dirname, 'views', 'templates'));
 // Access-Control-Allow-Origin *
 // app.options('*', cors());
 app.use(cookieParser()); // To parse the incoming cookies
-app.use(cors({
+app.use(
+  cors({
     origin: 'http://localhost:3000',
     credentials: true,
-  }));
+  })
+);
 
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -73,9 +75,8 @@ app.use('/api/v1/student', studentRoutes);
 app.use('/api/v1/faculty', facultyRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/questions', questionBankRoutes);
-app.use('/api/v1/assessments', assessments);
-app.use('/api/v1/ilps',ILPRoutes)
-
+app.use('/api/v1/tests', testRoutes);
+app.use('/api/v1/ilps', ILPRoutes);
 
 // Rendered Routes
 app.use('/', viewRouter);

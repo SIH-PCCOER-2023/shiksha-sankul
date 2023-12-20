@@ -1,9 +1,8 @@
-const { upload, importExcel } = require("../utils/excellImportApi");
-const QuestionBank = require("../models/QuestionBankModel");
-const catchAsync = require("../utils/catchAsync");
-const multer = require("multer");
-const AppError = require("../utils/appError");
-
+const { upload, importExcel } = require('../utils/excellImportApi');
+const QuestionBank = require('../models/QuestionBankModel');
+const catchAsync = require('../utils/catchAsync');
+const multer = require('multer');
+const AppError = require('../utils/appError');
 
 exports.getOne = catchAsync(async (req, res, next) => {
   const doc = await QuestionBank.findById(req.params.id);
@@ -23,60 +22,45 @@ exports.getOne = catchAsync(async (req, res, next) => {
 });
 
 exports.getCount = catchAsync(async (req, res, next) => {
-    const docs = await QuestionBank.aggregate().sample(parseInt(req.params.count) || 20);
-    // console.log(docs);
-    res.status(200).json({
-        status: "success",
-        count: docs.length,
-        data: docs.map((doc) => {
-            const requestObject = {
-                request: {
-                    type: "GET",
-                    url: req.originalUrl + "" + doc._id,
-                },
-            };
-            Object.assign(doc, requestObject);
-            return doc;
-        }),
-    });
-});
-
-exports.getCount = catchAsync(async (req, res, next) => {
-    const docs = await QuestionBank.aggregate().sample(parseInt(req.params.count) || 20);
-    // console.log(docs);
-    res.status(200).json({
-        status: "success",
-        count: docs.length,
-        data: docs.map((doc) => {
-            const requestObject = {
-                request: {
-                    type: "GET",
-                    url: req.originalUrl + "" + doc._id,
-                },
-            };
-            Object.assign(doc, requestObject);
-            return doc;
-        }),
-    });
+  const docs = await QuestionBank.aggregate({
+    questionType: req.params.type,
+  }).sample(parseInt(req.params.count) || 20);
+  // .aggregate()
+  // .sample(parseInt(req.params.count) || 20);
+  // console.log(docs);
+  res.status(200).json({
+    status: 'success',
+    count: docs.length,
+    data: docs.map((doc) => {
+      const requestObject = {
+        request: {
+          type: 'GET',
+          url: req.originalUrl + '' + doc._id,
+        },
+      };
+      Object.assign(doc, requestObject);
+      return doc;
+    }),
+  });
 });
 
 exports.getAll = catchAsync(async (req, res, next) => {
-    const docs = await QuestionBank.find();
-    // console.log(docs);
-    res.status(200).json({
-        status: "success",
-        count: docs.length,
-        data: docs.map((doc) => {
-            const requestObject = {
-                request: {
-                    type: "GET",
-                    url: req.originalUrl + "" + doc._id,
-                },
-            };
-            Object.assign(doc, requestObject);
-            return doc;
-        }),
-    });
+  const docs = await QuestionBank.find();
+  // console.log(docs);
+  res.status(200).json({
+    status: 'success',
+    count: docs.length,
+    data: docs.map((doc) => {
+      const requestObject = {
+        request: {
+          type: 'GET',
+          url: req.originalUrl + '' + doc._id,
+        },
+      };
+      Object.assign(doc, requestObject);
+      return doc;
+    }),
+  });
 });
 
 exports.bulkAddQuestions = catchAsync(async (req, res, next) => {

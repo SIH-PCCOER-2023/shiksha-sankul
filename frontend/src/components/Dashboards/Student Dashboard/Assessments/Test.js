@@ -1,60 +1,67 @@
 import { useEffect, useState } from 'react';
 
-import Question from '../Question';
-import { getQuestions } from '../../utils/questionbank';
-import TestContext from '../../store/testContext';
-import { showAlert } from '../../utils/alerts';
-import Sidebar from '../Sidebar/Sidebar';
-import DashboardHeader from '../Header/DashboardHeader';
+import Question from '../../../Question';
+import TestContext from '../../../../store/testContext';
 
-const PrerequisiteTest = (props) => {
+import Sidebar from '../../../Sidebar/Sidebar';
+import DashboardHeader from '../../../Header/DashboardHeader';
+
+import { showAlert } from '../../../../utils/alerts';
+import { getQuestions } from '../../../../utils/questionbank';
+
+const Test = ({ testType }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
+  const [obtainedScore, setObtainedScore] = useState(0);
+  const [totalScore, setTotalScore] = useState(0);
+
   const [answers, setAnswers] = useState([]);
   const [questions, setQuestions] = useState([]);
-  const [showScore, setShowScore] = useState(false);
-  const [loading, setLoading] = useState(true);
+  // const [showScore, setShowScore] = useState(false);
+  // const [loading, setLoading] = useState(true);
   const [testStarted, setTestStarted] = useState(false);
 
   useEffect(() => {
     const loadQuestions = async () => {
-      setLoading(true);
+      // setLoading(true);
 
-      const response = await getQuestions();
+      const response = await getQuestions(testType);
 
       setQuestions(response);
 
-      setLoading(false);
+      // setLoading(false);
     };
     loadQuestions();
-  }, []);
+  }, [testType]);
 
   const handleAnswerSelection = (questionIndex, selectedAnswer) => {
     const updatedAnswers = [...answers];
     updatedAnswers[questionIndex] = selectedAnswer;
     setAnswers(updatedAnswers);
   };
+
   const handleNextQuestion = () => {
     if (!answers[currentQuestion]) {
       showAlert('error', 'Please select an option!');
       return;
     }
+
     if (
       answers[currentQuestion] === questions[currentQuestion].correctanswer ||
       JSON.stringify(answers[currentQuestion]) ===
         JSON.stringify(questions[currentQuestion].answer)
     ) {
-      setScore(score + questions[currentQuestion].marks);
-      console.log(
-        answers[currentQuestion],
-        questions[currentQuestion].correctanswer
-      );
+      setObtainedScore(obtainedScore + questions[currentQuestion].marks);
+      // console.log(
+      //   answers[currentQuestion],
+      //   questions[currentQuestion].correctanswer
+      // );
     }
+
     if (currentQuestion + 1 < questions.length) {
       setCurrentQuestion(currentQuestion + 1);
-    } else {
-      setShowScore(true);
     }
+
+    setTotalScore(totalScore + questions[currentQuestion].marks);
   };
 
   const handleTestStart = () => {
@@ -82,26 +89,16 @@ const PrerequisiteTest = (props) => {
       text: 'Assessments',
       url: '/assessments',
     },
-    // {
-    //   icon: 'fa-thumbs-up',
-    //   text: 'Our Recommendations',
-    //   url: 'recommendations.html',
-    // },
-    // {
-    //   icon: 'fa-solid fa-file-pdf',
-    //   text: 'Certificates',
-    //   url: 'certificates.html',
-    // },
     {
       icon: 'fa-solid fa-chart-pie',
       text: 'Performance',
       url: 'performance.html',
     },
-    {
-      icon: 'fa-solid fa-comments',
-      text: 'Discussion Forum',
-      url: 'discussion.html',
-    },
+    // {
+    //   icon: 'fa-solid fa-comments',
+    //   text: 'Discussion Forum',
+    //   url: 'discussion.html',
+    // },
   ];
 
   return (
@@ -112,9 +109,10 @@ const PrerequisiteTest = (props) => {
 
       <TestContext.Provider
         value={{
-          score,
-          loading,
-          showScore,
+          obtainedScore,
+          totalScore,
+          // loading,
+          // showScore,
           questions,
           currentQuestion,
           handleAnswerSelection,
@@ -130,7 +128,7 @@ const PrerequisiteTest = (props) => {
 
           {testStarted && (
             <div>
-              <Question activeClass="activeTest" />
+              <Question activeClass="activeTest" testType={testType} />
             </div>
           )}
         </div>
@@ -139,4 +137,4 @@ const PrerequisiteTest = (props) => {
   );
 };
 
-export default PrerequisiteTest;
+export default Test;
