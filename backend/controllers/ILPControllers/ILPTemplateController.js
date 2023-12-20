@@ -1,6 +1,6 @@
 const { types } = require('node-sass');
 const { ILP, ILPTemplate } = require('../../models/ILPModels/ILPModel');
-const { LearningResources } = require('../../models/learningResourcesModel');
+const Resources = require('../../models/resourceModel')
 const AppError = require("../../utils/appError");
 
 // Get ILP by ID
@@ -79,8 +79,8 @@ exports.generateILPfromTemplate = async (req, res,next) => {
   ilp['userId'] = userId;
   var ilp_lr = ilp['learningResources'];
 
-//   const learningResources = await LearningResources.findOne({ types: ilp_lr });
-  const learningResources = [{title:"1", type:"visual", url:"localhost:8080/index.html"}]
+  const learningResources = await Resources.find({ type1: ilp_lr });
+//   const learningResources = [{title:"1", type:"visual", url:"localhost:8080/index.html"}]
   if (!learningResources) {
     return next(new AppError('No document found with that ID', 404));
   }

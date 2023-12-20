@@ -86,8 +86,8 @@ exports.getAll=catchAsync(async(req,res,next)=>{
 
     res.status(200).json({
         status: "success",
-        count: docs.length,
-        data: docs.map((doc) => {
+        count: doc.length,
+        data: doc.map((doc) => {
             const requestObject = {
                 request: {
                     type: "GET",

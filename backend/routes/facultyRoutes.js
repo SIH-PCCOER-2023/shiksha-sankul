@@ -1,12 +1,14 @@
 const express = require('express');
 const facultyController = require('../controllers/facultyController');
+const resourceController = require('../controllers/resourceController.js');
 const ILPTemplateRoutes = require('./ILPRoutes/ILPTemplateRoutes');
 const StudentRoutes = require('./studentRoutes.js');
 const router = express.Router();
 
 
 router.use('/manageilptemplates/', ILPTemplateRoutes);
-router.use('/managestudent', StudentRoutes)
+router.use('/managestudent', StudentRoutes);
+router.get('/manageResources',resourceController.getAll);
 
 router
   .route('/')
