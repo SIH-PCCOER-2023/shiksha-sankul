@@ -30,7 +30,7 @@ const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user);
 
   res.cookie('jwt', token, cookieOptions);
-  res.cookie('user',user,cookieOptions);
+  res.cookie('user', user, cookieOptions);
 
   res.status(statusCode).json({
     status: 'success',
@@ -95,7 +95,6 @@ exports.login = catchAsync(async (req, res, next) => {
       new AppError('Invalid email or password. User does not exist', 401)
     );
   }
-
 
   if (!user || !(await user.comparePassword(password, user.password))) {
     return next(new AppError('Incorrect email or password', 401));
@@ -277,4 +276,16 @@ exports.updatePassword = catchAsync(async (req, res) => {
 
   //4. Log user in, send JWT
   createSendToken(user, 200, req, res);
+});
+
+exports.getTestsOfStudent = catchAsync(async (req, res, next) => {
+  const doc = await User.find({ student: req.params.studentId });
+
+  res.status(200).json({
+    status: 'success',
+    resultno: doc.length,
+    data: {
+      data: doc, //tests fetched
+    },
+  });
 });

@@ -62,7 +62,7 @@ const Test = ({ testType }) => {
       setCurrentQuestion(currentQuestion + 1);
     }
 
-    setTotalScore(totalScore + questions[currentQuestion].amrks);
+    setTotalScore(totalScore + questions[currentQuestion].marks);
 
     if (currentQuestion === questions.length - 1) {
       setTestCompleted(true);
@@ -97,7 +97,7 @@ const Test = ({ testType }) => {
     {
       icon: 'fa-solid fa-chart-pie',
       text: 'Performance',
-      url: 'performance.html',
+      url: '/performance',
     },
     // {
     //   icon: 'fa-solid fa-comments',

@@ -9,7 +9,7 @@ const YouTubeCard = ({ videoData }) => {
               title={video.title}
               width="336"
               height="189"
-              src={video.embedUrl}
+              src={video.url}
               frameBorder="0"
               allowFullScreen
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

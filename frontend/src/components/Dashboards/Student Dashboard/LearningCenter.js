@@ -1,13 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import DashboardHeader from '../../Header/DashboardHeader';
 import Sidebar from '../../Sidebar/Sidebar';
 import Dashboard from './Dashboard';
-import PrerequisiteTest from '../../PrerequisiteTest/PrerequisiteTest';
-import UserContext from '../../../store/user-context';
 
-const StudentDashboard = (props) => {
+import UserContext from '../../../store/user-context';
+import { sendGetRequest } from '../../../utils/sendHttp';
+import { showAlert } from '../../../utils/alerts';
+
+import YouTubeCard from './YoutubeCard';
+
+const LearningCenter = (props) => {
   const userCtx = useContext(UserContext);
+  const [resources, setResources] = useState(false);
 
   const sidebarLinks = [
     {
@@ -43,7 +48,7 @@ const StudentDashboard = (props) => {
     {
       icon: 'fa-solid fa-chart-pie',
       text: 'Performance',
-      url: 'performance.html',
+      url: '/performance',
     },
     // {
     //   icon: 'fa-solid fa-comments',
@@ -52,13 +57,36 @@ const StudentDashboard = (props) => {
     // },
   ];
 
+  useEffect(() => {
+    const getLearningResources = async () => {
+      try {
+        const resources = await sendGetRequest(
+          `http://localhost:8080/api/v1/resources/`
+        );
+
+        setResources(resources.data.data);
+      } catch (error) {
+        showAlert('error', error);
+      }
+    };
+
+    getLearningResources();
+  }, []);
+
   return (
     <>
       <DashboardHeader />
       <Sidebar navLinks={sidebarLinks} />
       {/* {!userCtx.user.prereqCompleted && <PrerequisiteTest />} */}
+      {resources && (
+        <div>
+          <div className="youtube-card-container">
+            <YouTubeCard videoData={resources} />
+          </div>
+        </div>
+      )}
     </>
   );
 };
 
-export default StudentDashboard;
+export default LearningCenter;

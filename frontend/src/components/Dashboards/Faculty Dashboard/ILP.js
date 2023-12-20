@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import DashboardHeader from '../../Header/DashboardHeader';
 import Sidebar from '../../Sidebar/Sidebar';
 import { sendGetRequest } from '../../../utils/sendHttp';
+import StudentMgmt from './StudentMgmt';
 
 const sidebarLinks = [
   {
@@ -37,7 +38,7 @@ const sidebarLinks = [
   {
     icon: 'fa-solid fa-chart-pie',
     text: 'Performance',
-    url: 'performance.html',
+    url: '/performance',
   },
   // {
   //   icon: 'fa-solid fa-comments',
@@ -71,6 +72,7 @@ const ILP = (props) => {
     <>
       <DashboardHeader />
       <Sidebar navLinks={sidebarLinks} />
+      <StudentMgmt />
       <div className="faculty__ilp">
         {/* {ilps &&
           ilps.map((ilp, index) => (

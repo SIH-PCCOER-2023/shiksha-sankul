@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TestContext from '../store/testContext';
 
 import UserContext from '../store/user-context';
-import { sendPostRequest } from '../utils/sendHttp';
+import { sendGetRequest, sendPostRequest } from '../utils/sendHttp';
 import { showAlert } from '../utils/alerts';
 
 const Question = ({ activeClass, testType }) => {
@@ -49,6 +49,20 @@ const Question = ({ activeClass, testType }) => {
   useEffect(() => {
     const submitTestHandler = async () => {
       try {
+        // console.log(userCtx.user._id);
+        // const students = await sendGetRequest(
+        //   'http://localhost:8080/api/v1/student/'
+        // );
+        // // console.log(students);
+        // let studentId = '';
+        // console.log(students);
+
+        // for (let student of students.data.data) {
+        //   if (student.user._id === userCtx.user._id) {
+        //     studentId = student._id;
+        //   }
+        // }
+
         const data = {
           student: userCtx.user._id,
           questions: questions,

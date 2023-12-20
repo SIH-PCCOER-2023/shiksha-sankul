@@ -1,8 +1,13 @@
+import { useContext, useEffect } from 'react';
+import { showAlert } from '../../../utils/alerts';
+import { sendGetRequest } from '../../../utils/sendHttp';
 import Chart from '../../Chart';
 import Box from '../../UI/Box';
 import YouTubeCard from './YoutubeCard';
+import UserContext from '../../../store/user-context';
 
 const Dashboard = (props) => {
+  const userCtx = useContext(UserContext);
   const boxData = [
     {
       title: 'Individual Learning Plan',
@@ -22,27 +27,35 @@ const Dashboard = (props) => {
     },
   ];
 
-  const chartData = {
-    title: 'Progress',
-    chartId: '6581920d-613e-413e-8f74-8bf49512f6a5',
-    width: '450px',
-    height: '300px',
-  };
-
-  const videoData = [
+  const chartData = [
     {
-      title: 'Stack',
-      embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+      title: 'Progress',
+      chartId: '6582c709-2cc4-4b65-8d63-db93f3489805',
+      width: '500px',
+      height: '300px',
     },
     {
-      title: 'Stack',
-      embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
-    },
-    {
-      title: 'Stack',
-      embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+      title: 'Progress',
+      chartId: '6582c81f-2847-443e-86fd-94cfc7b7f6c3',
+      width: '450px',
+      height: '300px',
     },
   ];
+
+  // const videoData = [
+  //   {
+  //     title: 'Stack',
+  //     embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+  //   },
+  //   {
+  //     title: 'Stack',
+  //     embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+  //   },
+  //   {
+  //     title: 'Stack',
+  //     embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+  //   },
+  // ];
 
   return (
     <>

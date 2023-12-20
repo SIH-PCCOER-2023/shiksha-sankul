@@ -46,9 +46,8 @@ exports.updateOne = catchAsync(async (req, res, next) => {
   });
 });
 
-
-exports.createOne=catchAsync(async(req,res,next)=>{
-    const doc=await User.create(req.body);
+exports.createOne = catchAsync(async (req, res, next) => {
+  const doc = await User.create(req.body);
 
   res.status(201).json({
     status: 'success',
@@ -77,25 +76,36 @@ exports.getOne = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAll=catchAsync(async(req,res,next)=>{
-    const doc=await Student.find().populate("user");
-    if(!doc){
-        return next(
-            new AppError('Failed to fetch data', 500)
-        )
-    }
-    res.status(200).json({
-        status: "success",
-        count: doc.length,
-        data: doc.map((doc) => {
-            const requestObject = {
-                request: {
-                    type: "GET",
-                    url: req.originalUrl + "/" + doc._id,
-                },
-            };
-            Object.assign(requestObject, doc._doc);
-            return requestObject;
-        }),
-    });
-})
+exports.getAll = catchAsync(async (req, res, next) => {
+  const doc = await Student.find().populate('user');
+  if (!doc) {
+    return next(new AppError('Failed to fetch data', 500));
+  }
+  res.status(200).json({
+    status: 'success',
+    count: doc.length,
+    data: doc.map((doc) => {
+      const requestObject = {
+        request: {
+          type: 'GET',
+          url: req.originalUrl + '/' + doc._id,
+        },
+      };
+      Object.assign(requestObject, doc._doc);
+      return requestObject;
+    }),
+  });
+});
+
+exports.getOneStudentByUserId = catchAsync(async (req, res, next) => {
+  const doc = await Student.find({ user: req.params.userId }).populate('user');
+
+  if (!doc) {
+    return next(new AppError('Failed to fetch data', 500));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: doc,
+  });
+});

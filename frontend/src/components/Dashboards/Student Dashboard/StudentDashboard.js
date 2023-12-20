@@ -23,7 +23,7 @@ const StudentDashboard = (props) => {
     {
       icon: 'fa-book-open',
       text: 'Learning Center',
-      url: 'learning.html',
+      url: '/learning-center',
     },
     {
       icon: 'fa-pen',
@@ -43,7 +43,7 @@ const StudentDashboard = (props) => {
     {
       icon: 'fa-solid fa-chart-pie',
       text: 'Performance',
-      url: 'performance.html',
+      url: '/performance',
     },
     // {
     //   icon: 'fa-solid fa-comments',

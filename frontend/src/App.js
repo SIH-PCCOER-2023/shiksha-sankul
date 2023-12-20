@@ -11,6 +11,9 @@ import UserProfile from './components/UserProfile';
 import Assessments from './components/Dashboards/Student Dashboard/Assessments/Assessments';
 import Test from './components/Dashboards/Student Dashboard/Assessments/Test';
 import ILP from './components/Dashboards/Faculty Dashboard/ILP';
+import LearningCenter from './components/Dashboards/Student Dashboard/LearningCenter';
+import StudentILP from './components/Dashboards/Student Dashboard/StudentILP';
+import Performance from './components/Dashboards/Student Dashboard/Performance';
 
 function App() {
   return (
@@ -46,6 +49,11 @@ function App() {
           <Route path="/faculty-dashboard/ilp" element={<ILP />} />
 
           {/* <Route path="/pre-requisite" element={<PrerequisiteTest />} /> */}
+          <Route path="/learning-center" element={<LearningCenter />} />
+
+          <Route path="/ilp" element={<StudentILP />} />
+
+          <Route path="/performance" element={<Performance />} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

@@ -935,8 +935,12 @@ p {
     color: transparent; }
 
 .youtube-card {
-  width: max-content;
-  padding: 2rem;
+  margin-left: 30rem;
+  padding: 2rem 3rem;
+  background-color: #eee;
+  padding-bottom: 5rem;
+  height: 88vh;
+  width: 60rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: #fff;
@@ -955,6 +959,13 @@ p {
 .video-container {
   position: relative;
   overflow: hidden; }
+
+.student__ilp {
+  margin-left: 30rem;
+  padding: 2rem 3rem;
+  background-color: #eee;
+  padding-bottom: 5rem;
+  height: 88vh; }
 
 .faculty-dash {
   margin-left: 30rem;

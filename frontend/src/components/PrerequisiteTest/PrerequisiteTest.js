@@ -95,7 +95,7 @@ const PrerequisiteTest = (props) => {
     {
       icon: 'fa-solid fa-chart-pie',
       text: 'Performance',
-      url: 'performance.html',
+      url: '/performance',
     },
     {
       icon: 'fa-solid fa-comments',

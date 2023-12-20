@@ -13,4 +13,6 @@ router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
 router.patch('/updatePassword', authController.updatePassword);
 
+router.route('/:studentId').get(authController.getTestsOfStudent);
+
 module.exports = router;
