@@ -2,7 +2,7 @@ exports.predict = (features) => {
     const features = features;
 
     // Run the Python script as a child process
-    const command = `python ML/model.py '${JSON.stringify({ features })}'`;
+    const command = `python model.py '${JSON.stringify({ features })}'`;
     
     exec(command, (error, stdout, stderr) => {
         if (error) {
