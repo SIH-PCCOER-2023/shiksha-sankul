@@ -9,6 +9,7 @@ const router = express.Router();
 router.use('/manageilptemplates/', ILPTemplateRoutes);
 router.use('/managestudent', StudentRoutes);
 router.get('/manageResources',resourceController.getAll);
+router.post('/bulkAddStudents', facultyController.bulkAddStudents);
 
 router
   .route('/')

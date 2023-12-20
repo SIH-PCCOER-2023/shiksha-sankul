@@ -54,7 +54,7 @@ exports.updateOne=catchAsync(async(req,res,next)=>{
 
 
 exports.createOne=catchAsync(async(req,res,next)=>{
-    const doc=await Student.create(req.body);
+    const doc=await User.create(req.body);
 
     res.status(201).json({
         status:'success',
