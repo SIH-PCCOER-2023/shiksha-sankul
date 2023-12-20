@@ -48,7 +48,7 @@ const FileUpload = () => {
         htmlFor="bulk-add-students"
       >
         <div className="upload-icon">
-          <i class="fa-solid fa-arrow-up"></i>
+          <i className="fa-solid fa-arrow-up"></i>
         </div>
         <div className="upload-text">Drag & Drop or Click to Upload</div>
       </label>

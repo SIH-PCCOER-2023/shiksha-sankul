@@ -7,8 +7,10 @@ import StudentDashboard from './components/Dashboards/Student Dashboard/StudentD
 import FacultyDashboard from './components/Dashboards/Faculty Dashboard/FacultyDashboard';
 import { UserContextProvider } from './store/user-context';
 import UserProfile from './components/UserProfile';
-import PrerequisiteTest from './components/PrerequisiteTest/PrerequisiteTest';
-import Assessments from './components/Dashboards/Student Dashboard/Assessments';
+// import PrerequisiteTest from './components/PrerequisiteTest/PrerequisiteTest';
+import Assessments from './components/Dashboards/Student Dashboard/Assessments/Assessments';
+import Test from './components/Dashboards/Student Dashboard/Assessments/Test';
+import ILP from './components/Dashboards/Faculty Dashboard/ILP';
 
 function App() {
   return (
@@ -20,7 +22,30 @@ function App() {
           <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/assessments" element={<Assessments />} />
-          <Route path="/pre-requisite" element={<PrerequisiteTest />} />
+
+          <Route
+            path="/assessments/academic-test"
+            element={<Test testType="ACADEMIC" />}
+          />
+
+          <Route
+            path="/assessments/cognitive-test"
+            element={<Test testType="COGNITIVE" />}
+          />
+
+          <Route
+            path="/assessments/learning-test"
+            element={<Test testType="LEARNING STYLE" />}
+          />
+
+          <Route
+            path="/assessments/communication-test"
+            element={<Test testType="COMMUNICATION" />}
+          />
+
+          <Route path="/faculty-dashboard/ilp" element={<ILP />} />
+
+          {/* <Route path="/pre-requisite" element={<PrerequisiteTest />} /> */}
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

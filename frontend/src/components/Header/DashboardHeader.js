@@ -51,7 +51,9 @@ const DashboardHeader = (props) => {
 
       <div className="dash-header__right">
         {/* <div id="menu-btn" className="fas fa-bars"></div> */}
-        <div className={'fas fa-user'} onClick={profileClickHandler}></div>
+        <div onClick={profileClickHandler}>
+          <i className="fa-solid fa-user"></i>
+        </div>
       </div>
 
       <div

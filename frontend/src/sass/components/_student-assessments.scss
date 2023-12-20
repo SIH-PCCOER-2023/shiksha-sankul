@@ -11,29 +11,6 @@
     &__academic {
         background-image: url("../assets/images/academic-test-bg.png");
         background-size: cover;
-
-        // background-color: orangered;
-        border-radius: 1.5rem;
-        cursor: pointer;
-        // padding: 2rem 6rem;
-        box-shadow:
-            0 4px 8px 0 rgba(0, 0, 0, 0.2),
-            0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        font-size: 3rem;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-weight: 600;
-        transition: all 0.2s ease;
-        text-decoration: none;
-        color: $color-black;
-
-        &:hover {
-            transform: scale(0.95);
-        }
     }
 
     &__cognitive {
@@ -55,11 +32,11 @@
     height: 80vh;
     margin: 0;
 
-    & div {
-        // background-color: orangered;
+    & a {
+        text-decoration: none;
+        color: $color-black;
         border-radius: 1.5rem;
         cursor: pointer;
-        // padding: 2rem 6rem;
         box-shadow:
             0 4px 8px 0 rgba(0, 0, 0, 0.2),
             0 6px 20px 0 rgba(0, 0, 0, 0.19);

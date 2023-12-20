@@ -45,11 +45,11 @@ const StudentDashboard = (props) => {
       text: 'Performance',
       url: 'performance.html',
     },
-    {
-      icon: 'fa-solid fa-comments',
-      text: 'Discussion Forum',
-      url: 'discussion.html',
-    },
+    // {
+    //   icon: 'fa-solid fa-comments',
+    //   text: 'Discussion Forum',
+    //   url: 'discussion.html',
+    // },
   ];
 
   return (

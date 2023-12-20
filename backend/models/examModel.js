@@ -1,21 +1,21 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 const examSchema = mongoose.Schema(
   {
     faculty: {
       type: mongoose.Schema.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
 
     phoneno: {
       type: Number,
-      required: [true, "Please enter you phone no."],
+      required: [true, 'Please enter you phone no.'],
     },
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } },
+  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-const Exam = mongoose.model("Exam", facultySchema);
+const Exam = mongoose.model('Exam', facultySchema);
 
 module.exports = Exam;

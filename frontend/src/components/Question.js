@@ -1,15 +1,26 @@
-import { useCallback, useContext, useState } from 'react';
-import TestContext from './testContext';
+import { useCallback, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import TestContext from '../store/testContext';
 
-const Question = ({ activeClass }) => {
+import UserContext from '../store/user-context';
+import { sendPostRequest } from '../utils/sendHttp';
+import { showAlert } from '../utils/alerts';
+
+const Question = ({ activeClass, testType }) => {
+  const userCtx = useContext(UserContext);
+  const navigate = useNavigate();
+
   const [checked, checkedState] = useState(null);
-  const [testCompleted, setTestCompleted] = useState(false);
+  // const [testCompleted, setTestCompleted] = useState(false);
 
   const {
     questions,
     currentQuestion,
     handleAnswerSelection,
     handleNextQuestion,
+    totalScore,
+    obtainedScore,
+    testCompleted,
   } = useContext(TestContext);
 
   const getRadioProps = useCallback(
@@ -35,12 +46,50 @@ const Question = ({ activeClass }) => {
     [checked, currentQuestion, handleAnswerSelection]
   ); // update the props for all checkboxes, if the checked value changes
 
+  useEffect(() => {
+    const submitTestHandler = async () => {
+      try {
+        const data = {
+          student: userCtx.user._id,
+          questions: questions,
+          obtainedScore: obtainedScore,
+          totalScore: totalScore,
+        };
+
+        const res = await sendPostRequest(
+          'http://localhost:8080/api/v1/tests',
+          data
+        );
+
+        if (res.data.status === 'success') {
+          showAlert('success', `Score: ${obtainedScore} out of ${totalScore}`);
+          // showAlert('success', `${testType} TEST Completed`);
+          navigate('/student-dashboard');
+        }
+      } catch (err) {
+        showAlert('error', err.response.data.message);
+      }
+    };
+
+    if (testCompleted) {
+      submitTestHandler();
+    }
+  }, [
+    navigate,
+    obtainedScore,
+    totalScore,
+    questions,
+    testType,
+    userCtx,
+    testCompleted,
+  ]);
+
   return (
-    <>
+    <TestContext.Provider>
       {!testCompleted && (
         <div className={`test__box ${activeClass}`}>
           <div className="test__box--header">
-            <div>Academic Test</div>
+            <div>{`${testType} TEST`}</div>
           </div>
 
           <section className="test__box--content">
@@ -68,13 +117,18 @@ const Question = ({ activeClass }) => {
           </section>
 
           <div className="test__box--footer">
+            <div className="test__box--totalQue">
+              <span>
+                <p>{currentQuestion + 1}</p> of <p>{questions.length}</p>
+                Questions
+              </span>
+            </div>
             <button
               className="test__box--nextBtn"
               onClick={() => {
                 checkedState(null);
-                if (currentQuestion === questions.length - 1) {
-                  setTestCompleted(true);
-                } else {
+
+                if (currentQuestion < questions.length) {
                   handleNextQuestion();
                 }
               }}
@@ -84,9 +138,14 @@ const Question = ({ activeClass }) => {
                 : 'Next Question'}
             </button>
           </div>
+          {/* {testCompleted &&
+            showAlert(
+              'success',
+              `Score: ${obtainedScore} out of ${totalScore}`
+            )} */}
         </div>
       )}
-    </>
+    </TestContext.Provider>
   );
 };
 
