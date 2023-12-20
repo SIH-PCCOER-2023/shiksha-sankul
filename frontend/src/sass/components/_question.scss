@@ -104,8 +104,27 @@
         padding: 2rem 3rem;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: space-between;
         border-top: 1px solid lightgrey;
+    }
+
+    &--totalQue {
+        & span {
+            display: flex;
+            align-items: center;
+            user-select: none;
+            font-size: 1.5rem;
+
+            & p {
+                font-weight: 500;
+                color: $color-black;
+                padding: 0 5px;
+
+                &:first-child {
+                    padding-left: 0;
+                }
+            }
+        }
     }
 
     &--nextBtn {

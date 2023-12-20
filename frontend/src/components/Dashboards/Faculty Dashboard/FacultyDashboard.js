@@ -11,6 +11,11 @@ const FacultyDashboard = (props) => {
       url: '/faculty-dashboard',
     },
     {
+      icon: 'fa-calendar',
+      text: 'Individual Learning Plan',
+      url: '/faculty-dashboard/ilp',
+    },
+    {
       icon: 'fa-book-open',
       text: 'Learning Resource Management',
       url: 'learning-resource-management.html',
@@ -30,11 +35,11 @@ const FacultyDashboard = (props) => {
       text: 'Analytics',
       url: 'analytics.html',
     },
-    {
-      icon: 'fa-comments',
-      text: 'Discussion Forum',
-      url: 'discussion.html',
-    },
+    // {
+    //   icon: 'fa-comments',
+    //   text: 'Discussion Forum',
+    //   url: 'discussion.html',
+    // },
   ];
 
   return (

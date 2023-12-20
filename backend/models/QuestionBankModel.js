@@ -5,13 +5,9 @@ const questionSchema = mongoose.Schema({
     type: String,
     required: [true, 'Please specify question'],
   },
-  class:{
-    type:String,
-    required:true
-  },
   questionType: {
     type: String,
-    enum: ['ACADEMIC', 'COGNITIVE', 'LEARNING', 'COMMUNICATION'],
+    enum: ['ACADEMIC', 'COGNITIVE', 'LEARNING STYLE', 'COMMUNICATION'],
     required: [true, 'Please specify question type'],
   },
   subject: {

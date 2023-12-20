@@ -16,10 +16,10 @@ const studentRoutes = require('./routes/studentRoutes');
 const facultyRoutes = require('./routes/facultyRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const questionBankRoutes = require('./routes/questionBankRoutes');
-const assessments = require('./routes/assessmentsRoutes');
 const ILPRoutes = require('./routes/ILPRoutes/ILPRoutes');
 const ILPTemplateRoutes = require('./routes/ILPRoutes/ILPTemplateRoutes');
-const resourceRoutes = require('./routes/resourceRoutes')
+const resourceRoutes = require('./routes/resourceRoutes');
+const testRoutes = require('./routes/testRoutes');
 // Create express app
 const app = express();
 app.enable('trust-proxy');
@@ -75,10 +75,11 @@ app.use('/api/v1/student', studentRoutes);
 app.use('/api/v1/faculty', facultyRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/questions', questionBankRoutes);
-app.use('/api/v1/assessments', assessments);
 app.use('/api/v1/ilps', ILPRoutes);
 app.use('/api/v1/ilptemplates', ILPTemplateRoutes);
-app.use('/api/v1/resources', resourceRoutes)
+app.use('/api/v1/resources', resourceRoutes);
+app.use('/api/v1/tests', testRoutes);
+
 // Rendered Routes
 app.use('/', viewRouter);
 
