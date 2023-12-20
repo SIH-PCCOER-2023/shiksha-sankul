@@ -78,9 +78,12 @@ app.use('/api/v1/questions', questionBankRoutes);
 app.use('/api/v1/assessments', assessments);
 app.use('/api/v1/ilps', ILPRoutes);
 app.use('/api/v1/ilptemplates', ILPTemplateRoutes);
-app.use('/api/v1/resources', resourceRoutes)
+app.use('/api/v1/resources', resourceRoutes);
 // Rendered Routes
+
+
 app.use('/', viewRouter);
+
 
 app.all('*', function (req, res, next) {
   // Other than defined route

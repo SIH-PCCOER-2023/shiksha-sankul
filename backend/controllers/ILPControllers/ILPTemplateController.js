@@ -65,6 +65,9 @@ exports.getAllILPTemplates = async (req, res) => {
   try {
     console.log(ILP);
     const ilpTemplates = await ILPTemplate.find();
+    ilpTemplates.map((template)=>{
+        template['path'] = `http://localhost:8080/ilptemplates/generateILP/${template._id}/:userId`
+    })
     res.json(ilpTemplates);
   } catch (error) {
     res.status(500).json({ message: error.message });
