@@ -73,34 +73,12 @@ exports.signup = catchAsync(async (req, res) => {
     active: req.body.active,
   });
 
-  // Create specific users based on userType
-  // if (req.body.type === "STUDENT") {
-  //     await Student.create({
-  //         user: newUser._id,
-  //         class: req.body.class,
-  //         rollno: req.body.rollno,
-  //     });
-  // } else if (req.body.type === "FACULTY") {
-  //     await Faculty.create({
-  //         user: newUser._id,
-  //     });
-  // } else if (req.body.type === "ADMIN") {
-  //     await Admin.create({
-  //         user: newUser._id,
-  //     });
-  // } else if (req.body.type === "PARENT") {
-  //     await Parent.create({
-  //         user: newUser._id,
-  //     });
-  // }
-
   // 2.) Sign JSON token and sennd back to client
   createSendToken(newUser, 201, req, res);
 });
 
 // Login User
 exports.login = catchAsync(async (req, res, next) => {
-  //   const userType=req.body.type;
   // 1.) Get email and password from req.body
   const { email, password } = req.body;
 
@@ -118,11 +96,6 @@ exports.login = catchAsync(async (req, res, next) => {
     );
   }
 
-  //   if (user.type !== userType) {
-  //     return next(
-  //       new AppError('Invalid user type. Please enter valid user type', 401)
-  //     );
-  //   }
 
   if (!user || !(await user.comparePassword(password, user.password))) {
     return next(new AppError('Incorrect email or password', 401));

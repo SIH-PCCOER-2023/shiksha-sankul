@@ -83,7 +83,11 @@ exports.getOne=catchAsync(async(req,res,next)=>{
 
 exports.getAll=catchAsync(async(req,res,next)=>{
     const doc=await Student.find().populate("user");
-
+    if(!doc){
+        return next(
+            new AppError('Failed to fetch data', 500)
+        )
+    }
     res.status(200).json({
         status: "success",
         count: doc.length,

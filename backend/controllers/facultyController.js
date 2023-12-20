@@ -39,17 +39,18 @@ exports.bulkAddStudents = catchAsync(async (req, res, next) => {
         I: 'test2',
         J: 'test3',
         K: 'test4',
-        L:'test5',
-        M:'test6',
+        L: 'test5',
+        M: 'test6',
       })
     );
-    console.log(exceldata);
-    const status = User.insertMany(exceldata);
-    // console.log(res);
+    const result = catchAsync(User.insertMany(exceldata));
+    console.log(result);
+    if (!result) {
+      return next(new AppError('Failed to insert data in bulk', 400));
+    }
     res.status(200).json({
       status: 'success',
       message: 'File imported successfully!',
-      response:status
     });
   });
 });
@@ -86,6 +87,9 @@ exports.updateOne = catchAsync(async (req, res, next) => {
 
 exports.createOne = catchAsync(async (req, res, next) => {
   const doc = await Faculty.create(req.body);
+  if (!doc) {
+    return next(new AppError('Failed to create the account. Please try again!', 500));
+  }
 
   res.status(201).json({
     status: 'success',
