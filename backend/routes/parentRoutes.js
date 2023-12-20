@@ -15,4 +15,4 @@ router
 .get(parentController.getOne)
 .delete(parentController.deleteOne)
 
-module.exports=router;
+module.exports=router;  

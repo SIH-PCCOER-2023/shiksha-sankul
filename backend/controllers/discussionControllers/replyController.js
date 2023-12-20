@@ -12,6 +12,7 @@ const User=require('../../models/userModel');
 
 
 exports.createReply=catchAsync(async(req,res,next)=>{
+    console.log(req.params.id);
     const post =await Post.findById(req.params.id);
 
     if(!post){
@@ -20,14 +21,14 @@ exports.createReply=catchAsync(async(req,res,next)=>{
     const reply = new Reply({
         post: req.params.id,
         comment: req.body.comment,
-        author: req.user._id,
+        author: req.params.id,
     });
     await  reply.save();
-    const reply_populated = await Reply.find({ _id: reply._id }).populate(
+    const reply_populated = await Reply.find({ id: reply.id }).populate(
         "author",
         "name -_id"
     );
-    res.status.json({
+    res.status(200).json({
         status:"success",
         data:{
             data:reply_populated//reply prodeuced
@@ -38,14 +39,15 @@ exports.createReply=catchAsync(async(req,res,next)=>{
 });
 
 exports.updateReply=catchAsync(async(req,res,next)=>{
+    console.log(req.params.id);
     const post = await Reply.findById(req.params.id);
     
     if(!post){
         return next(
-            new AppError("rreply doesn't exists")
+            new AppError("reply doesn't exists")
         )
     }
-    if(reply.author ==req.user._id){
+    if(reply.author ==req.user.id){
         return res.status(400).send("you cant upvote your own reply");
     }
     
@@ -53,16 +55,16 @@ exports.updateReply=catchAsync(async(req,res,next)=>{
 
 
   const upvoteArray = reply.upvotes;
-  const index = upvoteArray.indexOf(req.user._id);
+  const index = upvoteArray.indexOf(req.user.id);
   if (index === -1) {
-    upvoteArray.push(req.user._id);
+    upvoteArray.push(req.user.id);
   } else {
     upvoteArray.splice(index, 1);
   }
   reply.upvotes= upvoteArray;
   
   const result = await reply.save();
-  const reply_new = await Reply.find({ _id: reply._id }).populate(
+  const reply_new = await Reply.find({ id: reply.id }).populate(
     "author",
     "name username"
   );
@@ -89,7 +91,7 @@ exports.getReply=catchAsync(async(req,res,next)=>{
         "name username"
     );
 
-    re.status(200).json({
+    res.status(200).json({
         status:"success",
         data:{
             data:replies

@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 const validator=require('validator');
 
 const resultSchema=mongoose.Schema(
-    {
+    {   
         student:{
             type:mongoose.Types.ObjectId,
             ref:'Student'

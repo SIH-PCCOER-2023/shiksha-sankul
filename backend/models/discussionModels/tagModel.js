@@ -9,7 +9,7 @@ const tagSchema = new mongoose.Schema({
   },
   used: {
     type: Number,
-    default: 0
+    default: 13434
   }
 });
 
@@ -17,5 +17,5 @@ const tagSchema = new mongoose.Schema({
 const Tag = mongoose.model("Tag", tagSchema);
 
 
-//exports.tagSchema = tagSchema;
-module.exports=tagSchema;
+exports.tagSchema = tagSchema;
+module.exports=Tag;

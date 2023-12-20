@@ -1,6 +1,8 @@
 const mongoose=require('mongoose')
 const validator =require('validator')
 const {tagSchema}=require('../discussionModels/tagModel')
+const User=require('../userModel');
+
 const PostSchema=mongoose.Schema(
     {
         title:{
@@ -9,15 +11,15 @@ const PostSchema=mongoose.Schema(
             minlength:10,
             maxlength:80,
         },
-        // tags:{
-        //     type:[tagSchema],
-        //     validate:{
-        //         validator: function (a){
-        //             return a && a.length>=0;
-        //         },
-        //     },
-        //     required :[true],
-        // },
+        tags:{
+            type:[tagSchema],
+            validate:{
+                validator: function (a){
+                    return a && a.length>=0;
+                },
+            },
+            required :[true],
+        },
         description:{
             type:String,
             required:true,
@@ -26,25 +28,25 @@ const PostSchema=mongoose.Schema(
             required:true,
 
         },
-        // author:{
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "User",
-        //     required: true,
-        //},
+        author:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
         views: {
             type: Number,
             default: 1,
             min: 1,
         },
-        // upvotes: {
-        //     type: [mongoose.Schema.Types.ObjectId],
-        //     ref: "User",
-        //     default: [],
-        // },
-        // time: {
-        //     type: Date,
-        //     default: Date.now,
-        // },
+        upvotes: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: "User",
+            default: [],
+        },
+        time: {
+            type: Date,
+            default: Date.now,
+        },
     }
 );
 

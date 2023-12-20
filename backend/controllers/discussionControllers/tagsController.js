@@ -2,6 +2,7 @@ const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../../utils/appError');
 const APIFeatures = require('../../utils/apiFeatures');
 const factory=require('../handlerFactory');
+const _=require('lodash');
 
 
 
@@ -29,21 +30,20 @@ exports.getAllTag=catchAsync(async(req,res,next)=>{
 });
 
 
-exports.createTag=catchAsync(async(req,res,next)=>{
-    exports.createTag = catchAsync(async (req, res, next) => {
-        const tag = new Tag({
-            name: req.body.name,
-        });
-    
-        const done = await tag.save();
-        console.log("Tag created");
-    
-        res.status(201).json({
-            status: "success",
-            data: {
-                tag: _.pick(done, ["_id", "name", "used"]) // Assuming 'done' contains the saved tag
-            }
-        });
+
+exports.createTag = catchAsync(async (req, res, next) => {
+    const tag = new Tag({
+        name: req.body.name,
     });
     
-})
+    const done = await tag.save();
+    console.log("Tag created");
+    
+    res.status(201).json({
+        status: "success",
+        data:{
+            data: _.pick(done, ["_id", "name", "used"]) // Assuming 'done' contains the saved tag
+        }
+    });
+});
+    
