@@ -1,4 +1,3 @@
-![image](https://github.com/SIH-PCCOER-2023/shiksha-sankul/assets/92770843/819aa3a2-3321-4fad-af74-9880e09043af)# Learning Enhancement System
 
 ## Overview
 
@@ -24,7 +23,7 @@ The main objective of this project is to:
 - **Adaptive Assessments:** Offer adaptive assessments to adjust difficulty levels based on learner performance.
 
 
-![Flow_chart](C:\Users\admin\Downloads\workflow.png)
+![image](https://github.com/SIH-PCCOER-2023/shiksha-sankul/assets/92770843/819aa3a2-3321-4fad-af74-9880e09043af)# Learning Enhancement System
 
 
 
