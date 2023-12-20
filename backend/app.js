@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
-
+const { exec } = require('child_process');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const { protect } = require('./controllers/authController');
@@ -24,7 +24,6 @@ const catchAsync = require('./utils/catchAsync');
 
 const User = require('./models/userModel');
 
-// const predict = require('./ML/predict');
 
 // Create express app
 const app = express();
@@ -75,41 +74,31 @@ app.use(
   })
 );
 
-app.get(
-  '/api/v1/mlprediction',
+app.post(
+  '/api/v1/mlprediction/:id',
   catchAsync(async (req, res, next) => {
     const newFeatures = req.body.newFeatures;
-    let independantFeatures = [];
-    let dependantFeature = [];
-
     const users = await User.find();
+    var currentUsermarks = [0, 0, 0];
+    const commandpredict = `python3 ./ML/model-predict.py '${currentUsermarks}'`;
+    exec(commandpredict, async (error, stdout, stderr) => {
+      // console.log(stdout);
+      const prediction = parseFloat(stdout);
+      if (prediction > 60 && newFeatures.features[2] > prediction) {
+        console.log('done');
 
-    for (let user of users) {
-      let marks;
-
-      if (user.marks) {
-        marks = user.marks;
+        await User.findByIdAndUpdate(req.params.id, { learnerType: 'ADVANCED' },{
+            new:true
+        });
+      } else {
+        await User.findByIdAndUpdate(req.params.id, { learnerType: 'SLOW' },{
+            new:true
+        });
       }
-
-      marks && independantFeatures.push(marks.slice(3));
-      marks && dependantFeature.push(marks[marks.length - 1]);
-    }
-
-    // Run the Python script as a child process
-    // const command = `python model.py '${JSON.stringify({ oldFeatures })}'`;
-
-    // exec(command, (error, stdout, stderr) => {
-    //   if (error) {
-    //     console.error(`Error: ${error.message}`);
-    //     return res.status(500).json({ error: 'Internal Server Error' });
-    //   }
-    //   const predictions = JSON.parse(stdout).predictions;
-
-    //   res.status(200).json({ data: predictions });
-    // });
-    res.status(200).json({
-      dependantFeature,
-      independantFeatures,
+      console.log(prediction);
+      res
+        .status(200)
+        .json(`{'status' : 'success', 'prediction':'${prediction}'}`);
     });
   })
 );
