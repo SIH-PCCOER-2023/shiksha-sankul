@@ -3,6 +3,7 @@
     padding: 2rem 3rem;
     background-color: $color-light-bg;
     padding-bottom: 5rem;
+    height: 88vh;
 
     &__heading {
         padding-bottom: 1.8rem;
@@ -18,8 +19,13 @@
 }
 
 .youtube-card {
-    width: max-content;
-    padding: 2rem;
+    margin-left: 30rem;
+    padding: 2rem 3rem;
+    background-color: $color-light-bg;
+    padding-bottom: 5rem;
+    height: 88vh;
+    width: 60rem;
+
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background-color: $color-white;
@@ -33,9 +39,23 @@
         text-transform: capitalize;
         font-weight: 600;
     }
+
+    &-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 .video-container {
     position: relative;
     overflow: hidden;
+}
+
+.student__ilp {
+    margin-left: 30rem;
+    padding: 2rem 3rem;
+    background-color: $color-light-bg;
+    padding-bottom: 5rem;
+    height: 88vh;
 }

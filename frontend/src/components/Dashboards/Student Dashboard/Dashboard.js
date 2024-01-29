@@ -1,36 +1,61 @@
+import { useContext, useEffect } from 'react';
+import { showAlert } from '../../../utils/alerts';
+import { sendGetRequest } from '../../../utils/sendHttp';
 import Chart from '../../Chart';
 import Box from '../../UI/Box';
 import YouTubeCard from './YoutubeCard';
+import UserContext from '../../../store/user-context';
 
 const Dashboard = (props) => {
+  const userCtx = useContext(UserContext);
   const boxData = [
     {
-      title: 'Data Structures',
+      title: 'Individual Learning Plan',
       data: [
-        { iconClass: 'fas fa-code', label: 'development' },
-        { iconClass: 'fas fa-chart-simple', label: 'business' },
+        { iconClass: 'fa-solid fa-bullseye', label: 'Goals' },
+        { iconClass: 'fa-solid fa-book', label: 'Learning Resources' },
+        { iconClass: 'fa-solid fa-book', label: 'Grade' },
+        { iconClass: 'fa-solid fa-book', label: 'Learning Style' },
       ],
     },
     {
-      title: 'Algorithms',
+      title: 'Notifications',
       data: [
-        { iconClass: 'fas fa-code', label: 'development' },
-        { iconClass: 'fas fa-chart-simple', label: 'business' },
+        { iconClass: 'fas fa-clock', label: 'Faculty meet @9.00' },
+        { iconClass: 'fas fa-check', label: 'Goals achieved' },
       ],
     },
   ];
 
-  const chartData = {
-    title: 'Progress',
-    chartId: '657be61c-32fd-4a94-8363-e9cde12a05df',
-    width: '450px',
-    height: '300px',
-  };
+  const chartData = [
+    {
+      title: 'Progress',
+      chartId: '6582c709-2cc4-4b65-8d63-db93f3489805',
+      width: '500px',
+      height: '300px',
+    },
+    {
+      title: 'Progress',
+      chartId: '6582c81f-2847-443e-86fd-94cfc7b7f6c3',
+      width: '450px',
+      height: '300px',
+    },
+  ];
 
-  const videoData = {
-    title: 'Stack',
-    embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
-  };
+  // const videoData = [
+  //   {
+  //     title: 'Stack',
+  //     embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+  //   },
+  //   {
+  //     title: 'Stack',
+  //     embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+  //   },
+  //   {
+  //     title: 'Stack',
+  //     embedUrl: 'https://www.youtube.com/embed/7m1DMYAbdiY?si=bdxDdov2DsDzVdIW',
+  //   },
+  // ];
 
   return (
     <>
@@ -42,8 +67,10 @@ const Dashboard = (props) => {
           <Chart chartData={chartData} />
         </div>
 
-        <div className="student-dash__heading">Recommendations</div>
-        <YouTubeCard videoData={videoData} />
+        {/* <div className="student-dash__heading">Recommendations</div>
+        <div className="youtube-card-container">
+          <YouTubeCard videoData={videoData} />
+        </div> */}
       </div>
     </>
   );

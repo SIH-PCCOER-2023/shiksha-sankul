@@ -96,6 +96,13 @@ userSchema.post("save", async function (doc) {
             user: doc._id,
             class: this.class,
             rollno: this.rollno,
+            test1:this.test1,
+            test2:this.test2,
+            test3:this.test3,
+            test4:this.test4,
+            test5:this.test5,
+            test6:this.test6
+            
         });
     } else if (doc.type === "FACULTY") {
         await Faculty.create({

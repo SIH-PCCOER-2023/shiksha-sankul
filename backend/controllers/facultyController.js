@@ -1,91 +1,139 @@
-const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/appError");
-const APIFeatures = require("../utils/apiFeatures");
-const { upload, importExcel } = require("../utils/excellImportApi");
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
+const APIFeatures = require('../utils/apiFeatures');
+const { upload, importExcel } = require('../utils/excellImportApi');
 
-const factory = require("./handlerFactory");
-const Faculty = require("../models/facultyModel");
-const studentController = require("./studentController");
-const User = require("../models/userModel");
-const multer = require("multer");
+const factory = require('./handlerFactory');
+const Faculty = require('../models/facultyModel');
+const studentController = require('./studentController');
+const User = require('../models/userModel');
+const multer = require('multer');
 
-exports.deleteOne = catchAsync(async (req, res, next) => {
-    const doc = await Faculty.findByIdAndDelete(req.params.id);
-
-    if (!doc) {
-        return next(new AppError("No document found with that ID", 404));
+exports.bulkAddStudents = catchAsync(async (req, res, next) => {
+  const uploader = upload.single('uploadfile');
+  uploader(req, res, function (err) {
+    if (!req.file || err instanceof multer.MulterError) {
+      // A Multer error occurred when uploading.
+      return next(new AppError('File upload failed', 503));
+    } else if (err) {
+      // An unknown error occurred when uploading.
+      console.log(err);
+      return next(new AppError('Unknown error occourred', 500));
+    } else {
+      console.log('file upload successful', req.file.path);
     }
 
-    res.status(204).json({
-        status: "success",
-        data: null, //data deleted
+    // Everything went fine.
+    const exceldata = importExcel(
+      req.file.path,
+      'Sheet1',
+      (mappingCol2Key = {
+        A: 'email',
+        B: 'name',
+        C: 'phoneno',
+        D: 'class',
+        E: 'rollno',
+        F: 'password',
+        G: 'passwordConfirm',
+        H: 'test1',
+        I: 'test2',
+        J: 'test3',
+        K: 'test4',
+        L: 'test5',
+        M: 'test6',
+      })
+    );
+    const result = catchAsync(User.insertMany(exceldata));
+    console.log(result);
+    if (!result) {
+      return next(new AppError('Failed to insert data in bulk', 400));
+    }
+    res.status(200).json({
+      status: 'success',
+      message: 'File imported successfully!',
     });
+  });
+});
+
+exports.deleteOne = catchAsync(async (req, res, next) => {
+  const doc = await Faculty.findByIdAndDelete(req.params.id);
+
+  if (!doc) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null, //data deleted
+  });
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
-    const doc = await User.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
-    });
+  const doc = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
-    if (!doc) {
-        return next(new AppError("No document found with that ID", 404));
-    }
-    res.status(200).json({
-        status: "success",
-        data: {
-            data: doc, // Updated doc
-        },
-    });
+  if (!doc) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: doc, // Updated doc
+    },
+  });
 });
 
 exports.createOne = catchAsync(async (req, res, next) => {
-    const doc = await Faculty.create(req.body);
+  const doc = await Faculty.create(req.body);
+  if (!doc) {
+    return next(new AppError('Failed to create the account. Please try again!', 500));
+  }
 
-    res.status(201).json({
-        status: "success",
-        data: {
-            data: doc, //created doc
-        },
-    });
+  res.status(201).json({
+    status: 'success',
+    data: {
+      data: doc, //created doc
+    },
+  });
 });
 
 exports.getOne = catchAsync(async (req, res, next) => {
-    const doc = await Faculty.findById(req.params.id).populate("user");
+  const doc = await Faculty.findById(req.params.id).populate('user');
 
-    if (!doc) {
-        return next(
-            new AppError("A document with that ID could not be found", 404)
-        );
-    }
+  if (!doc) {
+    return next(
+      new AppError('A document with that ID could not be found', 404)
+    );
+  }
 
-    res.status(200).json({
-        status: "success",
-        data: {
-            data: doc, //document fetched
-        },
-    });
+  res.status(200).json({
+    status: 'success',
+    data: {
+      data: doc, //document fetched
+    },
+  });
 });
 
 exports.getAll = catchAsync(async (req, res, next) => {
-    const docs = await Faculty.find().populate("user");
+  const docs = await Faculty.find().populate('user');
 
-    res.status(200).json({
-        status: "success",
-        count: docs.length,
-        data: docs.map((doc) => {
-            const requestObject = {
-                request: {
-                    type: "GET",
-                    url: req.originalUrl + "/" + doc._id,
-                },
-            };
-            Object.assign(doc._doc, requestObject);
-            return doc;
-        }),
-    });
+  res.status(200).json({
+    status: 'success',
+    count: docs.length,
+    data: docs.map((doc) => {
+      const requestObject = {
+        request: {
+          type: 'GET',
+          url: req.originalUrl + '/' + doc._id,
+        },
+      };
+      Object.assign(doc._doc, requestObject);
+      return doc;
+    }),
+  });
 });
-
 
 exports.getAllStudent = studentController.getAll;
 exports.deleteOneStudent = studentController.deleteOne;

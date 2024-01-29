@@ -1,0 +1,57 @@
+.student-assessments {
+    margin-left: 30rem;
+    padding: 3rem 10rem;
+    background-color: $color-light-bg;
+
+    &__comm {
+        background-image: url("../assets/images/communication-test-bg.png");
+        background-size: cover;
+    }
+
+    &__academic {
+        background-image: url("../assets/images/academic-test-bg.png");
+        background-size: cover;
+    }
+
+    &__cognitive {
+        background-image: url("../assets/images/cognitive-test-bg.png");
+        background-size: cover;
+    }
+
+    &__learning {
+        background-image: url("../assets/images/interactive.png");
+        background-size: cover;
+    }
+}
+
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 3rem;
+    height: 80vh;
+    margin: 0;
+
+    & a {
+        text-decoration: none;
+        color: $color-black;
+        border-radius: 1.5rem;
+        cursor: pointer;
+        box-shadow:
+            0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        font-size: 3rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+
+        &:hover {
+            transform: scale(0.95);
+        }
+    }
+}
