@@ -1,5 +1,5 @@
 import DashboardHeader from "../../Header/DashboardHeader";
-import Sidebar from "../../Sidebar/Sidebar";
+import FacultySidebar from "../../Sidebar/FacultySidebar";
 import UserContext from "../../../store/user-context";
 import { useState, useContext, useEffect } from "react";
 import Chart from "../../Chart";
@@ -87,7 +87,7 @@ const Analytics = (props) => {
   return (
     <>
       <DashboardHeader />
-      <Sidebar navLinks={sidebarLinks} />
+      <FacultySidebar navLinks={sidebarLinks} />
       <div className="student-dash">
         <div className="student-dash__heading">Progress</div>
         <div className="box-container">

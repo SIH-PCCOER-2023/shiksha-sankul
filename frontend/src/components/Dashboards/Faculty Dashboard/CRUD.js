@@ -7,7 +7,7 @@ import {
 } from "../../../utils/sendHttp";
 import validator from "validator";
 import Input from "../../UI/Input/Input";
-import Sidebar from "../../Sidebar/Sidebar";
+import FacultySidebar from "../../Sidebar/FacultySidebar";
 
 const CRUD = () => {
   const sidebarLinks = [
@@ -189,7 +189,7 @@ const CRUD = () => {
 
   return (
     <div className="App">
-      <Sidebar navLinks={sidebarLinks} />
+      <FacultySidebar navLinks={sidebarLinks} />
       <div className="card">
         {/* <span className="icon-wrapper">{label}</span> */}
         <Input
