@@ -40,6 +40,7 @@ const studentSchema = mongoose.Schema(
     rollno: {
       type: String,
       trim: true,
+      unique:true
       //required: [true, 'Enter the roll no '],
     },
     //marks: [marks],

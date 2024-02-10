@@ -94,6 +94,7 @@ userSchema.post("save", async function (doc) {
   console.log("%s has been saved", doc._id);
   if (doc.type === "STUDENT") {
     await Student.create({
+      
       user: doc._id,
       class: this.class,
       rollno: this.rollno,
