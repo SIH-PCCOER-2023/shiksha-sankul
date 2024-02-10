@@ -21,28 +21,51 @@ exports.getOne = catchAsync(async (req, res, next) => {
   });
 });
 
+// exports.getCount = catchAsync(async (req, res, next) => {
+//   const docs = await QuestionBank.aggregate({
+//     questionType: req.params.type,
+//   }).sample(parseInt(req.params.count) || 20);
+//   // .aggregate()
+//   // .sample(parseInt(req.params.count) || 20);
+//   // console.log(docs);
+//   res.status(200).json({
+//     status: 'success',
+//     count: docs.length,
+//     data: docs.map((doc) => {
+//       const requestObject = {
+//         request: {
+//           type: 'GET',
+//           url: req.originalUrl + '' + doc._id,
+//         },
+//       };
+//       Object.assign(doc, requestObject);
+//       return doc;
+//     }),
+//   });
+// });
+
 exports.getCount = catchAsync(async (req, res, next) => {
-  const docs = await QuestionBank.aggregate({
-    questionType: req.params.type,
-  }).sample(parseInt(req.params.count) || 20);
-  // .aggregate()
-  // .sample(parseInt(req.params.count) || 20);
-  // console.log(docs);
-  res.status(200).json({
-    status: 'success',
-    count: docs.length,
-    data: docs.map((doc) => {
-      const requestObject = {
-        request: {
-          type: 'GET',
-          url: req.originalUrl + '' + doc._id,
-        },
-      };
-      Object.assign(doc, requestObject);
-      return doc;
-    }),
+    const docs = await QuestionBank.aggregate([
+      { $match: { questionType: req.params.type } },
+      { $sample: { size: parseInt(req.params.count) || 20 } }
+    ]);
+  
+    res.status(200).json({
+      status: 'success',
+      count: docs.length,
+      data: docs.map((doc) => {
+        const requestObject = {
+          request: {
+            type: 'GET',
+            url: req.originalUrl + '' + doc._id,
+          },
+        };
+        Object.assign(doc, requestObject);
+        return doc;
+      }),
+    });
   });
-});
+  
 
 exports.getAll = catchAsync(async (req, res, next) => {
   const docs = await QuestionBank.find();
@@ -63,7 +86,7 @@ exports.getAll = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.bulkAddQuestions = catchAsync(async (req, res, next) => {
+exports.bulkAddQuestions = catchAsync(async (req, res, next) => {   
   const uploader = upload.single('uploadfile');
   uploader(req, res, function (err) {
     if (!req.file || err instanceof multer.MulterError) {

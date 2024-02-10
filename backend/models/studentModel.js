@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const { Decimal128 } = require('bson');
-
-const marks = mongoose.Schema({
+const mongoose = require("mongoose");
+const validator = require("validator");
+const { Decimal128 } = require("bson");
+const authController = require("./../controllers/authController");
+/*const marks = mongoose.Schema({
   name: {
     type: String,
     enum: {
@@ -24,40 +24,40 @@ const marks = mongoose.Schema({
   completionDate: Date,
   marksObtained: Decimal128,
   totalMarks: Number,
-});
+});*/
 
 const studentSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
     class: {
       type: String,
       trim: true,
-      required: [true, 'enter the class'],
+      //required: [true, 'enter the class'],
     },
     rollno: {
       type: String,
       trim: true,
-      required: [true, 'Enter the roll no '],
+      //required: [true, 'Enter the roll no '],
     },
-    marks: [marks],
-    predictedScore: {
+    //marks: [marks],
+    /*predictedScore: {
       type: Number,
-    },
+    },*/
     learnerType: {
       type: String,
       enum: {
-        values: ['SLOW', 'FAST', 'UNKNOWN'],
+        values: ["slow", "fast"],
       },
-      default: 'UNKNOWN',
-      required: [true, 'Learner type required'],
+      //default: "UNKNOWN",
+      required: [true, "Learner type required"],
     },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-const Student = mongoose.model('Student', studentSchema);
+const Student = mongoose.model("Student", studentSchema);
 
 module.exports = Student;
