@@ -1,0 +1,115 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: #eee;
+  font-family: Arial, sans-serif;
+  flex-wrap: wrap;
+
+  .cards-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adjust as needed */
+    height: calc(100vh - 40px); /* Adjust according to the margin and any other spacing */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+  }
+
+  .card {
+    margin-left: 400px;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    // margin-right: 20px;
+  }
+
+  .card2 {
+    margin-top: 20px;
+    margin-left: -60px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-right: 120px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  .App2 {
+    display: flex;
+    flex-direction: row; /* Change flex direction to row */
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    height: 100vh;
+    background-color: #eee;
+    font-family: Arial, sans-serif;
+    padding: 20px; /* Add padding for spacing */
+    margin-left: 300px;
+  
+    .card3,
+    .card4 {
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-right: 20px; /* Adjust margin between cards */
+    }
+  
+    h2 {
+      margin-bottom: 20px;
+    }
+  
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+  
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+  
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }

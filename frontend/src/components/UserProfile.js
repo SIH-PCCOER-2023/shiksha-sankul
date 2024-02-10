@@ -1,11 +1,49 @@
+import Sidebar from "../components/Sidebar/Sidebar";
 const UserProfile = (props) => {
+  const sidebarLinks = [
+    {
+      icon: "fa-home",
+      text: "Dashboard",
+      url: "/student-dashboard",
+    },
+    // {
+    //   icon: 'fa-calendar',
+    //   text: 'Individual Learning Plan',
+    //   url: '/ilp',
+    // },
+    {
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "/learning-center",
+    },
+    {
+      icon: "fa-pen",
+      text: "Assessments",
+      url: "/assessments",
+    },
+    {
+      icon: "fa-solid fa-chart-pie",
+      text: "Performance",
+      url: "/performance",
+    },
+    // {
+    //   icon: 'fa-solid fa-comments',
+    //   text: 'Discussion Forum',
+    //   url: 'discussion.html',
+    // },
+  ];
+
   return (
     <div className="user-profile">
-      <img src="img.jpg" alt="User Avatar" className="avatar" />
-      <div className="user-details">
-        <h2>John</h2>
+      <Sidebar navLinks={sidebarLinks} />
+      {/* <img src="img.jpg" alt="User Avatar" className="avatar" /> */}
+      <div className="profile-container">
+        <br></br>
+        <br></br>
+        <h1>Name: John</h1>
         <p>Email: abc@gmail.com</p>
-        <p>Location: xyz</p>
+        <p>Year: 2nd yr </p>
+        <p>College: PCCOER</p>
       </div>
     </div>
   );

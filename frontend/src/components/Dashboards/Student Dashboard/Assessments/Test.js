@@ -79,11 +79,11 @@ const Test = ({ testType }) => {
       text: 'Dashboard',
       url: '/student-dashboard',
     },
-    {
-      icon: 'fa-calendar',
-      text: 'Individual Learning Plan',
-      url: '/ilp',
-    },
+    // {
+    //   icon: 'fa-calendar',
+    //   text: 'Individual Learning Plan',
+    //   url: '/ilp',
+    // },
     {
       icon: 'fa-book-open',
       text: 'Learning Center',

@@ -1,19 +1,26 @@
-import './css/style.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import "./css/style.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from './components/Signup-Login/Login';
+import Login from "./components/Signup-Login/Login";
 
-import StudentDashboard from './components/Dashboards/Student Dashboard/StudentDashboard';
-import FacultyDashboard from './components/Dashboards/Faculty Dashboard/FacultyDashboard';
-import { UserContextProvider } from './store/user-context';
-import UserProfile from './components/UserProfile';
+import StudentDashboard from "./components/Dashboards/Student Dashboard/StudentDashboard";
+import FacultyDashboard from "./components/Dashboards/Faculty Dashboard/FacultyDashboard";
+import { UserContextProvider } from "./store/user-context";
+import UserProfile from "./components/UserProfile";
 // import PrerequisiteTest from './components/PrerequisiteTest/PrerequisiteTest';
-import Assessments from './components/Dashboards/Student Dashboard/Assessments/Assessments';
-import Test from './components/Dashboards/Student Dashboard/Assessments/Test';
-import ILP from './components/Dashboards/Faculty Dashboard/ILP';
-import LearningCenter from './components/Dashboards/Student Dashboard/LearningCenter';
-import StudentILP from './components/Dashboards/Student Dashboard/StudentILP';
-import Performance from './components/Dashboards/Student Dashboard/Performance';
+import Assessments from "./components/Dashboards/Student Dashboard/Assessments/Assessments";
+import Test from "./components/Dashboards/Student Dashboard/Assessments/Test";
+import ILP from "./components/Dashboards/Faculty Dashboard/ILP";
+import LearningCenter from "./components/Dashboards/Student Dashboard/LearningCenter";
+import StudentILP from "./components/Dashboards/Student Dashboard/StudentILP";
+import Performance from "./components/Dashboards/Student Dashboard/Performance";
+
+import Analytics from "./components/Dashboards/Faculty Dashboard/Analytics";
+import DiscussionForum from "./components/Dashboards/Faculty Dashboard/DiscussionForum";
+import LearningRM from "./components/Dashboards/Faculty Dashboard/LearningRM";
+import FacultyHeader from "./components/Header/FacultyHeader";
+import FacultyProfile from "./components/FacultyProfile";
+import FacultySidebar from "./components/Sidebar/FacultySidebar";
 
 function App() {
   return (
@@ -54,6 +61,18 @@ function App() {
           <Route path="/ilp" element={<StudentILP />} />
 
           <Route path="/performance" element={<Performance />} />
+
+          <Route path="/analytics" element={<Analytics />} />
+
+          <Route path="/discussionforum" element={<DiscussionForum />} />
+
+          <Route path="/learningrm" element={<LearningRM />} />
+
+          <Route path="/facultyprofile" element={<FacultyProfile />} />
+
+          <Route path="/facultyheader" element={<FacultyHeader />} />
+
+          <Route path="/facultysidebar" element={<FacultySidebar />} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>
