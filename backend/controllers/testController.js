@@ -117,80 +117,80 @@ exports.getAll = catchAsync(async (req, res, next) => {
 //   });
 // });
 
-exports.getAllClassification = catchAsync(async (req, res, next) => {
-  const studentId = req.params.id;
+// exports.getAllClassification = catchAsync(async (req, res, next) => {
+//   const studentId = req.params.id;
 
-  const stats = await Test.aggregate([
-    {
-      $addFields: {
-        isMatchingStudent: {
-          $eq: ["$student", new mongoose.Types.ObjectId(studentId)],
-        },
-      },
-    },
-    {
-      $match: {
-        isMatchingStudent: true,
-      },
-    },
-    {
-      $group: {
-        _id: null,
-        obtainedScore: { $sum: "$obtainedScore" },
-        totalScore: { $sum: "$totalScore" },
-        count: { $sum: 1 }, // Count the number of documents for calculating average
-      },
-    },
-    {
-      $project: {
-        obtainedScore: 1,
-        totalScore: 1,
-        avgObtainedScore: { $divide: ["$obtainedScore", "$count"] },
-        avgTotalScore: { $divide: ["$totalScore", "$count"] },
-      },
-    },
-    {
-      $project: {
-        avgObtainedScore: 1,
-        learnerType: {
-          $switch: {
-            branches: [
-              { case: { $gte: ["$avgObtainedScore", 6] }, then: "fast" },
-              { case: { $lte: ["$avgObtainedScore", 6] }, then: "slow" },
-            ],
-            // default: "UNKNOWN",
-          },
-        },
-      },
-    },
-    {
-      $project: {
-        _id: 0,
-        learnerType: 1,
-      },
-    },
-  ]);
-  //console.log(stats);
+//   const stats = await Test.aggregate([
+//     {
+//       $addFields: {
+//         isMatchingStudent: {
+//           $eq: ["$student", new mongoose.Types.ObjectId(studentId)],
+//         },
+//       },
+//     },
+//     {
+//       $match: {
+//         isMatchingStudent: true,
+//       },
+//     },
+//     {
+//       $group: {
+//         _id: null,
+//         obtainedScore: { $sum: "$obtainedScore" },
+//         totalScore: { $sum: "$totalScore" },
+//         count: { $sum: 1 }, // Count the number of documents for calculating average
+//       },
+//     },
+//     {
+//       $project: {
+//         obtainedScore: 1,
+//         totalScore: 1,
+//         avgObtainedScore: { $divide: ["$obtainedScore", "$count"] },
+//         avgTotalScore: { $divide: ["$totalScore", "$count"] },
+//       },
+//     },
+//     {
+//       $project: {
+//         avgObtainedScore: 1,
+//         learnerType: {
+//           $switch: {
+//             branches: [
+//               { case: { $gte: ["$avgObtainedScore", 6] }, then: "fast" },
+//               { case: { $lte: ["$avgObtainedScore", 6] }, then: "slow" },
+//             ],
+//             // default: "UNKNOWN",
+//           },
+//         },
+//       },
+//     },
+//     {
+//       $project: {
+//         _id: 0,
+//         learnerType: 1,
+//       },
+//     },
+//   ]);
+//   //console.log(stats);
 
-  //const filter = { student: new mongoose.Types.ObjectId(studentId) };
-  //console.log(filter);
+//   //const filter = { student: new mongoose.Types.ObjectId(studentId) };
+//   //console.log(filter);
 
-  const update = {
-    $set: {
-      learnerType: stats[0].learnerType,
+//   const update = {
+//     $set: {
+//       learnerType: stats[0].learnerType,
 
-      // Any other fields you want to update
-    },
-  };
+//       // Any other fields you want to update
+//     },
+//   };
 
-  const result = await updateOneStudent(studentId, update);
-  console.log(stats[0]);
-  //console.log(result);
+//   const result = await updateOneStudent(studentId, update);
+//   console.log(stats[0]);
+//   //console.log(result);
 
-  res.status(200).json({
-    status: "success",
-    data: {
-      result,
-    },
-  });
-});
+//   res.status(200).json({
+//     status: "success",
+//     data: {
+//       result,
+//     },
+//   });
+// });
