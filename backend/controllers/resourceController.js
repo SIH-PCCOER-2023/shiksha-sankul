@@ -106,6 +106,7 @@ exports.bulkAddResources = catchAsync(async (req, res, next) => {
         A: "title",
         B: "url",
         C: "topic",
+
       })
     );
     console.log(exceldata);

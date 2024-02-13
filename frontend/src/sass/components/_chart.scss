@@ -17,6 +17,7 @@
         // color: $color-black-2;
         text-transform: capitalize;
         font-weight: 600;
+        content-visibility: hidden;
 
         background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
         background-clip: text;

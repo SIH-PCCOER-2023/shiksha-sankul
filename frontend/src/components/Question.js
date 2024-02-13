@@ -103,7 +103,7 @@ const Question = ({ activeClass, testType }) => {
       {!testCompleted && (
         <div className={`test__box ${activeClass}`}>
           <div className="test__box--header">
-            <div>{`${testType} TEST`}</div>
+            <div>{`TEST`}</div>
           </div>
 
           <section className="test__box--content">

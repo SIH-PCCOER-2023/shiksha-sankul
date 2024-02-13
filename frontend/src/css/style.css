@@ -150,6 +150,7 @@ body {
     font-size: 2rem;
     text-transform: capitalize;
     font-weight: 600;
+    content-visibility: hidden;
     background-image: linear-gradient(to right bottom, #fe7e4e, #e44002);
     background-clip: text;
     -webkit-background-clip: text;
@@ -258,10 +259,12 @@ body {
     display: flex;
     align-items: center; }
   .login__form--icon {
+    margin-top: 20px;
     padding-right: 1rem;
     cursor: pointer;
     font-size: 2rem;
-    color: #777; }
+    color: #777;
+    position: relative; }
   .login__form--eye-icon {
     font-size: 1.5rem;
     display: inline-block;
@@ -410,7 +413,9 @@ p {
   background-color: #eee;
   width: 100vw;
   background-image: url("../assets/images/academic-bg.png");
-  background-size: contain; }
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%; }
   .prereq__startbtn {
     position: absolute;
     top: 50%;
@@ -939,8 +944,9 @@ p {
   padding: 2rem 3rem;
   background-color: #eee;
   padding-bottom: 5rem;
-  height: 88vh;
-  width: 60rem;
+  height: 40vh;
+  width: 150rem;
+  position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: #fff;
@@ -960,13 +966,6 @@ p {
   position: relative;
   overflow: hidden; }
 
-.student__ilp {
-  margin-left: 30rem;
-  padding: 2rem 3rem;
-  background-color: #eee;
-  padding-bottom: 5rem;
-  height: 88vh; }
-
 .faculty-dash {
   margin-left: 30rem;
   padding: 2rem 3rem;
@@ -978,3 +977,226 @@ p {
   padding: 2rem 3rem;
   background-color: #eee;
   padding-bottom: 5rem; }
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  background-color: #eee;
+  font-family: Arial, sans-serif;
+  flex-wrap: wrap; }
+  .App .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    height: auto;
+    overflow-y: auto; }
+  .App .card {
+    margin-left: 300px;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    /* Align children vertically */
+    height: 412px; }
+  .App .icon-wrapper {
+    display: flex;
+    /* Use flexbox to align icon and input */
+    align-items: center;
+    /* Vertically center items */
+    margin-bottom: 10px;
+    /* Add spacing between icon and input */ }
+  .App .icon-wrapper i {
+    margin: 0;
+    /* Remove margin */
+    font-size: 16px;
+    /* Optionally adjust icon size */ }
+  .App .input-field {
+    height: 30px;
+    /* Adjust height as needed */
+    line-height: 30px;
+    /* Align text vertically in the middle */
+    flex: 1;
+    /* Allow input to grow and take available space */ }
+  .App .card2 {
+    flex-grow: 1;
+    margin-top: 20px;
+    margin-left: 50px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+  .App h2 {
+    margin-bottom: 20px; }
+  .App .error {
+    color: red;
+    font-size: 14px;
+    margin-left: 5px; }
+  .App ul {
+    list-style-type: none;
+    padding: 0; }
+    .App ul li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd; }
+      .App ul li:last-child {
+        border-bottom: none; }
+  .App button.add-student-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 5px; }
+    .App button.add-student-btn:hover {
+      background-color: #0056b3; }
+    .App button.add-student-btn:focus {
+      outline: none; }
+  .App button.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px; }
+    .App button.delete-btn:hover {
+      background-color: #c82333; }
+    .App button.delete-btn:focus {
+      outline: none; }
+  .App #classification {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 5px;
+    width: 100%; }
+  .App #classification option {
+    background-color: #fff;
+    color: #000; }
+  .App label[for="classification"] {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px; }
+
+.App2 {
+  display: flex;
+  flex-direction: row;
+  /* Change flex direction to row */
+  justify-content: center;
+  align-items: flex-start;
+  /* Align items to the top */
+  height: 100vh;
+  background-color: #eee;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  /* Add padding for spacing */
+  margin-left: 300px; }
+  .App2 .card3,
+  .App2 .card4 {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    /* Adjust margin between cards */ }
+  .App2 h2 {
+    margin-bottom: 20px; }
+  .App2 .error {
+    color: red;
+    font-size: 14px;
+    margin-left: 5px; }
+  .App2 ul {
+    list-style-type: none;
+    padding: 0; }
+    .App2 ul li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd; }
+      .App2 ul li:last-child {
+        border-bottom: none; }
+
+.performance-container {
+  display: flex;
+  gap: 2rem;
+  padding-top: 2.5rem;
+  margin-left: 0.5rem; }
+
+.performance-box {
+  height: 95vh;
+  background-color: #eee; }
+
+.profile-container {
+  width: 600px;
+  text-align: center;
+  height: 400px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 75px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px; }
+
+h1 {
+  color: #333;
+  font-size: xx-large; }
+
+h2 {
+  color: #555; }
+
+p {
+  color: #777;
+  font-size: x-large; }
+
+.upload-card-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 33rem;
+  border-radius: 30rem; }
+
+.upload-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f9f9f9; }
+
+.upload-card input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  outline: 2px solid transparent;
+  background-color: rgba(82, 104, 199, 0.1);
+  border-style: none; }
+
+.upload-card button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; }
+
+.upload-card button:hover {
+  background-color: #0056b3; }

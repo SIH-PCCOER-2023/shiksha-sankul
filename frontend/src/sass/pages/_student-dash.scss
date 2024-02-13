@@ -23,8 +23,9 @@
     padding: 2rem 3rem;
     background-color: $color-light-bg;
     padding-bottom: 5rem;
-    height: 88vh;
-    width: 60rem;
+    height: 40vh;
+    width: 150rem;
+    position: relative;
 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -52,10 +53,10 @@
     overflow: hidden;
 }
 
-.student__ilp {
-    margin-left: 30rem;
-    padding: 2rem 3rem;
-    background-color: $color-light-bg;
-    padding-bottom: 5rem;
-    height: 88vh;
-}
+// .student__ilp {
+//     margin-left: 30rem;
+//     padding: 2rem 3rem;
+//     background-color: $color-light-bg;
+//     padding-bottom: 5rem;
+//     height: 88vh;
+// }

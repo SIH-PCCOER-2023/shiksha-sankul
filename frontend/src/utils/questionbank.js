@@ -1,4 +1,4 @@
-import { sendGetRequest } from './sendHttp';
+import { sendGetRequest } from "./sendHttp";
 
 export const getQuestions = async (type) => {
   const questions = await sendGetRequest(
@@ -7,7 +7,7 @@ export const getQuestions = async (type) => {
   let questionArray = questions.data.data;
 
   questionArray.forEach((element) => {
-    element['options'] = [element.A, element.B, element.C, element.D];
+    element["options"] = [element.A, element.B, element.C, element.D];
   });
   return questionArray;
 };
