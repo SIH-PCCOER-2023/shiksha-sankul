@@ -1,9 +1,13 @@
 const express = require("express");
 var multer = require("multer");
 const studentController = require("../controllers/studentController");
+
+const authController = require("./../controllers/authController");
 // const { importExcel, upload } = require('../utils/excellImportApi');
 //const { updateOne, deleteOne } = require('../controllers/handlerFactory');
 const router = express.Router();
+
+router.post("/signup", authController.signup);
 
 router
   .route("/")
@@ -12,10 +16,14 @@ router
 
 router
   .route("/:id")
-  .patch(studentController.updateOne)
+
+  .patch(studentController.updateOneStudent)
   .get(studentController.getOne);
 
 router.route("/:userId/:studentId").delete(studentController.deleteOne);
+router
+  .route("/manageClassification/:id")
+  .patch(studentController.getAllClassification);
 
 // router.route("/upload").post(upload.single("uploadfile"), importExcel)
 
