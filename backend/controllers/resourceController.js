@@ -103,6 +103,7 @@ exports.bulkAddResources = catchAsync(async (req, res, next) => {
       req.file.path,
       "Resources",
       (mappingCol2Key = {
+
         A: "title",
         B: "url",
         C: "topic",

@@ -46,7 +46,8 @@ const Performance = (props) => {
   const chartData = [
     {
       title: "Quiz",
-      chartId: "6582d1c5-4d29-4304-8392-a018201da275",
+      chartId: "65cb2ba7-00bd-466c-8f6e-7bd3bfc0e25b",
+
       width: "500px",
       height: "300px",
     },

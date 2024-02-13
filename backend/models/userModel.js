@@ -44,9 +44,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: ["true", "Please provide a password"],
       select: false,
-
       default: "student",
-
     },
     passwordConfirm: {
       type: String,
@@ -59,7 +57,6 @@ const userSchema = mongoose.Schema(
         message: "Passwords do not match",
       },
       //   default: bcrypt.hashSync("student", SALT_ROUNDS),
-
     },
     passwordChangedAt: Date,
     passwordResetToken: String,
@@ -102,7 +99,6 @@ userSchema.post("save", async function (doc) {
       class: this.class,
       rollno: this.rollno,
       learnerType: this.learnerType,
-
     });
   } else if (doc.type === "FACULTY") {
     await Faculty.create({

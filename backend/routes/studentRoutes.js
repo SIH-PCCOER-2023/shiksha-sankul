@@ -16,6 +16,7 @@ router
 
 router
   .route("/:id")
+
   .patch(studentController.updateOneStudent)
   .get(studentController.getOne);
 
@@ -23,7 +24,6 @@ router.route("/:userId/:studentId").delete(studentController.deleteOne);
 router
   .route("/manageClassification/:id")
   .patch(studentController.getAllClassification);
-
 
 // router.route("/upload").post(upload.single("uploadfile"), importExcel)
 

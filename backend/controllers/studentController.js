@@ -9,12 +9,15 @@ create
 
 
 */
+
 const mongoose = require("mongoose"); 
+
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
 
 const Student = require("../models/studentModel");
+
 const Test = require("./../models/testModel");
 const User = require("../models/userModel");
 
@@ -22,7 +25,6 @@ exports.deleteOne = catchAsync(async (req, res, next) => {
 
   const stud = await Student.findByIdAndDelete(req.params.studentId);
   const user = await User.findByIdAndDelete(req.params.userId);
-
   if (!stud && !user) {
     return next(new AppError("No document found with that ID", 404));
   }
