@@ -44,9 +44,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: ["true", "Please provide a password"],
       select: false,
-
       default: "student",
-
     },
     passwordConfirm: {
       type: String,

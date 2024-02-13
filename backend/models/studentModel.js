@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const { Decimal128 } = require("bson");
+
 const authController=require("./../controllers/authController")
 
 const studentSchema = mongoose.Schema(

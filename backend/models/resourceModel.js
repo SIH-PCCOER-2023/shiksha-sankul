@@ -21,7 +21,5 @@ const resourceSchema = mongoose.Schema(
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-
 const Resource = mongoose.model("Resource", resourceSchema);
-
 module.exports = Resource;

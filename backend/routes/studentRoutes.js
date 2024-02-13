@@ -16,6 +16,7 @@ router
 
 router
   .route("/:id")
+
   .patch(studentController.updateOneStudent)
   .get(studentController.getOne);
 
