@@ -10,8 +10,8 @@ create
 
 */
 
-const mongoose = require("mongoose"); 
 
+const mongoose = require("mongoose"); 
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
@@ -34,6 +34,7 @@ exports.deleteOne = catchAsync(async (req, res, next) => {
     data: null, //data deleted
   });
 });
+
 
 // exports.updateOne = catchAsync(async (req, res, next) => {
 //   const doc = await User.findByIdAndUpdate("User.id", req.body, {
