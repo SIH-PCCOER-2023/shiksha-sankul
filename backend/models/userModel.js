@@ -26,6 +26,9 @@ const userSchema = mongoose.Schema(
       required: ["true", "Please provide a email address"],
       validate: [validator.isEmail, "Please provide a valid email address"],
     },
+    username: {
+      type: String,
+    },
     phoneno: {
       type: String,
       trim: true,
@@ -94,7 +97,6 @@ userSchema.post("save", async function (doc) {
   console.log("%s has been saved", doc._id);
   if (doc.type === "STUDENT") {
     await Student.create({
-      
       user: doc._id,
       class: this.class,
       rollno: this.rollno,

@@ -2,14 +2,20 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const resourceSchema = mongoose.Schema(
-    {
-        title:String,
-        // type1:String,
-        // type2:String,
-        url:String,
-        topic:String
+  {
+    title: {
+      type: String,
+      required: ["please enter the title"],
     },
-    { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+    // type1:String,
+    // type2:String,
+    url: {
+      type: String,
+      required: ["Please provide a URL"],
+    },
+    topic: String,
+  },
+  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 /*resourceSchema.virtual('type').get(function() {

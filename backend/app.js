@@ -22,6 +22,8 @@ const resourceRoutes = require("./routes/resourceRoutes");
 const testRoutes = require("./routes/testRoutes");
 const catchAsync = require("./utils/catchAsync");
 const userRoutes = require("./routes/userRoutes");
+const postRoutes = require("./routes/discussionForumRoutes/postsRoutes");
+const replyRoutes = require("./routes/discussionForumRoutes/replyRoutes");
 
 const User = require("./models/userModel");
 
@@ -126,6 +128,8 @@ app.use("/api/v1/ilptemplates", ILPTemplateRoutes);
 app.use("/api/v1/resources", resourceRoutes);
 app.use("/api/v1/tests", testRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/postforums", postRoutes);
+app.use("/api/v1/replyforums", replyRoutes);
 // app.get('/api/v1/ml-prediction', predict);
 
 // Rendered Routes
