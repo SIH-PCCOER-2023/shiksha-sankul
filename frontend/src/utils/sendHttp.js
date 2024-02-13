@@ -31,3 +31,11 @@ export const sendGetRequest = async (url) => {
   });
   return res;
 };
+
+export const sendDeleteRequest = async (url) => {
+  const res = await axios({
+    method: "delete",
+    url,
+  });
+  return res;
+};

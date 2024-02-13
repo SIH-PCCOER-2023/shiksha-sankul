@@ -9,7 +9,7 @@ import logo_1 from "../../assets/images/logo.png";
 import AuthContext from "../../store/auth-context";
 import UserContext from "../../store/user-context";
 
-const DashboardHeader = (props) => {
+const FacultyHeader = (props) => {
   const authCtx = useContext(AuthContext);
   const userCtx = useContext(UserContext);
 
@@ -63,7 +63,7 @@ const DashboardHeader = (props) => {
         <h3 className="name">{userCtx.user.name}</h3>
         <p className="role">{authCtx.userType}</p>
         <div className="dash-header__profile--cta">
-          <Link to="/profile" className="link">
+          <Link to="/facultyprofile" className="link">
             View Profile
           </Link>
 
@@ -76,4 +76,4 @@ const DashboardHeader = (props) => {
   );
 };
 
-export default DashboardHeader;
+export default FacultyHeader;

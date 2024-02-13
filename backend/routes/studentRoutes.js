@@ -1,20 +1,21 @@
-const express = require('express');
-var multer = require('multer');
-const studentController = require('../controllers/studentController');
+const express = require("express");
+var multer = require("multer");
+const studentController = require("../controllers/studentController");
 // const { importExcel, upload } = require('../utils/excellImportApi');
 //const { updateOne, deleteOne } = require('../controllers/handlerFactory');
 const router = express.Router();
 
 router
-  .route('/')
+  .route("/")
   .get(studentController.getAll)
   .post(studentController.createOne);
 
 router
-  .route('/:id')
+  .route("/:id")
   .patch(studentController.updateOne)
-  .get(studentController.getOne)
-  .delete(studentController.deleteOne);
+  .get(studentController.getOne);
+
+router.route("/:userId/:studentId").delete(studentController.deleteOne);
 
 // router.route("/upload").post(upload.single("uploadfile"), importExcel)
 

@@ -10,15 +10,15 @@ const Assessments = (props) => {
       text: 'Dashboard',
       url: '/student-dashboard',
     },
-    {
-      icon: 'fa-calendar',
-      text: 'Individual Learning Plan',
-      url: '/ilp',
-    },
+    // {
+    //   icon: 'fa-calendar',
+    //   text: 'Individual Learning Plan',
+    //   url: '/ilp',
+    // },
     {
       icon: 'fa-book-open',
       text: 'Learning Center',
-      url: 'learning.html',
+      url: '/learning-center',
     },
     {
       icon: 'fa-pen',
@@ -47,28 +47,32 @@ const Assessments = (props) => {
             className="student-assessments__academic"
             to="/assessments/academic-test"
           >
-            Academic Tests
+            {/* Academic Tests */}
+            Pre-Requisite Test
           </Link>
 
           <Link
             className="student-assessments__cognitive"
             to="/assessments/cognitive-test"
           >
-            Cognitive Tests
+            {/* Cognitive Tests */}
+            Quiz 1
           </Link>
 
           <Link
             className="student-assessments__learning"
             to="/assessments/learning-test"
           >
-            Learning Style Tests
+            {/* Learning Style Tests */}
+            Quiz 2
           </Link>
 
           <Link
             className="student-assessments__comm"
             to="/assessments/communication-test"
           >
-            Communication Tests
+            {/* Communication Tests */}
+            Quiz 3
           </Link>
         </div>
       </div>

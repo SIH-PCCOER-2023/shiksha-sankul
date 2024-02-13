@@ -1,10 +1,6 @@
-import DashboardHeader from "../../Header/DashboardHeader";
-import Sidebar from "../../Sidebar/Sidebar";
-import StudentMgmt from "./StudentMgmt";
-import Dashboard from "./Dashboard";
-import CRUD from "./CRUD";
+import Sidebar from "../components/Sidebar/Sidebar";
 
-const FacultyDashboard = (props) => {
+const FacultyProfile = (props) => {
   const sidebarLinks = [
     {
       icon: "fa-graduation-cap",
@@ -24,7 +20,7 @@ const FacultyDashboard = (props) => {
     {
       icon: "fa-book-open",
       text: "Learning Resource Management",
-      url: "learning-resource-management.html",
+      url: "/learningrm",
     },
     // {
     //   icon: 'fa-pen',
@@ -40,19 +36,23 @@ const FacultyDashboard = (props) => {
     {
       icon: "fa-comments",
       text: "Discussion Forum",
-      url: "discussion.html",
+      url: "/discussionforum",
     },
   ];
 
   return (
-    <>
-      <DashboardHeader />
-      {/* <Sidebar navLinks={sidebarLinks} /> */}
-      {/* <Dashboard /> */}
-      <CRUD />
-      {/* <StudentMgmt/> */}
-    </>
+    <div className="user-profile">
+      <Sidebar navLinks={sidebarLinks} />
+      {/* <img src="img.jpg" alt="User Avatar" className="avatar" /> */}
+      <div className="profile-container">
+        <br></br>
+        <br></br>
+        <h1>Name: Faculty</h1>
+        <p>Email: f@f.com</p>
+        <p>College: PCCOER</p>
+      </div>
+    </div>
   );
 };
 
-export default FacultyDashboard;
+export default FacultyProfile;

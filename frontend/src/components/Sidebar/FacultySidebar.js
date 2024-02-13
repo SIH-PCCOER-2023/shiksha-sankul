@@ -5,7 +5,7 @@ import profilePic from "../../assets/images/pic-1.jpg";
 
 import UserContext from "../../store/user-context";
 
-const Sidebar = (props) => {
+const FacultySidebar = (props) => {
   const userCtx = useContext(UserContext);
 
   const { navLinks } = props;
@@ -23,7 +23,7 @@ const Sidebar = (props) => {
           alt="ProfilePic"
         />
         <h3 className="sidebar__profile--name">{userCtx.user.name}</h3>
-        <Link to="/profile" className="sidebar__btn">
+        <Link to="/facultyprofile" className="sidebar__btn">
           View Profile
         </Link>
       </div>
@@ -40,4 +40,4 @@ const Sidebar = (props) => {
   );
 };
 
-export default Sidebar;
+export default FacultySidebar;

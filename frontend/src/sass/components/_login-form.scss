@@ -67,10 +67,12 @@
     }
 
     &--icon {
+        margin-top: 20px;
         padding-right: 1rem;
         cursor: pointer;
         font-size: 2rem;
         color: $color-grey-dark-1;
+        position: relative;
     }
 
     &--eye-icon {

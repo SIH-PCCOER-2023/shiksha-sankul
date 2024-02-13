@@ -1,10 +1,9 @@
 import DashboardHeader from "../../Header/DashboardHeader";
 import Sidebar from "../../Sidebar/Sidebar";
-import StudentMgmt from "./StudentMgmt";
-import Dashboard from "./Dashboard";
-import CRUD from "./CRUD";
-
-const FacultyDashboard = (props) => {
+import UserContext from "../../../store/user-context";
+import { useContext, useEffect } from "react";
+const DiscussionForum = (props) => {
+  const userCtx = useContext(UserContext);
   const sidebarLinks = [
     {
       icon: "fa-graduation-cap",
@@ -24,7 +23,7 @@ const FacultyDashboard = (props) => {
     {
       icon: "fa-book-open",
       text: "Learning Resource Management",
-      url: "learning-resource-management.html",
+      url: "/learningrm",
     },
     // {
     //   icon: 'fa-pen',
@@ -40,19 +39,16 @@ const FacultyDashboard = (props) => {
     {
       icon: "fa-comments",
       text: "Discussion Forum",
-      url: "discussion.html",
+      url: "/discussionforum",
     },
   ];
 
   return (
     <>
       <DashboardHeader />
-      {/* <Sidebar navLinks={sidebarLinks} /> */}
-      {/* <Dashboard /> */}
-      <CRUD />
-      {/* <StudentMgmt/> */}
+      <Sidebar navLinks={sidebarLinks} />
     </>
   );
 };
 
-export default FacultyDashboard;
+export default DiscussionForum;
