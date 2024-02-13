@@ -70,8 +70,26 @@ const LearningRM = (props) => {
     getLearningResources();
   }, []);
 
+  const isValidURL = (url) => {
+    // Regular expression for URL validation
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlPattern.test(url);
+  };
+
   const handleUpload = async () => {
     try {
+      // Check if either URL or title field is empty
+      if (!newVideoUrl.trim() || !newVideoTitle.trim()) {
+        showAlert("error", "Please enter both URL and title.");
+        return; // Stop further execution
+      }
+
+      // Check if the provided URL is valid
+      if (!isValidURL(newVideoUrl.trim())) {
+        showAlert("error", "Please enter a valid URL.");
+        return; // Stop further execution
+      }
+
       // Send the new video data to the backend
       await sendPostRequest("http://localhost:8080/api/v1/resources/", {
         title: newVideoTitle,

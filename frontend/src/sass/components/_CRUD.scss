@@ -2,68 +2,143 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: auto;
   background-color: #eee;
   font-family: Arial, sans-serif;
   flex-wrap: wrap;
 
   .cards-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    margin-top: 20px; /* Adjust as needed */
-    height: calc(100vh - 40px); /* Adjust according to the margin and any other spacing */
-    overflow-y: auto; /* Enable vertical scrolling if needed */
+    margin-top: 20px;
+    height: auto;
+    overflow-y: auto;
   }
 
   .card {
-    margin-left: 400px;
+    margin-left: 300px;
     margin-top: 20px;
     background-color: #ffffff;
     border-radius: 5px;
     padding: 20px;
     width: 300px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    // margin-right: 20px;
+    display: flex;
+    flex-direction: column; /* Align children vertically */
+    height: 412px;
+  }
+
+  .icon-wrapper {
+    display: flex; /* Use flexbox to align icon and input */
+    align-items: center; /* Vertically center items */
+    margin-bottom: 10px; /* Add spacing between icon and input */
+  }
+  
+  .icon-wrapper i {
+    margin: 0; /* Remove margin */
+    font-size: 16px; /* Optionally adjust icon size */
+  }
+  
+  .input-field {
+    height: 30px; /* Adjust height as needed */
+    line-height: 30px; /* Align text vertically in the middle */
+    flex: 1; /* Allow input to grow and take available space */
   }
 
   .card2 {
+    flex-grow: 1;
     margin-top: 20px;
-    margin-left: -60px;
+    margin-left: 50px;
     background-color: #ffffff;
     border-radius: 5px;
     padding: 20px;
-    width: 300px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-right: 120px;
-    }
+  }
 
-    h2 {
-      margin-bottom: 20px;
-    }
+  h2 {
+    margin-bottom: 20px;
+  }
 
-    .error {
-      color: red;
-      font-size: 14px;
-      margin-left: 5px;
-    }
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-left: 5px;
+  }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
+  ul {
+    list-style-type: none;
+    padding: 0;
 
-      li {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 0;
-        border-bottom: 1px solid #ddd;
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
 
-        &:last-child {
-          border-bottom: none;
-        }
+      &:last-child {
+        border-bottom: none;
       }
     }
   }
+
+  button.add-student-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 5px;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+
+    &:hover {
+      background-color: #c82333;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  #classification {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 5px;
+    width: 100%;
+  }
+
+  #classification option {
+    background-color: #fff;
+    color: #000;
+  }
+
+  label[for="classification"] {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+  }
+}
 
   .App2 {
     display: flex;

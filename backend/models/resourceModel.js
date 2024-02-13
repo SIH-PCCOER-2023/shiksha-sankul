@@ -3,10 +3,16 @@ const validator = require("validator");
 
 const resourceSchema = mongoose.Schema(
   {
-    title: String,
+    title: {
+      type: String,
+      required: [true, "title is required"],
+    },
     // type1:String,
     // type2:String,
-    url: String,
+    url: {
+      type: String,
+      required: [true, "URL is required"],
+    },
     topic: String,
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }

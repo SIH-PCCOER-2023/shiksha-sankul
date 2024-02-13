@@ -21,27 +21,11 @@ const CRUD = () => {
       text: "Analytics",
       url: "/analytics",
     },
-    // {
-    //   icon: 'fa-calendar',
-    //   text: 'Individual Learning Plan',
-    //   url: '/faculty-dashboard/ilp',
-    // },
     {
       icon: "fa-book-open",
       text: "Learning Resource Management",
       url: "/learningrm",
     },
-    // {
-    //   icon: 'fa-pen',
-    //   text: 'Assessment Scheduling',
-    //   url: 'assessment-scheduling.html',
-    // },
-    // {
-    //   icon: 'fa-list',
-    //   text: 'Decide Criteria',
-    //   url: 'decide-criteria.html',
-    // },
-
     {
       icon: "fa-comments",
       text: "Discussion Forum",
@@ -54,7 +38,6 @@ const CRUD = () => {
   const [rollno, setrollno] = useState("");
   const [classification, setClassification] = useState("slow");
   const [errors, setErrors] = useState({});
-
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -66,6 +49,8 @@ const CRUD = () => {
   const nameInputRef = useRef();
   const gradeInputRef = useRef();
   const rollnoInputRef = useRef();
+  const passwordInputRef = useRef();
+  const confirmPasswordInputRef = useRef();
 
   const emailReducer = (state, action) => {
     if (action.type === "USER_INPUT") {
@@ -104,9 +89,6 @@ const CRUD = () => {
     dispatchEmail({ type: "INPUT_BLUR" });
   };
 
-  const passwordInputRef = useRef();
-  const confirmPasswordInputRef = useRef();
-
   const passwordChangeHandler = (event) => {
     setPassword(event.target.value);
   };
@@ -122,7 +104,6 @@ const CRUD = () => {
       if (res.data.status === "success") {
         showAlert("success", "Students fetched successfully");
         setStudents(res.data.data);
-        console.log(res);
       }
     } catch (err) {
       showAlert("error", err.response.data.message);
@@ -146,12 +127,10 @@ const CRUD = () => {
         data
       );
 
-      // console.log(res);
       if (res.data.status === "success") {
         showAlert("success", "Student added successfully");
         setTimeout(fetchStudents, 5000);
         clearForm();
-        // console.log(res);
       }
     } catch (err) {
       showAlert("error", err.response.data.message);
@@ -160,8 +139,6 @@ const CRUD = () => {
 
   const deleteStudent = async (userId, studentId) => {
     try {
-      console.log({ userId });
-      console.log({ studentId });
       const res = await sendDeleteRequest(
         `http://localhost:8080/api/v1/student/${userId}/${studentId}`
       );
@@ -169,7 +146,6 @@ const CRUD = () => {
       if (res.data.status === "success") {
         showAlert("success", "Student deleted successfully");
         setTimeout(fetchStudents, 5000);
-        // console.log(res);
       }
     } catch (err) {
       showAlert("error", err.response.data.message);
@@ -178,126 +154,147 @@ const CRUD = () => {
 
   const clearForm = () => {
     setName("");
-    emailState("");
+    dispatchEmail({ type: "USER_INPUT", val: "" });
     setGrade("");
     setrollno("");
     setClassification("slow");
     setErrors({});
-    setPassword(""); // Clear password field
-    setConfirmPassword(""); // Clear confirm password field
+    setPassword("");
+    setConfirmPassword("");
   };
 
   return (
     <div className="App">
       <FacultySidebar navLinks={sidebarLinks} />
-      <div className="card">
-        {/* <span className="icon-wrapper">{label}</span> */}
-        <Input
-          ref={nameInputRef}
-          id="name"
-          label={<i className="fa-solid fa-user login__form--icon"></i>}
-          type="text"
-          name="name"
-          placeholder="Name"
-          required
-          value={name}
-          onChange={nameChangeHandler}
-        />
-        <Input
-          ref={emailInputRef}
-          id="email"
-          label={<i className="fa-solid fa-envelope login__form--icon"></i>}
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-          isValid={emailIsValid}
-          value={emailState.value}
-          onChange={emailChangeHandler}
-          onBlur={validateEmailHandler}
-        />
-        <Input
-          ref={gradeInputRef}
-          id="grade"
-          label={<i className="fa-solid fa-users login__form--icon"></i>}
-          type="text"
-          name="grade"
-          placeholder="Class"
-          required
-          value={grade}
-          onChange={gradeChangeHandler}
-        />
-        <Input
-          ref={rollnoInputRef}
-          id="rollno"
-          label={<i className="fa-solid fa-list-ol login__form--icon"></i>}
-          type="text"
-          name="rollno"
-          placeholder="SECompA00"
-          required
-          value={rollno}
-          onChange={rollnoChangeHandler}
-        />
-        <Input
-          // Input for password
-          ref={passwordInputRef}
-          id="password"
-          label={<i className="fa-solid fa-lock login__form--icon"></i>}
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={passwordChangeHandler}
-        />
-        <Input
-          // Input for confirm password
-          ref={confirmPasswordInputRef}
-          id="confirmPassword"
-          label={<i className="fa-solid fa-lock login__form--icon"></i>}
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          required
-          value={confirmPassword}
-          onChange={confirmPasswordChangeHandler}
-        />
-        <label htmlFor="classification">Classification:</label>
-        <select
-          id="classification"
-          value={classification}
-          onChange={(e) => setClassification(e.target.value)}
-        >
-          <option value="slow">Slow Learner</option>
-          <option value="fast">Fast Learner</option>
-        </select>
-        <button onClick={addStudent}>Add Student</button>
-      </div>
+      <div className="cards-container">
+        <div className="card">
+          <div className="icon-wrapper">
+            <i className="fa-solid fa-user login__form--icon"></i>
+            <Input
+              ref={nameInputRef}
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Name"
+              required
+              value={name}
+              onChange={nameChangeHandler}
+            />
+          </div>
+          <div className="icon-wrapper">
+            <i className="fa-solid fa-envelope login__form--icon"></i>
+            <Input
+              ref={emailInputRef}
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+              isValid={emailIsValid}
+              value={emailState.value}
+              onChange={emailChangeHandler}
+              onBlur={validateEmailHandler}
+            />
+          </div>
+          <div className="icon-wrapper">
+            <i className="fa-solid fa-users login__form--icon"></i>
+            <Input
+              ref={gradeInputRef}
+              id="grade"
+              type="text"
+              name="grade"
+              placeholder="Class"
+              required
+              value={grade}
+              onChange={gradeChangeHandler}
+            />
+          </div>
+          <div className="icon-wrapper">
+            <i className="fa-solid fa-list-ol login__form--icon"></i>
+            <Input
+              ref={rollnoInputRef}
+              id="rollno"
+              type="text"
+              name="rollno"
+              placeholder="SECompA00"
+              required
+              value={rollno}
+              onChange={rollnoChangeHandler}
+            />
+          </div>
+          <div className="icon-wrapper">
+            <i className="fa-solid fa-lock login__form--icon"></i>
+            <Input
+              ref={passwordInputRef}
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+              value={password}
+              onChange={passwordChangeHandler}
+              className="password-input"
+            />
+          </div>
 
-      {errors.name && <span className="error">{errors.name}</span>}
-      {errors.email && <span className="error">{errors.email}</span>}
+          <div className="icon-wrapper">
+            <i className="fa-solid fa-lock login__form--icon"></i>
+            <Input
+              ref={confirmPasswordInputRef}
+              id="confirmPassword"
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              required
+              value={confirmPassword}
+              onChange={confirmPasswordChangeHandler}
+              className="confirm-password-input"
+            />
+          </div>
+          <label htmlFor="classification">Classification:</label>
+          <div className="icon-wrapper">
+            <i className="fa-solid fa-comments login__form--icon"></i>
+            <select
+              id="classification"
+              value={classification}
+              onChange={(e) => setClassification(e.target.value)}
+              className="classification-input"
+            >
+              <option value="slow">Slow Learner</option>
+              <option value="fast">Fast Learner</option>
+            </select>
+          </div>
+          <button onClick={addStudent} className="add-student-btn">
+            Add Student
+          </button>
+        </div>
 
-      <div className="card2">
-        <h2>Student List</h2>
-        <ul>
-          {students.map(
-            (student, index) =>
-              student.user && (
-                <li key={index}>
-                  {student.user?.name} {student.user?.email}
-                  {student.user?.class} {student.user?.learnerType}
-                  {student.classification}
-                  <button
-                    onClick={() =>
-                      deleteStudent(student.user?._id, student._id)
-                    }
-                  >
-                    Delete
-                  </button>
-                </li>
-              )
-          )}
-        </ul>
+        {errors.name && <span className="error">{errors.name}</span>}
+        {errors.email && <span className="error">{errors.email}</span>}
+
+        <div className="card2">
+          <h2>Student List</h2>
+          <ul>
+            {students.map(
+              (student, index) =>
+                student.user && (
+                  <li key={index}>
+                    {student.user?.name} {student.user?.email}
+                    {student.user?.class} {student.user?.learnerType}
+                    {student.classification}
+                    <button
+                      onClick={() =>
+                        deleteStudent(student.user?._id, student._id)
+                      }
+                      className="delete-btn"
+                    >
+                      Delete
+                    </button>
+                  </li>
+                )
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   );
