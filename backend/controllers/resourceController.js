@@ -103,12 +103,10 @@ exports.bulkAddResources = catchAsync(async (req, res, next) => {
       req.file.path,
       "Resources",
       (mappingCol2Key = {
-        A: "subject",
-        B: "title",
-        C: "url",
-        D: "topic",
-        E: "type1",
-        F: "type2",
+        A: "title",
+        B: "url",
+        C: "topic",
+
       })
     );
     console.log(exceldata);
@@ -120,3 +118,78 @@ exports.bulkAddResources = catchAsync(async (req, res, next) => {
     });
   });
 });
+
+// exports.classifyResources=catchAsync(async (req,res,next)=>{
+//   const stats= await Resource.aggregate([
+   
+//     {
+//       $match:
+//       {
+//         title:"Stack"
+//         //title:{$eq:"Stack"}
+//       }
+//     }, 
+  
+//     // {
+//     //   $group:
+//     //   {
+//     //     _id: '$title', // Group by the 'title' field as a string
+//     //     count: { $sum: 1 } 
+//     //   }
+//     // }
+
+//   ])
+//   console.log(stats);
+//   res.status(200).json({
+//     status: "success",
+//     data: {
+//       stats
+//     }
+//   });
+// })
+
+exports.classifyResources = catchAsync(async (req, res, next) => {
+  const stats = await Resource.aggregate([
+    {
+      $group: {
+        _id: null, // Group all documents together
+        Stack: {
+          $push: {
+            $cond: { if: { $regexMatch: { input: "$title", regex: /Stack/i } }, then: "$$ROOT", else: "$$REMOVE" }
+          }
+        },
+        Linkedlist: {
+          $push: {
+            $cond: { if: { $regexMatch: { input: "$title", regex: /Linkedlist/i } }, then: "$$ROOT", else: "$$REMOVE" }
+          }
+        },
+        Array: {
+          $push: {
+            $cond: { if: { $regexMatch: { input: "$title", regex: /Array/i } }, then: "$$ROOT", else: "$$REMOVE" }
+          }
+        }
+        // Add more arrays for other criteria if needed
+      }
+    },
+    {
+      $project: {
+        _id: 0 // Exclude the _id field from the output
+      }
+    }
+  ]);
+
+const stack = stats[0].Stack.filter(item => item !== null);
+const linkedlist = stats[0].Linkedlist.filter(item => item !== null);
+const array = stats[0].Array.filter(item => item !== null);
+
+const arrayOfArrays = [stack, linkedlist, array];
+console.log(arrayOfArrays)
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      arrayOfArrays
+    }
+  });
+});
+

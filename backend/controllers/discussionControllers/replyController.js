@@ -1,56 +1,45 @@
-const catchAsync = require('../../utils/catchAsync');
-const AppError = require('../../utils/appError');
-const APIFeatures = require('../../utils/apiFeatures');
-const factory=require('../handlerFactory');
+const catchAsync = require("../../utils/catchAsync");
+const AppError = require("../../utils/appError");
+const APIFeatures = require("../../utils/apiFeatures");
+const factory = require("../handlerFactory");
 
+const Reply = require("./../../models/replyModel");
+const Post = require("./../../models/postModel");
+//const User = require(../../models/replyM);
 
+exports.createReply = catchAsync(async (req, res, next) => {
+  const post = await Post.findById(req.params.id);
 
-const Reply=require('../../models/discussionModels/replyModel');
-const Post=require('../../models/discussionModels/postModel');
-const User=require('../../models/userModel');
-
-
-
-exports.createReply=catchAsync(async(req,res,next)=>{
-    const post =await Post.findById(req.params.id);
-
-    if(!post){
-        return next(new AppError("There is no such post with this ID",404));
-    }
-    const reply = new Reply({
-        post: req.params.id,
-        comment: req.body.comment,
-        author: req.user._id,
-    });
-    await  reply.save();
-    const reply_populated = await Reply.find({ _id: reply._id }).populate(
-        "author",
-        "name -_id"
-    );
-    res.status.json({
-        status:"success",
-        data:{
-            data:reply_populated//reply prodeuced
-
-        }
-    })
-
+  if (!post) {
+    return next(new AppError("There is no such post with this ID", 404));
+  }
+  const reply = new Reply({
+    post: req.params.id,
+    comment: req.body.comment,
+    author: req.user._id,
+  });
+  await reply.save();
+  const reply_populated = await Reply.find({ _id: reply._id }).populate(
+    "author",
+    "name -_id"
+  );
+  res.status.json({
+    status: "success",
+    data: {
+      data: reply_populated, //reply prodeuced
+    },
+  });
 });
 
-exports.updateReply=catchAsync(async(req,res,next)=>{
-    const post = await Reply.findById(req.params.id);
-    
-    if(!post){
-        return next(
-            new AppError("rreply doesn't exists")
-        )
-    }
-    if(reply.author ==req.user._id){
-        return res.status(400).send("you cant upvote your own reply");
-    }
-    
+exports.updateReply = catchAsync(async (req, res, next) => {
+  const post = await Reply.findById(req.params.id);
 
-
+  if (!post) {
+    return next(new AppError("rreply doesn't exists"));
+  }
+  if (reply.author == req.user._id) {
+    return res.status(400).send("you cant upvote your own reply");
+  }
 
   const upvoteArray = reply.upvotes;
   const index = upvoteArray.indexOf(req.user._id);
@@ -59,8 +48,8 @@ exports.updateReply=catchAsync(async(req,res,next)=>{
   } else {
     upvoteArray.splice(index, 1);
   }
-  reply.upvotes= upvoteArray;
-  
+  reply.upvotes = upvoteArray;
+
   const result = await reply.save();
   const reply_new = await Reply.find({ _id: reply._id }).populate(
     "author",
@@ -68,33 +57,28 @@ exports.updateReply=catchAsync(async(req,res,next)=>{
   );
 
   res.status(200).json({
-    status:"success",
-    data:{
-        data:reply_new
-    }
-  })
+    status: "success",
+    data: {
+      data: reply_new,
+    },
+  });
 });
 
+exports.getReply = catchAsync(async (req, res, next) => {
+  const post = await Post.findById(req.params.id);
 
-exports.getReply=catchAsync(async(req,res,next)=>{
-    const post = await Post.findById(req.params.id);
+  if (!post) {
+    return next(new AppError("rreply doesn't exists"));
+  }
+  const replies = await Reply.find({ post: req.params.id }).populate(
+    "author",
+    "name username"
+  );
 
-    if(!post){
-        return next(
-            new AppError("rreply doesn't exists")
-        )
-    }
-    const replies = await Reply.find({ post: req.params.id }).populate(
-        "author",
-        "name username"
-    );
-
-    re.status(200).json({
-        status:"success",
-        data:{
-            data:replies
-        }
-    });
+  re.status(200).json({
+    status: "success",
+    data: {
+      data: replies,
+    },
+  });
 });
-
-

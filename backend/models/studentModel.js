@@ -1,30 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const { Decimal128 } = require("bson");
-
-// const marks = mongoose.Schema({
-//   name: {
-//     type: String,
-//     enum: {
-//       values: [
-//         '10th',
-//         '12th',
-//         'FE SEM1',
-//         'FE SEM2',
-//         'SE SEM1',
-//         'SE SEM2',
-//         'TE SEM1',
-//         'TE SEM2',
-//         'BE SEM1',
-//         'BE SEM2',
-//       ],
-//       message: 'The value {VALUE} is not supported',
-//     },
-//   },
-//   completionDate: Date,
-//   marksObtained: Decimal128,
-//   totalMarks: Number,
-// });
+const authController=require("./../controllers/authController")
 
 const studentSchema = mongoose.Schema(
   {
@@ -35,23 +12,25 @@ const studentSchema = mongoose.Schema(
     class: {
       type: String,
       trim: true,
-      required: [true, "enter the class"],
+      //required: [true, 'enter the class'],
+
     },
     rollno: {
       type: String,
       trim: true,
-      required: [true, "Enter the roll no "],
+      unique:true
+      //required: [true, 'Enter the roll no '],
     },
-    // marks: [marks],
-    // predictedScore: {
-    //   type: Number,
-    // },
+    //marks: [marks],
+    /*predictedScore: {
+      type: Number,
+    },*/
     learnerType: {
       type: String,
       enum: {
-        values: ["slow", "fast", "UNKNOWN"],
+        values: ["slow", "fast"],
       },
-      default: "UNKNOWN",
+      //default: "UNKNOWN",
       required: [true, "Learner type required"],
     },
   },

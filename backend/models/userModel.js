@@ -8,6 +8,8 @@ const Student = require("./studentModel");
 const Faculty = require("./facultyModel");
 const Parent = require("./parentModel");
 
+const SALT_ROUNDS = 12;
+
 // Creating user schema
 const userSchema = mongoose.Schema(
   {
@@ -24,6 +26,7 @@ const userSchema = mongoose.Schema(
       required: ["true", "Please provide a email address"],
       validate: [validator.isEmail, "Please provide a valid email address"],
     },
+
     phoneno: {
       type: String,
       trim: true,
@@ -41,6 +44,9 @@ const userSchema = mongoose.Schema(
       type: String,
       required: ["true", "Please provide a password"],
       select: false,
+
+      default: "student",
+
     },
     passwordConfirm: {
       type: String,
@@ -52,6 +58,8 @@ const userSchema = mongoose.Schema(
         },
         message: "Passwords do not match",
       },
+      //   default: bcrypt.hashSync("student", SALT_ROUNDS),
+
     },
     passwordChangedAt: Date,
     passwordResetToken: String,
@@ -94,12 +102,7 @@ userSchema.post("save", async function (doc) {
       class: this.class,
       rollno: this.rollno,
       learnerType: this.learnerType,
-      // test1: this.test1,
-      // test2: this.test2,
-      // test3: this.test3,
-      // test4: this.test4,
-      // test5: this.test5,
-      // test6: this.test6,
+
     });
   } else if (doc.type === "FACULTY") {
     await Faculty.create({

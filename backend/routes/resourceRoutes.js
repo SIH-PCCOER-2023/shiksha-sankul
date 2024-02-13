@@ -3,10 +3,11 @@ const resourceController = require('../controllers/resourceController.js');
 const router = express.Router();
 
 router.post('/bulkadd', resourceController.bulkAddResources)
+router.route('/getResources').get(resourceController.getAll)
 
 router
   .route('/')
-  .get(resourceController.getAll)
+  .get(resourceController.classifyResources)
   .post(resourceController.createOne);
 
 router
