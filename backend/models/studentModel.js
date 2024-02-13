@@ -14,7 +14,6 @@ const studentSchema = mongoose.Schema(
       type: String,
       trim: true,
       //required: [true, 'enter the class'],
-
     },
     rollno: {
       type: String,
