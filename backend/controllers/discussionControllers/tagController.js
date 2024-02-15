@@ -1,28 +1,23 @@
 const express = require("express");
-const auth = require("../middleware/auth");
-const admin = require("../middleware/admin");
-const { Tag, validateTag } = require("../models/tag");
+//const auth = require("../middleware/auth");
+const User = require("./../../models/userModel");
+const Tag = require("./../../models/discussionModels/tagModel");
 const _ = require("lodash");
 const catchAsync = require("../../utils/catchAsync");
-const router = express.Router();
+//const router = express.Router();
 
-exports.get=catchAsync(async (req, res) => {
+exports.getAllTag=catchAsync(async (req, res) => {
   const tags = await Tag.find();
   res.send(tags);
 });
 
-exports.post("/",[auth, admin], async (req, res) => {
-  const { error } = validateTag(req.body);
-  if (error) return res.status(400).send("enter a valid tag");
-  const tag = new Tag({
-    name: req.body.name,
-  });
-  try {
-    await tag.save();
-    console.log("tag created");
-    res.send(_.pick(tag, ["_id","name", "used" ]));
-  } catch (err) {
-    console.log("err", err);
-  }
+exports.createTag=catchAsync( async (req, res) => {
+  //const { error } = validateTag(req.body);
+  //if (error) return res.status(400).send("enter a valid tag");
+  const tag = await Tag.create(req.body)
+  
+  console.log("tag created");
+  res.send(_.pick(tag, ["_id","name", "used" ]));
+  
 });
 
