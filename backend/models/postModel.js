@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { User } = require("./userModel");
 const validator = require("validator");
-//const { tagSchema } = require("./discussionModels/tagModel");
+const { tagSchema } = require("./discussionModels/tagModel");
 const PostSchema = mongoose.Schema({
   author: {
     type: mongoose.Schema.ObjectId,
@@ -10,18 +10,18 @@ const PostSchema = mongoose.Schema({
   title: {
     type: String,
     required: [true, "title is required"],
-    minlength: 10,
+    minlength: 5  ,
     maxlength: 80,
     unique: true,
   },
-
+  
   description: {
     type: String,
     required: true,
     minlength: 5,
     maxlength: 1024,
     required: true,
-    unique: true,
+   // unique: true,
   },
   views: {
     type: Number,

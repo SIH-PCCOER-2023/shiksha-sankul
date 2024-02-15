@@ -22,23 +22,58 @@ exports.getAllPost = catchAsync(async (req, res, next) => {
   });
 });
 
+// exports.getPost = catchAsync(async (req, res, next) => {
+//   const post = await Post.find({ _id: req.params.id })
+//     .populate("upvotes")
+//     .populate("author");
+
+//   if (!post) {
+//     return next(new AppError("No document found with that ID", 404));
+//   }
+//   const views = post[0].views;
+//   post[0].views = views + 1;
+//   const result = await post[0].save();
+//   res.send(post[0]);
+
+//   res.status(200).json({
+//     status: "success",
+//     data: {
+//       data: post,
+//     },
+//   });
+// });
 exports.getPost = catchAsync(async (req, res, next) => {
-  const post = await Post.find({ _id: req.params.id })
-    .populate("upvotes")
-    .populate("author");
+  // Find the post by its ID and populate the 'upvotes' and 'author' fields
+  const post = await Post.findById(req.params.id)
+    .populate("upvotes","_id") // Populate only the _id field of the users who upvoted
+    .populate("author", "name");
 
   if (!post) {
     return next(new AppError("No document found with that ID", 404));
   }
-  const views = post[0].views;
-  post[0].views = views + 1;
-  const result = await post[0].save();
-  res.send(post[0]);
 
+  // Increment the views count by 1
+  post.views += 1;
+  await post.save();
+
+  // Calculate the upvote count
+  const upvoteCount = post.upvotes.length;
+
+  // Create a new object containing the post data along with the upvote count
+  const postWithUpvoteCount = {
+    _id: post._id,
+    // Include other fields of the post as needed
+    views: post.views,
+    // Include other fields of the post as needed
+    upvoteCount: upvoteCount,
+    author:post.author.name
+  };
+
+  // Send the post with the upvote count as a response
   res.status(200).json({
     status: "success",
     data: {
-      data: post,
+      post: postWithUpvoteCount,
     },
   });
 });
@@ -67,36 +102,36 @@ exports.createPost = catchAsync(async (req, res, next) => {
 });
 
 exports.updatePost = catchAsync(async (req, res, next) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findByIdAndUpdate(req.params.id);
 
   if (!post) {
     return next(new AppError("No Post found with that ID", 404));
   }
-  if (post.author == req.user._id) {
-    return res.status(400).json({
-      status: "error",
-      message: "you can't upvote your own post",
-    });
-  }
-  const upvoteArray = post.upvotes;
-  const index = upvoteArray.indexOf(req.user._id);
-  if (index === -1) {
-    upvoteArray.push(req.user._id);
-  } else {
-    upvoteArray.splice(index, 1);
-  }
+  // if (post.author == req.user._id) {
+  //   return res.status(400).json({
+  //     status: "error",
+  //     message: "you can't upvote your own post",
+  //   });
+  // }
+  // const upvoteArray = post.upvotes;
+  // const index = upvoteArray.indexOf(req.user._id);
+  // if (index === -1) {
+  //   upvoteArray.push(req.user._id);
+  // } else {
+  //   upvoteArray.splice(index, 1);
+  // }
 
-  post.upvotes = upvoteArray;
-  const result = await post.save();
-  const post_new = await Post.find({ _id: post._id }).populate(
-    "author",
-    "name username"
-  );
+  // post.upvotes = upvoteArray;
+  // const result = await post.save();
+  // const post_new = await Post.find({ _id: post._id }).populate(
+  //   "author",
+  //   "name username"
+  // );
 
   res.status(200).json({
     status: "success",
     data: {
-      data: post_new,
+      data: post,
     },
   });
 });
