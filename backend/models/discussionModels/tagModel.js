@@ -18,4 +18,4 @@ const Tag = mongoose.model("Tag", tagSchema);
 
 
 //exports.tagSchema = tagSchema;
-module.exports=tagSchema;
+module.exports=Tag;
