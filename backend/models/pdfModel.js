@@ -3,13 +3,13 @@ const validator = require("validator");
 
 const pdfSchema = mongoose.Schema(
   {
-    topic: {
+    title: {
       type: String,
       required: [true, "title is required"],
     },
-    author: {
+    link: {
       type: String,
-      required: [true, "Please provide a author"],
+      required: [true, "Please provide a link"],
     },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
