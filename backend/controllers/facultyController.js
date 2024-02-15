@@ -4,7 +4,9 @@ const APIFeatures = require("../utils/apiFeatures");
 const { upload, importExcel } = require("../utils/excellImportApi");
 
 const factory = require("./handlerFactory");
-const Faculty = require("../models/facultyModel");
+
+//const Faculty = require("../models/facultyModel");
+const Student = require("./../models/studentModel");
 const studentController = require("./studentController");
 const User = require("../models/userModel");
 const multer = require("multer");
@@ -14,7 +16,6 @@ exports.bulkAddStudents = catchAsync(async (req, res, next) => {
   uploader(req, res, function (err) {
     if (!req.file || err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
-      console.log(err);
       return next(new AppError("File upload failed", 503));
     } else if (err) {
       // An unknown error occurred when uploading.
@@ -23,7 +24,6 @@ exports.bulkAddStudents = catchAsync(async (req, res, next) => {
     } else {
       console.log("file upload successful", req.file.path);
     }
-
     // Everything went fine.
     const exceldata = importExcel(
       req.file.path,
@@ -36,15 +36,20 @@ exports.bulkAddStudents = catchAsync(async (req, res, next) => {
         E: "rollno",
         F: "password",
         G: "passwordConfirm",
-        H: "test1",
-        I: "test2",
-        J: "test3",
-        K: "test4",
-        L: "test5",
-        M: "test6",
+
+        H: "learnerType",
+        // I: "test2",
+        // J: "test3",
+        // K: "test4",
+        // L: "test5",
+        // M: "test6",
+        // A: "class",
+        // B: "rollno",
+        // c: "",
       })
     );
-    const result = catchAsync(User.insertMany(exceldata));
+    console.log(exceldata);
+    const result = catchAsync(User.create(exceldata));
     console.log(result);
     if (!result) {
       return next(new AppError("Failed to insert data in bulk", 400));

@@ -4,29 +4,28 @@ const APIFeatures = require("./../../utils/apiFeatures");
 const factory = require("./../handlerFactory");
 
 const Post = require("./../../models/postModel");
-const User = require("../../models/userModel");
+const User = require("./../../models/userModel");
 const Tag = require("../../models/discussionModels/tagModel");
 
 exports.getAllPost = catchAsync(async (req, res, next) => {
-  let all_posts = await Post.find().populate("author", "name -_id");
+  let allPosts = await Post.find();
 
-  if (!all_posts) {
+  if (!allPosts) {
     return next(new AppError(" documents not found with that ID", 404));
   }
 
   res.status(200).json({
     status: "Success",
     data: {
-      data: all_posts,
+      data: allPosts,
     },
   });
 });
 
 exports.getPost = catchAsync(async (req, res, next) => {
-  const post = await Post.find({ _id: req.params.id }).populate(
-    "author",
-    "name username"
-  );
+  const post = await Post.find({ _id: req.params.id })
+    .populate("upvotes")
+    .populate("author");
 
   if (!post) {
     return next(new AppError("No document found with that ID", 404));
@@ -45,22 +44,15 @@ exports.getPost = catchAsync(async (req, res, next) => {
 });
 
 exports.createPost = catchAsync(async (req, res, next) => {
-  // const tags = req.body.tags;
-  // const tags_array = [];
-  // for (let i = 0; i < tags.length; i++) {
-  //   const tag_in_db = await Tag.findById(tags[i]);
-  //   if (!tag_in_db) return res.status(400).send("Invalid Tag");
-  //   tags_array.push(tag_in_db);
-  // }
-  const doc = new Post({
-    title: req.body.title,
-
-    description: req.body.description,
-    author: req.body.id,
-    views: 1,
-  });
-
-  const done = await doc.save();
+  //   const post = new Post({
+  //     title: req.body.title,
+  //     description: req.body.description,
+  //     author: req.body.id,
+  //     upvotes: req.body.upvotes,
+  //     views: req.body.views,
+  //   });
+  //   const done = await post.save();
+  const done = await Post.create(req.body);
 
   if (!done) {
     return next(new AppError("No Post created", 404));
