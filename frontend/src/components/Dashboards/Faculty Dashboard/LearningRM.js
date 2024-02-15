@@ -11,7 +11,7 @@ import FacultyHeader from "../../Header/FacultyHeader";
 
 const LearningRM = (props) => {
   const userCtx = useContext(UserContext);
-  const [resources, setResources] = useState(false);
+  const [resources, setResources] = useState([]);
   const [newVideoUrl, setNewVideoUrl] = useState("");
   const [newVideoTitle, setNewVideoTitle] = useState("");
 
