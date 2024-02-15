@@ -47,10 +47,15 @@ const LearningRM = (props) => {
     //   url: 'decide-criteria.html',
     // },
 
+    // {
+    //   icon: "fa-comments",
+    //   text: "Discussion Forum",
+    //   url: "/discussionforum",
+    // },
     {
-      icon: "fa-comments",
-      text: "Discussion Forum",
-      url: "/discussionforum",
+      icon: "fa-note-sticky",
+      text: "Share Notes",
+      url: "/googledriveresources",
     },
   ];
 
