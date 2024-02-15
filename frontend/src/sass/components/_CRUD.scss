@@ -26,7 +26,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column; /* Align children vertically */
-    height: 412px;
+    height: 575px;
   }
 
   .icon-wrapper {
@@ -46,8 +46,59 @@
     flex: 1; /* Allow input to grow and take available space */
   }
 
+  .file-input-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .choose-file-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .choose-file-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  #file-upload {
+    display: none;
+  }
+
+  .file-info {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .file-icon {
+    margin-right: 5px;
+  }
+  
+  
+  .upload-btn {
+    margin-left: 90px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    align-items: center;
+  }
+  
+  .upload-btn:hover {
+    background-color: #0056b3;
+  }
+  
   .card2 {
     flex-grow: 1;
+    width: 400px;
     margin-top: 20px;
     margin-left: 50px;
     background-color: #ffffff;
@@ -57,7 +108,8 @@
   }
 
   h2 {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    text-align: center;
   }
 
   .error {
@@ -72,13 +124,17 @@
 
     li {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #ddd;
+    flex-direction: column; /* Display information vertically */
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
 
       &:last-child {
         border-bottom: none;
+      }
+      span {
+        display: flex;
+        font-size: small;
+        margin-bottom: 5px; /* Add spacing between each piece of information */
       }
     }
   }
@@ -91,6 +147,7 @@
     padding: 10px 20px;
     cursor: pointer;
     margin-top: 5px;
+    margin-bottom: 10px;
 
     &:hover {
       background-color: #0056b3;
@@ -108,7 +165,10 @@
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
-    margin-left: 10px;
+    align-content: center;
+    margin-left: 120px;
+    margin-right: 120px;
+
 
     &:hover {
       background-color: #c82333;

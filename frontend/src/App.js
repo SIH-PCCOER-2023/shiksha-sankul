@@ -21,6 +21,9 @@ import LearningRM from "./components/Dashboards/Faculty Dashboard/LearningRM";
 import FacultyHeader from "./components/Header/FacultyHeader";
 import FacultyProfile from "./components/FacultyProfile";
 import FacultySidebar from "./components/Sidebar/FacultySidebar";
+import ExcelUpload from "./components/Dashboards/Faculty Dashboard/ExcelUpload";
+import ContentLibrary from "./components/Dashboards/Faculty Dashboard/ContentLibrary";
+import GoogleDriveResources from "./components/Dashboards/Faculty Dashboard/GoogleDriveResources";
 
 function App() {
   return (
@@ -73,6 +76,15 @@ function App() {
           <Route path="/facultyheader" element={<FacultyHeader />} />
 
           <Route path="/facultysidebar" element={<FacultySidebar />} />
+
+          <Route path="/excelupload" element={<ExcelUpload />} />
+
+          <Route path="/contentlibrary" element={<ContentLibrary />} />
+
+          <Route
+            path="/googledriveresources"
+            element={<GoogleDriveResources />}
+          />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>
