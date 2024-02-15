@@ -41,7 +41,7 @@ const FacultyProfile = (props) => {
     {
       icon: "fa-note-sticky",
       text: "Share Notes",
-      url: "/googledriveresources",
+      url: "/pdfupload",
     },
   ];
 

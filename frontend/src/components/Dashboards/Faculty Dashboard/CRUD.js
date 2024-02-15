@@ -36,7 +36,7 @@ const CRUD = () => {
     {
       icon: "fa-note-sticky",
       text: "Share Notes",
-      url: "/googledriveresources",
+      url: "/pdfupload",
     },
   ];
   const [students, setStudents] = useState([]);

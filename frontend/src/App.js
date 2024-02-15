@@ -24,6 +24,8 @@ import FacultySidebar from "./components/Sidebar/FacultySidebar";
 import ExcelUpload from "./components/Dashboards/Faculty Dashboard/ExcelUpload";
 import ContentLibrary from "./components/Dashboards/Faculty Dashboard/ContentLibrary";
 import GoogleDriveResources from "./components/Dashboards/Faculty Dashboard/GoogleDriveResources";
+import PDFUpload from "./components/Dashboards/Faculty Dashboard/PDFUpload";
+import Notes from "./components/Dashboards/Student Dashboard/Notes";
 
 function App() {
   return (
@@ -80,6 +82,10 @@ function App() {
           <Route path="/excelupload" element={<ExcelUpload />} />
 
           <Route path="/contentlibrary" element={<ContentLibrary />} />
+
+          <Route path="/pdfupload" element={<PDFUpload />} />
+
+          <Route path="/notes" element={<Notes />} />
 
           <Route
             path="/googledriveresources"

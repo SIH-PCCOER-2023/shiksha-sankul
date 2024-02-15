@@ -1,10 +1,10 @@
-import { useCallback, useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import TestContext from '../store/testContext';
+import { useCallback, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import TestContext from "../store/testContext";
 
-import UserContext from '../store/user-context';
-import { sendGetRequest, sendPostRequest } from '../utils/sendHttp';
-import { showAlert } from '../utils/alerts';
+import UserContext from "../store/user-context";
+import { sendGetRequest, sendPostRequest } from "../utils/sendHttp";
+import { showAlert } from "../utils/alerts";
 
 const Question = ({ activeClass, testType }) => {
   const userCtx = useContext(UserContext);
@@ -26,16 +26,16 @@ const Question = ({ activeClass, testType }) => {
   const getRadioProps = useCallback(
     (id, value) => {
       const ansMap = {
-        0: 'a',
-        1: 'b',
-        2: 'c',
-        3: 'd',
+        0: "a",
+        1: "b",
+        2: "c",
+        3: "d",
       };
       return {
         id,
         value,
-        type: 'radio',
-        name: 'discount',
+        type: "radio",
+        name: "discount",
         checked: checked === value, // this will toggle the checked state
         onChange: () => {
           checkedState(value);
@@ -71,17 +71,17 @@ const Question = ({ activeClass, testType }) => {
         };
 
         const res = await sendPostRequest(
-          'http://localhost:8080/api/v1/tests',
+          "http://localhost:8080/api/v1/tests",
           data
         );
 
-        if (res.data.status === 'success') {
-          showAlert('success', `Score: ${obtainedScore} out of ${totalScore}`);
+        if (res.data.status === "success") {
+          showAlert("success", `Score: ${obtainedScore} out of ${totalScore}`);
           // showAlert('success', `${testType} TEST Completed`);
-          navigate('/student-dashboard');
+          navigate("/student-dashboard");
         }
       } catch (err) {
-        showAlert('error', err.response.data.message);
+        showAlert("error", err.response.data.message);
       }
     };
 
@@ -148,8 +148,8 @@ const Question = ({ activeClass, testType }) => {
               }}
             >
               {currentQuestion === questions.length - 1
-                ? 'Submit'
-                : 'Next Question'}
+                ? "Submit"
+                : "Next Question"}
             </button>
           </div>
           {/* {testCompleted &&

@@ -1290,25 +1290,25 @@ p {
 .content-card button:hover {
   background-color: #0056b3; }
 
-.google-upload-card-container {
+.upload-card-container {
   display: flex;
   justify-content: center;
   margin-top: 20px; }
-  .google-upload-card-container .google-upload-card {
+  .upload-card-container .upload-card {
     display: flex;
     flex-direction: column;
     align-items: center; }
-    .google-upload-card-container .google-upload-card input {
+    .upload-card-container .upload-card input {
       margin-bottom: 10px;
       padding: 8px;
       width: 300px; }
-    .google-upload-card-container .google-upload-card button {
+    .upload-card-container .upload-card button {
       padding: 8px 20px;
       background-color: #007bff;
       color: #fff;
       border: none;
       cursor: pointer; }
-      .google-upload-card-container .google-upload-card button:hover {
+      .upload-card-container .upload-card button:hover {
         background-color: #0056b3; }
 
 .google-drive-card-container {
@@ -1323,3 +1323,36 @@ p {
       text-decoration: none; }
       .google-drive-card-container .google-drive-card .resource-link a:hover {
         text-decoration: underline; }
+
+.pdf-grid {
+  margin-left: 375px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: -10px; }
+
+.pdf-card {
+  width: 200px;
+  margin-top: 50px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+
+.pdf-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.pdf-info h3 {
+  margin: 0; }
+
+.pdf-info button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer; }
+
+.pdf-info button:hover {
+  background-color: #0056b3; }

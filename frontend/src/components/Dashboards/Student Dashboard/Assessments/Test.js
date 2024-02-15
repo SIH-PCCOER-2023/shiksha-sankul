@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import Question from '../../../Question';
-import TestContext from '../../../../store/testContext';
+import Question from "../../../Question";
+import TestContext from "../../../../store/testContext";
 
-import Sidebar from '../../../Sidebar/Sidebar';
-import DashboardHeader from '../../../Header/DashboardHeader';
+import Sidebar from "../../../Sidebar/Sidebar";
+import DashboardHeader from "../../../Header/DashboardHeader";
 
-import { showAlert } from '../../../../utils/alerts';
-import { getQuestions } from '../../../../utils/questionbank';
+import { showAlert } from "../../../../utils/alerts";
+import { getQuestions } from "../../../../utils/questionbank";
 
 const Test = ({ testType }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -42,7 +42,7 @@ const Test = ({ testType }) => {
 
   const handleNextQuestion = () => {
     if (!answers[currentQuestion]) {
-      showAlert('error', 'Please select an option!');
+      showAlert("error", "Please select an option!");
       return;
     }
 
@@ -75,9 +75,9 @@ const Test = ({ testType }) => {
 
   const sidebarLinks = [
     {
-      icon: 'fa-home',
-      text: 'Dashboard',
-      url: '/student-dashboard',
+      icon: "fa-home",
+      text: "Dashboard",
+      url: "/student-dashboard",
     },
     // {
     //   icon: 'fa-calendar',
@@ -85,25 +85,30 @@ const Test = ({ testType }) => {
     //   url: '/ilp',
     // },
     {
-      icon: 'fa-book-open',
-      text: 'Learning Center',
-      url: 'learning.html',
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "learning.html",
     },
     {
-      icon: 'fa-pen',
-      text: 'Assessments',
-      url: '/assessments',
+      icon: "fa-pen",
+      text: "Assessments",
+      url: "/assessments",
     },
     {
-      icon: 'fa-solid fa-chart-pie',
-      text: 'Performance',
-      url: '/performance',
+      icon: "fa-solid fa-chart-pie",
+      text: "Performance",
+      url: "/performance",
     },
     // {
     //   icon: 'fa-solid fa-comments',
     //   text: 'Discussion Forum',
     //   url: 'discussion.html',
     // },
+    {
+      icon: "fa-note-sticky",
+      text: "Notes",
+      url: "/notes",
+    },
   ];
 
   return (
