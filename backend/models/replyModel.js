@@ -5,7 +5,7 @@ const replySchema = mongoose.Schema({
   post: {
     type: mongoose.Schema.ObjectId,
     ref: "Post",
-    required: true,
+    //required: true,
   },
   comment: {
     type: String,
@@ -16,7 +16,7 @@ const replySchema = mongoose.Schema({
   author: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
-    required: true,
+    //required: true,
   },
   upvotes: {
     type: [mongoose.Schema.Types.ObjectId],

@@ -6,14 +6,14 @@ const router = express.Router();
 
 router
 .route('/:id')
-.get(replyController.getReply)
+.get(replyController.getReply).patch(replyController.updateReply)
 
 router
 .route('/create/:id')
 .post(replyController.createReply)
 
-router
-.route('like/:id')
-.patch(replyController.updateReply)
+// router
+// .route('/like/:id')
+// .patch(replyController.updateReply)
 
 module.exports=router;

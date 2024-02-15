@@ -25,7 +25,7 @@ const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/discussionForumRoutes/postsRoutes");
 const replyRoutes = require("./routes/discussionForumRoutes/replyRoutes");
 const pdfRoutes = require("./routes/pdfRoutes");
-
+const tagsRoutes=require("./routes/discussionForumRoutes/tagsRoutes")
 const User = require("./models/userModel");
 
 // const predict = require('./ML/predict');
@@ -132,6 +132,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/postforums", postRoutes);
 app.use("/api/v1/replyforums", replyRoutes);
 app.use("/api/v1/pdf", pdfRoutes);
+app.use("/api/v1/tagforums", tagsRoutes);
 // app.get('/api/v1/ml-prediction', predict);
 
 // Rendered Routes

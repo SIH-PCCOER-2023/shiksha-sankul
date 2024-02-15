@@ -16,14 +16,14 @@ exports.createReply = catchAsync(async (req, res, next) => {
   const reply = new Reply({
     post: req.params.id,
     comment: req.body.comment,
-    author: req.user._id,
+    author: req.body.id,
+    upvotes:req.body.upvotes
   });
   await reply.save();
   const reply_populated = await Reply.find({ _id: reply._id }).populate(
-    "author",
-    "name -_id"
-  );
-  res.status.json({
+    "author"
+  ).populate("upvotes");
+  res.status(200).json({
     status: "success",
     data: {
       data: reply_populated, //reply prodeuced
@@ -32,53 +32,74 @@ exports.createReply = catchAsync(async (req, res, next) => {
 });
 
 exports.updateReply = catchAsync(async (req, res, next) => {
-  const post = await Reply.findById(req.params.id);
-
-  if (!post) {
-    return next(new AppError("rreply doesn't exists"));
-  }
-  if (reply.author == req.user._id) {
-    return res.status(400).send("you cant upvote your own reply");
+  const reply = await Reply.findByIdAndUpdate(req.params.id,req.body); // Find the reply by its ID
+  console.log("Found Reply:", reply);
+  if (!reply) {
+    return next(new AppError("Reply doesn't exist", 404));
   }
 
-  const upvoteArray = reply.upvotes;
-  const index = upvoteArray.indexOf(req.user._id);
-  if (index === -1) {
-    upvoteArray.push(req.user._id);
-  } else {
-    upvoteArray.splice(index, 1);
-  }
-  reply.upvotes = upvoteArray;
+  // Check if the author of the reply is the same as the user making the request
+  // if (reply.author.toString() === req.user._id.toString()) {
+  //   return res.status(400).send("You can't upvote your own reply");
+  // }
 
-  const result = await reply.save();
-  const reply_new = await Reply.find({ _id: reply._id }).populate(
-    "author",
-    "name username"
-  );
+  // Update the upvotes array based on user ID
+  // const upvoteArray = reply.upvotes;
+  // const index = upvoteArray.indexOf(req.user._id);
+  // if (index === -1) {
+  //   upvoteArray.push(req.user._id);
+  // } else {
+  //   upvoteArray.splice(index, 1);
+  // }
+  // reply.upvotes = upvoteArray;
 
+  // Save the updated reply
+  
+
+  // Populate the reply with author details
+ // const reply_new = await Reply.findById(reply._id).populate("author").populate();
+
+  // Send the updated reply as a response
   res.status(200).json({
     status: "success",
     data: {
-      data: reply_new,
+      data: reply,
     },
   });
 });
 
+
+
+// 
 exports.getReply = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id);
 
   if (!post) {
-    return next(new AppError("rreply doesn't exists"));
+    return next(new AppError("Post doesn't exist", 404));
   }
-  const replies = await Reply.find({ post: req.params.id }).populate(
-    "author",
-    "name username"
-  );
 
-  re.status(200).json({
+  // Find all replies for the post and populate the author details
+  const replies = await Reply.find({ post: req.params.id }).populate("author", "name");
+
+  // Iterate through each reply to calculate the upvote count
+  const repliesWithUpvoteCount = await Promise.all(replies.map(async (reply) => {
+    // Calculate the upvote count for the reply
+    const upvoteCount = reply.upvotes.length;
+
+    // Create a new object containing the reply data along with the upvote count
+    return {
+      _id: reply._id,
+      comment: reply.comment,
+      author: reply.author,
+      upvoteCount: upvoteCount
+    };
+  }));
+
+  // Send the replies with upvote count as a response
+  res.status(200).json({
     status: "success",
     data: {
-      data: replies,
+      replies: repliesWithUpvoteCount,
     },
   });
 });
