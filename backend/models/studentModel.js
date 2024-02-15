@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const { Decimal128 } = require("bson");
 
-const authController=require("./../controllers/authController")
+const authController = require("./../controllers/authController");
 
 const studentSchema = mongoose.Schema(
   {
@@ -18,8 +18,12 @@ const studentSchema = mongoose.Schema(
     rollno: {
       type: String,
       trim: true,
-      unique:true
+      unique: true,
       //required: [true, 'Enter the roll no '],
+    },
+    obtainedScores: {
+      type: [Number],
+      default: [],
     },
     //marks: [marks],
     /*predictedScore: {
@@ -36,6 +40,10 @@ const studentSchema = mongoose.Schema(
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+studentSchema.post("save", async function (doc) {
+  console.log("%s have been saved ", doc._id);
+});
 
 const Student = mongoose.model("Student", studentSchema);
 

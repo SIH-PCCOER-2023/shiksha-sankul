@@ -11,8 +11,7 @@ create
 */
 
 
-const mongoose = require("mongoose"); 
-
+const mongoose = require("mongoose");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
@@ -23,7 +22,6 @@ const Test = require("./../models/testModel");
 const User = require("../models/userModel");
 
 exports.deleteOne = catchAsync(async (req, res, next) => {
-
   const stud = await Student.findByIdAndDelete(req.params.studentId);
   const user = await User.findByIdAndDelete(req.params.userId);
   if (!stud && !user) {
@@ -35,7 +33,6 @@ exports.deleteOne = catchAsync(async (req, res, next) => {
     data: null, //data deleted
   });
 });
-
 
 // exports.updateOne = catchAsync(async (req, res, next) => {
 //   const doc = await User.findByIdAndUpdate("User.id", req.body, {
@@ -210,5 +207,76 @@ exports.getAllClassification = catchAsync(async (req, res, next) => {
     data: {
       result,
     },
+  });
+});
+
+// exports.getObtainedScore = catchAsync(async (req, res, next) => {
+//   const studentId = req.params.id;
+
+//   const stats = await Test.aggregate([
+//     {
+//       $addFields: {
+//         isMatchingStudent: {
+//           $eq: ["$student", new mongoose.Types.ObjectId(studentId)],
+//         },
+//       },
+//     },
+//     {
+//       $match: {
+//         isMatchingStudent: true,
+//       },
+//     },
+//     {
+//       $group: {
+//         _id: 0,
+//         obtainedScores: { $push: "$obtainedScores" }, // Store the scores in an array
+//         //totalScore: { $sum: "$score" },
+//       },
+//     },
+//   ]);
+//   console.log(stats);
+//   // Handle or send response with 'stats' data
+//   res.status(200).json({
+//     status: "success",
+//     data: stats,
+//   });
+// });
+
+exports.getObtainedScore = catchAsync(async (req, res, next) => {
+  const studentId = req.params.id;
+
+  const stats = await Test.aggregate([
+    {
+      $match: {
+        student: new mongoose.Types.ObjectId(studentId),
+      },
+    },
+    {
+      $group: {
+        _id: null, // Use null if you want to group all documents into one result
+        obtainedScores: { $push: "$obtainedScore" },
+        totalScore: { $sum: "$totalScore" },
+        // Add more aggregation stages if needed
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        obtainedScores: 1,
+      },
+    },
+  ]);
+
+  const filter = { user: new mongoose.Types.ObjectId(studentId) };
+  const update = { $set: { obtainedScores: stats[0].obtainedScores } };
+
+  const score = await Student.updateOne(filter, update);
+
+  console.log(stats[0]);
+
+  // Handle or send response with 'stats' data
+  res.status(200).json({
+    status: "success",
+    data: score,
   });
 });
