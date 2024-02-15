@@ -1,17 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { sendGetRequest, sendPostRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
+import UserContext from "../../../store/user-context";
 import Container from "react-bootstrap/Container";
 import FacultyHeader from "../../Header/FacultyHeader";
 import FacultySidebar from "../../Sidebar/FacultySidebar";
-import UserContext from "../../../store/user-context";
-import GoogleDriveCard from "./GoogleDriveCard";
 
-const GoogleDriveResources = () => {
+const PDFUpload = () => {
   const userCtx = useContext(UserContext);
-  const [resources, setResources] = useState([]);
-  const [newResourceLink, setNewResourceLink] = useState("");
-  const [newResourceTitle, setNewResourceTitle] = useState("");
+  const [pdfs, setPdfs] = useState([]);
+  const [newPdfLink, setNewPdfLink] = useState("");
+  const [newPdfTitle, setNewPdfTitle] = useState("");
 
   const sidebarLinks = [
     {
@@ -37,50 +36,44 @@ const GoogleDriveResources = () => {
     {
       icon: "fa-note-sticky",
       text: "Share Notes",
-      url: "/googledriveresources",
+      url: "/pdfupload",
     },
   ];
-
   useEffect(() => {
-    const fetchResources = async () => {
+    const getPdfs = async () => {
       try {
-        const response = await sendGetRequest(
-          `http://localhost:8080/api/v1/pdf`
-        );
-        console.log(resources);
-        console.log(response);
-        setResources(response.data.data);
+        const pdfs = await sendGetRequest(`http://localhost:8080/api/v1/pdf`);
+        setPdfs(pdfs.data.data);
       } catch (error) {
-        showAlert("error", error.message);
+        showAlert("error", error);
       }
     };
 
-    fetchResources();
+    getPdfs();
   }, []);
 
   const handleUpload = async () => {
     try {
-      if (!newResourceLink.trim() || !newResourceTitle.trim()) {
+      if (!newPdfLink.trim() || !newPdfTitle.trim()) {
         showAlert("error", "Please enter both link and title.");
         return;
       }
 
       await sendPostRequest("http://localhost:8080/api/v1/pdf", {
-        title: newResourceTitle,
-        link: newResourceLink,
+        title: newPdfTitle,
+        link: newPdfLink,
       });
 
-      const updatedResources = await sendGetRequest(
+      const updatedPdfs = await sendGetRequest(
         `http://localhost:8080/api/v1/pdf`
       );
-      setResources(updatedResources.data.data);
 
-      setNewResourceLink("");
-      setNewResourceTitle("");
-
-      showAlert("success", "Resource uploaded successfully!");
+      setPdfs(updatedPdfs.data.data);
+      setNewPdfLink("");
+      setNewPdfTitle("");
+      showAlert("success", "PDF uploaded successfully!");
     } catch (error) {
-      showAlert("error", error.message);
+      showAlert("error", error);
     }
   };
 
@@ -92,28 +85,35 @@ const GoogleDriveResources = () => {
         <div className="upload-card">
           <input
             type="text"
-            placeholder="Paste Google Drive link"
-            value={newResourceLink}
-            onChange={(e) => setNewResourceLink(e.target.value)}
+            placeholder="Paste PDF link"
+            value={newPdfLink}
+            onChange={(e) => setNewPdfLink(e.target.value)}
           />
           <input
             type="text"
             placeholder="Enter title"
-            value={newResourceTitle}
-            onChange={(e) => setNewResourceTitle(e.target.value)}
+            value={newPdfTitle}
+            onChange={(e) => setNewPdfTitle(e.target.value)}
           />
           <button onClick={handleUpload}>Upload</button>
         </div>
       </div>
-      {resources && (
-        <div>
-          <Container className="google-drive-card-container">
-            <GoogleDriveCard resources={resources} />
-          </Container>
+      <Container className="pdf-list-container">
+        <div className="pdf-grid">
+          {pdfs.map((pdf, index) => (
+            <div className="pdf-card" key={index}>
+              <div className="pdf-info">
+                <h3>{pdf.title}</h3>
+                <a href={pdf.link} target="_blank" rel="noopener noreferrer">
+                  <button>View</button>
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
+      </Container>
     </>
   );
 };
 
-export default GoogleDriveResources;
+export default PDFUpload;
