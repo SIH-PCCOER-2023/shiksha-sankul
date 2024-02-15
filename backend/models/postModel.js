@@ -3,11 +3,16 @@ const { User } = require("./userModel");
 const validator = require("validator");
 //const { tagSchema } = require("./discussionModels/tagModel");
 const PostSchema = mongoose.Schema({
+  author: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+  },
   title: {
     type: String,
     required: [true, "title is required"],
     minlength: 10,
     maxlength: 80,
+    unique: true,
   },
 
   description: {
@@ -16,26 +21,29 @@ const PostSchema = mongoose.Schema({
     minlength: 5,
     maxlength: 1024,
     required: true,
-  },
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+    unique: true,
   },
   views: {
     type: Number,
     default: 1,
     min: 1,
   },
-  upvotes: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User",
-    required: [true],
-  },
+  upvotes: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: [true],
+    },
+  ],
   time: {
     type: Date,
     default: Date.now,
   },
+});
+PostSchema.pre(/^find/, function (next) {
+  this.populate("upvotes").populate("author");
+
+  next();
 });
 
 const Post = mongoose.model("Post", PostSchema);
