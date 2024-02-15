@@ -3,6 +3,7 @@ const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
 
 const Pdf = require("../models/pdfModel");
+const factory = require("./handlerFactory");
 
 exports.deleteOne = catchAsync(async (req, res, next) => {
   const doc = await Pdf.findByIdAndDelete(req.params.id);
