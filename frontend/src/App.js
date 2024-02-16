@@ -26,6 +26,8 @@ import ContentLibrary from "./components/Dashboards/Faculty Dashboard/ContentLib
 import GoogleDriveResources from "./components/Dashboards/Faculty Dashboard/GoogleDriveResources";
 import PDFUpload from "./components/Dashboards/Faculty Dashboard/PDFUpload";
 import Notes from "./components/Dashboards/Student Dashboard/Notes";
+import HomePage from "./components/Header/HomePage";
+import AboutPage from "./components/Header/AboutPage";
 // import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
 
 function App() {
@@ -92,6 +94,11 @@ function App() {
             path="/googledriveresources"
             element={<GoogleDriveResources />}
           />
+
+          <Route path="/homepage" element={<HomePage />} />
+
+          <Route path="/aboutpage" element={<AboutPage/>} />
+
         </Routes>
       </BrowserRouter>
     </UserContextProvider>
