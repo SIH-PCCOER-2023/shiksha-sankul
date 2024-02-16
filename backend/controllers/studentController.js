@@ -10,7 +10,6 @@ create
 
 */
 
-
 const mongoose = require("mongoose");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
@@ -210,38 +209,6 @@ exports.getAllClassification = catchAsync(async (req, res, next) => {
   });
 });
 
-// exports.getObtainedScore = catchAsync(async (req, res, next) => {
-//   const studentId = req.params.id;
-
-//   const stats = await Test.aggregate([
-//     {
-//       $addFields: {
-//         isMatchingStudent: {
-//           $eq: ["$student", new mongoose.Types.ObjectId(studentId)],
-//         },
-//       },
-//     },
-//     {
-//       $match: {
-//         isMatchingStudent: true,
-//       },
-//     },
-//     {
-//       $group: {
-//         _id: 0,
-//         obtainedScores: { $push: "$obtainedScores" }, // Store the scores in an array
-//         //totalScore: { $sum: "$score" },
-//       },
-//     },
-//   ]);
-//   console.log(stats);
-//   // Handle or send response with 'stats' data
-//   res.status(200).json({
-//     status: "success",
-//     data: stats,
-//   });
-// });
-
 exports.getObtainedScore = catchAsync(async (req, res, next) => {
   const studentId = req.params.id;
 
@@ -278,5 +245,25 @@ exports.getObtainedScore = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: score,
+  });
+});
+
+exports.getArray = catchAsync(async (req, res, next) => {
+  const doc = await Student.findOne({ user: req.params.id }).select({
+    obtainedScores: 1,
+    _id: 0,
+  });
+
+  if (!doc) {
+    return next(
+      new AppError("A document with that ID could not be found", 404)
+    );
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      data: doc,
+    },
   });
 });
