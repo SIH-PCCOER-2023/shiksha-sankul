@@ -8,7 +8,12 @@ const User = require("./../../models/userModel");
 const Tag = require("../../models/discussionModels/tagModel");
 
 exports.getAllPost = catchAsync(async (req, res, next) => {
-  let allPosts = await Post.find();
+  let allPosts = await Post.find()
+    .populate({
+      path: "author",
+      select: "name -_id ",
+    })
+    .populate({ path: "upvotes", select: "name -_id" });
 
   if (!allPosts) {
     return next(new AppError(" documents not found with that ID", 404));
@@ -45,7 +50,7 @@ exports.getAllPost = catchAsync(async (req, res, next) => {
 exports.getPost = catchAsync(async (req, res, next) => {
   // Find the post by its ID and populate the 'upvotes' and 'author' fields
   const post = await Post.findById(req.params.id)
-    .populate("upvotes","_id") // Populate only the _id field of the users who upvoted
+    .populate("upvotes", "_id") // Populate only the _id field of the users who upvoted
     .populate("author", "name");
 
   if (!post) {
@@ -66,7 +71,7 @@ exports.getPost = catchAsync(async (req, res, next) => {
     views: post.views,
     // Include other fields of the post as needed
     upvoteCount: upvoteCount,
-    author:post.author.name
+    author: post.author.name,
   };
 
   // Send the post with the upvote count as a response
@@ -132,6 +137,22 @@ exports.updatePost = catchAsync(async (req, res, next) => {
     status: "success",
     data: {
       data: post,
+    },
+  });
+});
+
+exports.updateVote = catchAsync(async (req, res, next) => {
+  const userId = req.params.userId;
+  const postId = req.params.postId;
+  const doc = await Post.findById(postId);
+
+  Post.upvotes.push(userId);
+  console.log(doc);
+
+  res.status(200).json({
+    status: "Success",
+    data: {
+      data: doc,
     },
   });
 });
