@@ -4,8 +4,8 @@ const APIFeatures = require("../utils/apiFeatures");
 const { upload, importExcel } = require("../utils/excellImportApi");
 
 const factory = require("./handlerFactory");
-const Test = require("./../models/testModel");
-const Chart = require("./../models/chartsModel");
+const Test = require("../models/testModel");
+const Chart = require("../models/chartsModel");
 const User = require("../models/userModel");
 
 exports.createOne = catchAsync(async (req, res, next) => {
@@ -34,4 +34,21 @@ exports.getOne = catchAsync(async (req, res, next) => {
   });
 });
 
-eport;
+exports.getAll = catchAsync(async (req, res, next) => {
+  const docs = await Chart.find();
+
+  res.status(200).json({
+    status: "success",
+    count: docs.length,
+    data: docs.map((doc) => {
+      const requestObject = {
+        request: {
+          type: "GET",
+          url: req.originalUrl + "/" + doc._id,
+        },
+      };
+      Object.assign(doc._doc, requestObject);
+      return doc;
+    }),
+  });
+});
