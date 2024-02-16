@@ -26,6 +26,7 @@ router
   .patch(studentController.getAllClassification);
 
 router.route("/obtainedScore/:id").get(studentController.getObtainedScore);
+router.route("/array/:id").get(studentController.getArray);
 
 // router.route("/upload").post(upload.single("uploadfile"), importExcel)
 
