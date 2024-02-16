@@ -31,6 +31,8 @@ import DiscussionForum from "./components/Dashboards/Student Dashboard/Discussio
 
 import HomePage from "./components/Header/HomePage";
 import AboutPage from "./components/Header/AboutPage";
+
+import TodoList from "./components/Dashboards/Student Dashboard/ToDoList";
 // import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
 
 function App() {
@@ -101,6 +103,8 @@ function App() {
           <Route path="/homepage" element={<HomePage />} />
 
           <Route path="/aboutpage" element={<AboutPage />} />
+
+          <Route path="/todolist" element={<TodoList />} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>
