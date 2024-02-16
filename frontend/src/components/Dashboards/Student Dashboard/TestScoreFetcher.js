@@ -10,6 +10,7 @@ const TestScoreFetcher = ({ onSuccess }) => {
       const res = await sendGetRequest(
         `http://localhost:8080/api/v1/student/array/${studentId}`
       );
+      console.log(res);
       if (res && res.data && res.data.status === "success") {
         const data = res.data.data;
         const fetchedScores = data.map((score) => score.obtainedScore);

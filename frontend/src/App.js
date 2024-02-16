@@ -26,8 +26,7 @@ import ContentLibrary from "./components/Dashboards/Faculty Dashboard/ContentLib
 import GoogleDriveResources from "./components/Dashboards/Faculty Dashboard/GoogleDriveResources";
 import PDFUpload from "./components/Dashboards/Faculty Dashboard/PDFUpload";
 import Notes from "./components/Dashboards/Student Dashboard/Notes";
-// import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
-
+import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
 function App() {
   return (
     <UserContextProvider>
@@ -70,8 +69,6 @@ function App() {
 
           <Route path="/analytics" element={<Analytics />} />
 
-          {/* <Route path="/discussionforum" element={<DiscussionForum />} /> */}
-
           <Route path="/learningrm" element={<LearningRM />} />
 
           <Route path="/facultyprofile" element={<FacultyProfile />} />
@@ -92,6 +89,8 @@ function App() {
             path="/googledriveresources"
             element={<GoogleDriveResources />}
           />
+
+          <Route path="/discussionforum" element={<DiscussionForum />} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

@@ -236,6 +236,7 @@ exports.getObtainedScore = catchAsync(async (req, res, next) => {
 
   const filter = { user: new mongoose.Types.ObjectId(studentId) };
   const update = { $set: { obtainedScores: stats[0].obtainedScores } };
+  ////
 
   const score = await Student.updateOne(filter, update);
 
@@ -249,10 +250,7 @@ exports.getObtainedScore = catchAsync(async (req, res, next) => {
 });
 
 exports.getArray = catchAsync(async (req, res, next) => {
-  const doc = await Student.findOne({ user: req.params.id }).select({
-    obtainedScores: 1,
-    _id: 0,
-  });
+  const doc = await Student.findOne({ user: req.params.id });
 
   if (!doc) {
     return next(
@@ -260,10 +258,13 @@ exports.getArray = catchAsync(async (req, res, next) => {
     );
   }
 
+  // Extract the obtainedScores array from the document
+  const obtainedScores = doc.obtainedScores || [];
+
   res.status(200).json({
     status: "success",
     data: {
-      data: doc,
+      obtainedScores,
     },
   });
 });

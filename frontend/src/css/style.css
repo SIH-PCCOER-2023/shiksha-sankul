@@ -1392,3 +1392,59 @@ p {
 
 .pdf-info button:hover {
   background-color: #0056b3; }
+
+.forum-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; }
+  .forum-container .create-post {
+    margin-bottom: 20px; }
+    .forum-container .create-post input,
+    .forum-container .create-post textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      resize: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px; }
+    .forum-container .create-post button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s; }
+      .forum-container .create-post button:hover {
+        background-color: #0056b3; }
+  .forum-container .posts-container {
+    width: 100%; }
+    .forum-container .posts-container .post {
+      margin-left: 310px;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px; }
+      .forum-container .posts-container .post p {
+        margin: 0; }
+      .forum-container .posts-container .post input {
+        width: calc(100% - 90px);
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px; }
+      .forum-container .posts-container .post button {
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s; }
+        .forum-container .posts-container .post button:hover {
+          background-color: #0056b3; }
