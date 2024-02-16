@@ -59,6 +59,13 @@ const PDFUpload = () => {
         return;
       }
 
+      // Validate URL
+      const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+      if (!urlRegex.test(newPdfLink.trim())) {
+        showAlert("error", "Please enter a valid URL.");
+        return;
+      }
+
       await sendPostRequest("http://localhost:8080/api/v1/pdf", {
         title: newPdfTitle,
         link: newPdfLink,

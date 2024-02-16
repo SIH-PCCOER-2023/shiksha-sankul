@@ -16,7 +16,7 @@ import StudentILP from "./components/Dashboards/Student Dashboard/StudentILP";
 import Performance from "./components/Dashboards/Student Dashboard/Performance";
 
 import Analytics from "./components/Dashboards/Faculty Dashboard/Analytics";
-import DiscussionForum from "./components/Dashboards/Faculty Dashboard/DiscussionForum";
+
 import LearningRM from "./components/Dashboards/Faculty Dashboard/LearningRM";
 import FacultyHeader from "./components/Header/FacultyHeader";
 import FacultyProfile from "./components/FacultyProfile";
@@ -26,6 +26,7 @@ import ContentLibrary from "./components/Dashboards/Faculty Dashboard/ContentLib
 import GoogleDriveResources from "./components/Dashboards/Faculty Dashboard/GoogleDriveResources";
 import PDFUpload from "./components/Dashboards/Faculty Dashboard/PDFUpload";
 import Notes from "./components/Dashboards/Student Dashboard/Notes";
+// import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
 
 function App() {
   return (
@@ -69,7 +70,7 @@ function App() {
 
           <Route path="/analytics" element={<Analytics />} />
 
-          <Route path="/discussionforum" element={<DiscussionForum />} />
+          {/* <Route path="/discussionforum" element={<DiscussionForum />} /> */}
 
           <Route path="/learningrm" element={<LearningRM />} />
 

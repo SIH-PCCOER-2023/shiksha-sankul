@@ -17,7 +17,7 @@ const Performance = (props) => {
       <TestScoreFetcher onSuccess={handleTestScores} />
 
       {/* Pass testIds and scores to LineChart */}
-      <LineChart labels={testIds} values={scores} />
+      {/* <LineChart labels={testIds} values={scores} /> */}
     </>
   );
 };

@@ -1,4 +1,3 @@
-// TestScoreFetcher.js
 import React, { useState } from "react";
 import { sendGetRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
@@ -9,16 +8,22 @@ const TestScoreFetcher = ({ onSuccess }) => {
   const fetchTestScores = async (studentId) => {
     try {
       const res = await sendGetRequest(
-        `http://localhost:8080/api/v1/tests/${studentId}`
+        `http://localhost:8080/api/v1/student/array/${studentId}`
       );
-      if (res.data.status === "success") {
+      if (res && res.data && res.data.status === "success") {
         const data = res.data.data;
-        const fetchedTestIds = data.map((test) => test.testId);
-        const fetchedScores = data.map((test) => test.score);
-        onSuccess(fetchedTestIds, fetchedScores); // Call the callback function
+        const fetchedScores = data.map((score) => score.obtainedScore);
+        onSuccess(fetchedScores); // Call the callback function with obtained scores only
+      } else {
+        showAlert("error", "Failed to fetch test scores.");
       }
     } catch (err) {
-      showAlert("error", err.response.data.message);
+      showAlert(
+        "error",
+        err.response
+          ? err.response.data.message
+          : "An error occurred while fetching test scores."
+      );
     }
   };
 
