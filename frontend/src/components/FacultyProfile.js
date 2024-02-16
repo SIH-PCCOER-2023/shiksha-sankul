@@ -1,6 +1,11 @@
 import Sidebar from "../components/Sidebar/Sidebar";
+import DashboardHeader from "./Header/DashboardHeader";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import UserContext from "../store/user-context";
 
 const FacultyProfile = (props) => {
+  const userCtx = useContext(UserContext);
   const sidebarLinks = [
     {
       icon: "fa-graduation-cap",
@@ -46,17 +51,21 @@ const FacultyProfile = (props) => {
   ];
 
   return (
+  <>
+    <DashboardHeader/>
     <div className="user-profile">
       <Sidebar navLinks={sidebarLinks} />
       {/* <img src="img.jpg" alt="User Avatar" className="avatar" /> */}
       <div className="profile-container">
         <br></br>
         <br></br>
-        <h1>Name: Faculty</h1>
-        <p>Email: f@f.com</p>
+        <p className="name">Name: {userCtx.user.name}</p>
+        <p>Email: {userCtx.user.email}</p>
+        <p>Year: SE</p>
         <p>College: PCCOER</p>
       </div>
     </div>
+  </> 
   );
 };
 
