@@ -31,6 +31,11 @@ const UserProfile = (props) => {
     //   text: 'Discussion Forum',
     //   url: 'discussion.html',
     // },
+    {
+      icon: "fa-note-sticky",
+      text: "Notes",
+      url: "/notes",
+    },
   ];
 
   return (
