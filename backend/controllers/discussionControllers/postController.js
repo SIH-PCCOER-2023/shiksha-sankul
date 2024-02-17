@@ -141,18 +141,72 @@ exports.updatePost = catchAsync(async (req, res, next) => {
   });
 });
 
+
+
 exports.updateVote = catchAsync(async (req, res, next) => {
-  const userId = req.params.userId;
-  const postId = req.params.postId;
-  const doc = await Post.findById(postId);
-
-  Post.upvotes.push(userId);
-  console.log(doc);
-
-  res.status(200).json({
-    status: "Success",
-    data: {
-      data: doc,
-    },
-  });
+  try {
+    const userId = req.params.userId;
+    const postId = req.params.postId;
+    
+    // Find the post by postId
+    const post = await Post.findById(postId);
+    
+    // Check if the post exists
+    if (!post) {
+      return res.status(404).json({
+        status: "Fail",
+        message: "Post not found",
+      });
+    }
+    
+    // Initialize upvotes array if it's undefined
+    if (!post.upvotes) {
+      post.upvotes = [];
+    }
+    
+    // Check if userId is already in upvotes
+    if (post.upvotes.includes(userId)) {
+      return res.status(400).json({
+        status: "Fail",
+        message: "User already voted for this post",
+      });
+    }
+    
+    // Push userId to upvotes array
+    post.upvotes.push(userId);
+    
+    // Save the updated post
+    await post.save();
+    
+    // Log the updated post
+    console.log(post);
+    
+    res.status(200).json({
+      status: "Success",
+      data: {
+        post: post,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: "Error",
+      message: error.message,
+    });
+  }
 });
+
+// exports.updateVote = catchAsync(async (req, res, next) => {
+//   const userId = req.params.userId;
+//   const postId = req.params.postId;
+//   const doc = await Post.findById(postId);
+
+//   Post.upvotes.push(userId);
+//   console.log(doc);
+
+//   res.status(200).json({
+//     status: "Success",
+//     data: {
+//       data: doc,
+//     },
+//   });
+// });
