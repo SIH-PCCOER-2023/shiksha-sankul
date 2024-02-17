@@ -54,8 +54,8 @@ const LineChart = ({ labels, values }) => {
   return (
     <>
       {values.length > 0 && (
-        <div className="line-chart" style={{ width: "800px", height: "600px" }}>
-          <h2>Line Chart</h2>
+        <div className="line-chart" style={{ width: "600px", height: "350px" }}>
+          <h2 align="center">Performance Report</h2>
           <canvas ref={chartRef}></canvas>
         </div>
       )}

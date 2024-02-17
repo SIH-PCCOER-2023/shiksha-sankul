@@ -1,3 +1,4 @@
+// TestScoreFetcher.js
 import React, { useState } from "react";
 import { sendGetRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
@@ -16,9 +17,7 @@ const TestScoreFetcher = ({ onSuccess }) => {
           return index + 1;
         });
 
-        // console.log(labels);
         onSuccess(labels, marks);
-        // Call the callback function with obtained scores only
       } else {
         showAlert("error", "Failed to fetch test scores.");
       }
