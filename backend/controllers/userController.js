@@ -17,3 +17,18 @@ exports.getAll = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.getOne = catchAsync(async (req, res, next) => {
+  const doc = await User.findById(req.params.id);
+
+  if (!doc) {
+    return next(new AppError("No user with provided id", 404));
+  }
+
+  res.status(200).json({
+    status: "Success",
+    data: {
+      data: doc,
+    },
+  });
+});
