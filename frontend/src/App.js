@@ -16,11 +16,17 @@ import StudentILP from "./components/Dashboards/Student Dashboard/StudentILP";
 import Performance from "./components/Dashboards/Student Dashboard/Performance";
 
 import Analytics from "./components/Dashboards/Faculty Dashboard/Analytics";
-import DiscussionForum from "./components/Dashboards/Faculty Dashboard/DiscussionForum";
+
 import LearningRM from "./components/Dashboards/Faculty Dashboard/LearningRM";
 import FacultyHeader from "./components/Header/FacultyHeader";
 import FacultyProfile from "./components/FacultyProfile";
 import FacultySidebar from "./components/Sidebar/FacultySidebar";
+import ExcelUpload from "./components/Dashboards/Faculty Dashboard/ExcelUpload";
+import ContentLibrary from "./components/Dashboards/Faculty Dashboard/ContentLibrary";
+import GoogleDriveResources from "./components/Dashboards/Faculty Dashboard/GoogleDriveResources";
+import PDFUpload from "./components/Dashboards/Faculty Dashboard/PDFUpload";
+import Notes from "./components/Dashboards/Student Dashboard/Notes";
+// import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
 
 function App() {
   return (
@@ -64,7 +70,7 @@ function App() {
 
           <Route path="/analytics" element={<Analytics />} />
 
-          <Route path="/discussionforum" element={<DiscussionForum />} />
+          {/* <Route path="/discussionforum" element={<DiscussionForum />} /> */}
 
           <Route path="/learningrm" element={<LearningRM />} />
 
@@ -73,6 +79,19 @@ function App() {
           <Route path="/facultyheader" element={<FacultyHeader />} />
 
           <Route path="/facultysidebar" element={<FacultySidebar />} />
+
+          <Route path="/excelupload" element={<ExcelUpload />} />
+
+          <Route path="/contentlibrary" element={<ContentLibrary />} />
+
+          <Route path="/pdfupload" element={<PDFUpload />} />
+
+          <Route path="/notes" element={<Notes />} />
+
+          <Route
+            path="/googledriveresources"
+            element={<GoogleDriveResources />}
+          />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

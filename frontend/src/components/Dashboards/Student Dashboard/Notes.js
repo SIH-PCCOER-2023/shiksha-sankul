@@ -1,21 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-
-import DashboardHeader from "../../Header/DashboardHeader";
-import Sidebar from "../../Sidebar/Sidebar";
-import Dashboard from "./Dashboard";
-
-import UserContext from "../../../store/user-context";
+import React, { useState, useEffect } from "react";
 import { sendGetRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
-
-import YouTubeCard from "./YoutubeCard";
-
-import Container from "react-bootstrap/Container";
-
-const LearningCenter = (props) => {
-  const userCtx = useContext(UserContext);
-  const [resources, setResources] = useState(false);
-
+import Sidebar from "../../Sidebar/Sidebar";
+import DashboardHeader from "../../Header/DashboardHeader";
+const Notes = () => {
+  const [pdfs, setPdfs] = useState([]);
   const sidebarLinks = [
     {
       icon: "fa-home",
@@ -52,11 +41,11 @@ const LearningCenter = (props) => {
       text: "Performance",
       url: "/performance",
     },
-    {
-      icon: "fa-solid fa-comments",
-      text: "Discussion Forum",
-      url: "/discussionforum",
-    },
+    // {
+    //   icon: 'fa-solid fa-comments',
+    //   text: 'Discussion Forum',
+    //   url: 'discussion.html',
+    // },
     {
       icon: "fa-note-sticky",
       text: "Notes",
@@ -65,36 +54,40 @@ const LearningCenter = (props) => {
   ];
 
   useEffect(() => {
-    const getLearningResources = async () => {
+    const getPdfs = async () => {
       try {
-        const resources = await sendGetRequest(
-          `http://localhost:8080/api/v1/resources/`
+        const response = await sendGetRequest(
+          `http://localhost:8080/api/v1/pdf`
         );
-
-        setResources(resources.data.data);
-        console.log(resources);
+        setPdfs(response.data.data);
       } catch (error) {
         showAlert("error", error);
       }
     };
 
-    getLearningResources();
+    getPdfs();
   }, []);
 
   return (
     <>
       <DashboardHeader />
       <Sidebar navLinks={sidebarLinks} />
-      {/* {!userCtx.user.prereqCompleted && <PrerequisiteTest />} */}
-      {resources && (
-        <div>
-          <Container className="youtube-card-container">
-            <YouTubeCard videoData={resources} />
-          </Container>
+      <div className="pdf-list-container">
+        <div className="pdf-grid">
+          {pdfs.map((pdf, index) => (
+            <div className="pdf-card" key={index}>
+              <div className="pdf-info">
+                <h3>{pdf.title}</h3>
+                <a href={pdf.link} target="_blank" rel="noopener noreferrer">
+                  <button>View</button>
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </>
   );
 };
 
-export default LearningCenter;
+export default Notes;

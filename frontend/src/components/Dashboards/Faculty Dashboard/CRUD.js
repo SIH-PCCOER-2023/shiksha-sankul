@@ -8,6 +8,8 @@ import {
 import validator from "validator";
 import Input from "../../UI/Input/Input";
 import FacultySidebar from "../../Sidebar/FacultySidebar";
+import ExcelUpload from "./ExcelUpload";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 const CRUD = () => {
   const sidebarLinks = [
@@ -26,10 +28,15 @@ const CRUD = () => {
       text: "Learning Resource Management",
       url: "/learningrm",
     },
+    // {
+    //   icon: "fa-comments",
+    //   text: "Discussion Forum",
+    //   url: "/discussionforum",
+    // },
     {
-      icon: "fa-comments",
-      text: "Discussion Forum",
-      url: "/discussionforum",
+      icon: "fa-note-sticky",
+      text: "Share Notes",
+      url: "/pdfupload",
     },
   ];
   const [students, setStudents] = useState([]);
@@ -216,7 +223,7 @@ const CRUD = () => {
               id="rollno"
               type="text"
               name="rollno"
-              placeholder="SECompA00"
+              placeholder="SEComp00"
               required
               value={rollno}
               onChange={rollnoChangeHandler}
@@ -267,6 +274,7 @@ const CRUD = () => {
           <button onClick={addStudent} className="add-student-btn">
             Add Student
           </button>
+          <ExcelUpload />
         </div>
 
         {errors.name && <span className="error">{errors.name}</span>}
@@ -279,9 +287,22 @@ const CRUD = () => {
               (student, index) =>
                 student.user && (
                   <li key={index}>
-                    {student.user?.name} {student.user?.email}
-                    {student.user?.class} {student.user?.learnerType}
-                    {student.classification}
+                    <span>
+                      {"Name: "}
+                      {student.user?.name}
+                    </span>
+                    <span>
+                      {"  Email: "}
+                      {student.user?.email}
+                    </span>
+                    <span>
+                      {"Year: "}
+                      {student.user?.class}
+                    </span>
+                    <span>
+                      {"  Learner Type: "}
+                      {student.user?.learnerType}
+                    </span>
                     <button
                       onClick={() =>
                         deleteStudent(student.user?._id, student._id)

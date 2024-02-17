@@ -4,6 +4,7 @@ const APIFeatures = require("../utils/apiFeatures");
 const { upload, importExcel } = require("../utils/excellImportApi");
 
 const factory = require("./handlerFactory");
+
 //const Faculty = require("../models/facultyModel");
 const Student = require("./../models/studentModel");
 const studentController = require("./studentController");
@@ -35,6 +36,7 @@ exports.bulkAddStudents = catchAsync(async (req, res, next) => {
         E: "rollno",
         F: "password",
         G: "passwordConfirm",
+
         H: "learnerType",
         // I: "test2",
         // J: "test3",

@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import DashboardHeader from '../../../Header/DashboardHeader';
-import Sidebar from '../../../Sidebar/Sidebar';
+import DashboardHeader from "../../../Header/DashboardHeader";
+import Sidebar from "../../../Sidebar/Sidebar";
 
 const Assessments = (props) => {
   const sidebarLinks = [
     {
-      icon: 'fa-home',
-      text: 'Dashboard',
-      url: '/student-dashboard',
+      icon: "fa-home",
+      text: "Dashboard",
+      url: "/student-dashboard",
     },
     // {
     //   icon: 'fa-calendar',
@@ -16,25 +16,30 @@ const Assessments = (props) => {
     //   url: '/ilp',
     // },
     {
-      icon: 'fa-book-open',
-      text: 'Learning Center',
-      url: '/learning-center',
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "/learning-center",
     },
     {
-      icon: 'fa-pen',
-      text: 'Assessments',
-      url: '/assessments',
+      icon: "fa-pen",
+      text: "Assessments",
+      url: "/assessments",
     },
     {
-      icon: 'fa-solid fa-chart-pie',
-      text: 'Performance',
-      url: '/performance',
+      icon: "fa-solid fa-chart-pie",
+      text: "Performance",
+      url: "/performance",
     },
     // {
     //   icon: 'fa-solid fa-comments',
     //   text: 'Discussion Forum',
     //   url: 'discussion.html',
     // },
+    {
+      icon: "fa-note-sticky",
+      text: "Notes",
+      url: "/notes",
+    },
   ];
 
   return (
