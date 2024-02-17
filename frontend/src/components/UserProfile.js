@@ -46,7 +46,7 @@ const UserProfile = (props) => {
           <br></br>
           <br></br>
           <p className="name">Name: {userCtx.user.name}</p>
-          <p>Email: {userCtx.user.email}</p>
+          <p>Email: {userCtx.user.id}</p>
           <p>Year: SE</p>
           <p>College: PCCOER</p>
         </div>

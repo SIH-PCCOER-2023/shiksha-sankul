@@ -249,8 +249,50 @@ exports.getObtainedScore = catchAsync(async (req, res, next) => {
   });
 });
 
+// exports.getArray = catchAsync(async (req, res, next) => {
+//   const doc = await Student.findOne({ user: req.params.id });
+
+//   if (!doc) {
+//     return next(
+//       new AppError("A document with that ID could not be found", 404)
+//     );
+//   }
+
+//   // Extract the obtainedScores array from the document
+//   const obtainedScores = doc.obtainedScores || [];
+
+//   res.status(200).json({
+//     status: "success",
+//     data: {
+//       obtainedScores,
+//     },
+//   });
+// });
+
+// exports.getArray = catchAsync(async (req, res, next) => {
+//   const roll = req.body.rollno;
+//   const doc = await Student.findOne({ rollno: roll });
+
+//   if (!doc) {
+//     return next(
+//       new AppError("A document with that ID could not be found", 404)
+//     );
+//   }
+
+//   const obtainedScores = doc.obtainedScores || [];
+
+//   res.status(200).json({
+//     status: "success",
+//     data: {
+//       data: obtainedScores,
+//     },
+//   });
+// });
+
 exports.getArray = catchAsync(async (req, res, next) => {
-  const doc = await Student.findOne({ user: req.params.id });
+  const roll = req.params.rollno;
+  //   const doc = await Student.findOne({ rollno: roll });
+  const doc = await Student.findOne({ rollno: roll });
 
   if (!doc) {
     return next(
@@ -258,13 +300,12 @@ exports.getArray = catchAsync(async (req, res, next) => {
     );
   }
 
-  // Extract the obtainedScores array from the document
   const obtainedScores = doc.obtainedScores || [];
 
   res.status(200).json({
     status: "success",
     data: {
-      obtainedScores,
+      data: obtainedScores,
     },
   });
 });

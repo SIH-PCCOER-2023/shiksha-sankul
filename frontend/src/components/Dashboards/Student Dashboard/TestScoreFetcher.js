@@ -4,15 +4,16 @@ import { sendGetRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
 
 const TestScoreFetcher = ({ onSuccess }) => {
-  const [studentId, setStudentId] = useState("");
-  const fetchTestScores = async (studentId) => {
+  const [rollNumber, setRollNumber] = useState("");
+
+  const fetchTestScores = async (rollNumber) => {
     try {
       const res = await sendGetRequest(
-        `http://localhost:8080/api/v1/student/array/${studentId}`
+        `http://localhost:8080/api/v1/student/array/${rollNumber}`
       );
 
       if (res.data.status === "success") {
-        const marks = res.data.data.obtainedScores;
+        const marks = res.data.data.data; // Assuming obtained scores are in the 'data' property of the response
         const labels = marks.map((mark, index) => {
           return index + 1;
         });
@@ -33,19 +34,19 @@ const TestScoreFetcher = ({ onSuccess }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchTestScores(studentId);
+    fetchTestScores(rollNumber);
   };
 
   return (
     <div className="test-score-fetcher">
       <h2>Test Score Fetcher</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="studentId">Student ID:</label>
+        <label htmlFor="rollNumber">Roll Number:</label>
         <input
           type="text"
-          id="studentId"
-          value={studentId}
-          onChange={(e) => setStudentId(e.target.value)}
+          id="rollNumber"
+          value={rollNumber}
+          onChange={(e) => setRollNumber(e.target.value)}
         />
         <button type="submit">Fetch Scores</button>
       </form>

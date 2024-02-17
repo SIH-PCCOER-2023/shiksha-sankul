@@ -57,6 +57,11 @@ const LearningRM = (props) => {
       text: "Share Notes",
       url: "/pdfupload",
     },
+    {
+      icon: "fa-chart-line",
+      text: "View Performance",
+      url: "/performanceview",
+    },
   ];
 
   useEffect(() => {
