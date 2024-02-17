@@ -22,11 +22,6 @@ const LearningCenter = (props) => {
       text: "Dashboard",
       url: "/student-dashboard",
     },
-    // {
-    //   icon: 'fa-calendar',
-    //   text: 'Individual Learning Plan',
-    //   url: '/ilp',
-    // },
     {
       icon: "fa-book-open",
       text: "Learning Center",
@@ -37,30 +32,15 @@ const LearningCenter = (props) => {
       text: "Assessments",
       url: "/assessments",
     },
-    // {
-    //   icon: 'fa-thumbs-up',
-    //   text: 'Our Recommendations',
-    //   url: 'recommendations.html',
-    // },
-    // {
-    //   icon: 'fa-solid fa-file-pdf',
-    //   text: 'Certificates',
-    //   url: 'certificates.html',
-    // },
     {
       icon: "fa-solid fa-chart-pie",
       text: "Performance",
       url: "/performance",
     },
     {
-      icon: "fa-solid fa-comments",
-      text: "Discussion Forum",
-      url: "/discussionforum",
-    },
-    {
       icon: "fa-note-sticky",
       text: "Notes",
-      url: "/notes",
+      url: "/",
     },
   ];
 

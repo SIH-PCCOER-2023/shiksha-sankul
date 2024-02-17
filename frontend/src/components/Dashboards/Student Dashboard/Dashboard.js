@@ -30,13 +30,13 @@ const Dashboard = (props) => {
   const chartData = [
     {
       title: "Progress",
-      chartId: "6582c709-2cc4-4b65-8d63-db93f3489805",
+      chartId: "65cb2ba7-00bd-466c-8f6e-7bd3bfc0e25b",
       width: "500px",
       height: "300px",
     },
     {
       title: "Progress",
-      chartId: "6582c81f-2847-443e-86fd-94cfc7b7f6c3",
+      chartId: "6582c709-2cc4-4b65-8d63-db93f3489805",
       width: "450px",
       height: "300px",
     },

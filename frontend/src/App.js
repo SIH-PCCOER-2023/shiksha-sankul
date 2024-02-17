@@ -10,9 +10,9 @@ import UserProfile from "./components/UserProfile";
 // import PrerequisiteTest from './components/PrerequisiteTest/PrerequisiteTest';
 import Assessments from "./components/Dashboards/Student Dashboard/Assessments/Assessments";
 import Test from "./components/Dashboards/Student Dashboard/Assessments/Test";
-import ILP from "./components/Dashboards/Faculty Dashboard/ILP";
+
 import LearningCenter from "./components/Dashboards/Student Dashboard/LearningCenter";
-import StudentILP from "./components/Dashboards/Student Dashboard/StudentILP";
+
 import Performance from "./components/Dashboards/Student Dashboard/Performance";
 
 import Analytics from "./components/Dashboards/Faculty Dashboard/Analytics";
@@ -22,10 +22,7 @@ import FacultyHeader from "./components/Header/FacultyHeader";
 import FacultyProfile from "./components/FacultyProfile";
 import FacultySidebar from "./components/Sidebar/FacultySidebar";
 import ExcelUpload from "./components/Dashboards/Faculty Dashboard/ExcelUpload";
-import ContentLibrary from "./components/Dashboards/Faculty Dashboard/ContentLibrary";
-import GoogleDriveResources from "./components/Dashboards/Faculty Dashboard/GoogleDriveResources";
-import PDFUpload from "./components/Dashboards/Faculty Dashboard/PDFUpload";
-import Notes from "./components/Dashboards/Student Dashboard/Notes";
+
 // import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
 
 function App() {
@@ -59,18 +56,11 @@ function App() {
             element={<Test testType="COMMUNICATION" />}
           />
 
-          <Route path="/faculty-dashboard/ilp" element={<ILP />} />
-
-          {/* <Route path="/pre-requisite" element={<PrerequisiteTest />} /> */}
           <Route path="/learning-center" element={<LearningCenter />} />
-
-          <Route path="/ilp" element={<StudentILP />} />
 
           <Route path="/performance" element={<Performance />} />
 
           <Route path="/analytics" element={<Analytics />} />
-
-          {/* <Route path="/discussionforum" element={<DiscussionForum />} /> */}
 
           <Route path="/learningrm" element={<LearningRM />} />
 
@@ -81,17 +71,6 @@ function App() {
           <Route path="/facultysidebar" element={<FacultySidebar />} />
 
           <Route path="/excelupload" element={<ExcelUpload />} />
-
-          <Route path="/contentlibrary" element={<ContentLibrary />} />
-
-          <Route path="/pdfupload" element={<PDFUpload />} />
-
-          <Route path="/notes" element={<Notes />} />
-
-          <Route
-            path="/googledriveresources"
-            element={<GoogleDriveResources />}
-          />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

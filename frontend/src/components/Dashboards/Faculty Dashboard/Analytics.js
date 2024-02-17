@@ -24,15 +24,11 @@ const Analytics = (props) => {
       text: "Learning Resource Management",
       url: "/learningrm",
     },
-    // {
-    //   icon: "fa-comments",
-    //   text: "Discussion Forum",
-    //   url: "/discussionforum",
-    // },
+
     {
       icon: "fa-note-sticky",
       text: "Share Notes",
-      url: "/pdfupload",
+      url: "/",
     },
   ];
 
