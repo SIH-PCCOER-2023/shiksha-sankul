@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const Admin = require("./adminModel");
 const Student = require("./studentModel");
 const Faculty = require("./facultyModel");
-const Parent = require("./parentModel");
+//const Parent = require("./parentModel");
 
 const SALT_ROUNDS = 12;
 

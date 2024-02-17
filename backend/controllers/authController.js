@@ -8,7 +8,7 @@ const User = require("../models/userModel");
 const Student = require("../models/studentModel");
 const Faculty = require("../models/facultyModel");
 const Admin = require("../models/adminModel");
-const Parent = require("../models/parentModel");
+//const Parent = require("../models/parentModel");
 
 // CookieOptions
 const cookieOptions = {
