@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   sendGetRequest,
   sendPostRequest,
+  sendPatchRequest,
   sendDeleteRequest,
 } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
@@ -18,9 +19,7 @@ const TodoList = (props) => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await sendGetRequest(
-          `http://localhost:8080/api/v1/todolist/`
-        );
+        const response = await sendGetRequest("/api/v1/todolist/");
         console.log("Todos response:", response); // Log response for debugging
         if (response.data && Array.isArray(response.data.data)) {
           setTodos(response.data.data);
@@ -42,14 +41,11 @@ const TodoList = (props) => {
         return;
       }
 
-      await sendPostRequest(`http://localhost:8080/api/v1/todolist`, {
-        content: newTodo,
+      await sendPostRequest("/api/v1/todolist", {
+        toDo: newTodo,
       });
 
-      const response = await sendGetRequest(
-        `http://localhost:8080/api/v1/todolist`
-      );
-
+      const response = await sendGetRequest("/api/v1/todolist");
       console.log("Add todo response:", response); // Log response for debugging
 
       if (response.data && Array.isArray(response.data.data)) {
@@ -66,7 +62,8 @@ const TodoList = (props) => {
 
   const handleDeleteTodo = async (todoId) => {
     try {
-      await sendDeleteRequest(`http://localhost:8080/api/v1/todos/${todoId}`);
+      await sendDeleteRequest(`/api/v1/todolist/${todoId}`);
+      console.log("Delete Todo URL:", `/api/v1/todolist/${todoId}`);
 
       const updatedTodos = todos.filter((todo) => todo._id !== todoId);
       setTodos(updatedTodos);
@@ -92,7 +89,7 @@ const TodoList = (props) => {
         <div className="todos-container">
           {todos.map((todo) => (
             <div key={todo._id} className="todo">
-              <p>{todo.content}</p>
+              <p>{todo.toDo}</p>
               <button onClick={() => handleDeleteTodo(todo._id)}>Delete</button>
             </div>
           ))}

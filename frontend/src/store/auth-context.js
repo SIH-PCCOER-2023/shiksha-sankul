@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const AuthContext = React.createContext({
-  token: '',
-  userType: '',
+  token: "",
+  userType: "",
   isLoggedIn: false,
   login: (token) => {},
   logout: () => {},
@@ -17,10 +17,12 @@ export const AuthContextProvider = (props) => {
 
   const loginHandler = (token) => {
     setToken(token);
+    localStorage.setItem("jwt", token);
   };
 
   const logoutHandler = () => {
     setToken(null);
+    localStorage.removeItem("jwt");
   };
 
   const loginUserTypeHandler = (loginUser) => {

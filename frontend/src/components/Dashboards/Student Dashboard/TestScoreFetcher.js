@@ -4,17 +4,21 @@ import { showAlert } from "../../../utils/alerts";
 
 const TestScoreFetcher = ({ onSuccess }) => {
   const [studentId, setStudentId] = useState("");
-
   const fetchTestScores = async (studentId) => {
     try {
       const res = await sendGetRequest(
         `http://localhost:8080/api/v1/student/array/${studentId}`
       );
-      console.log(res);
-      if (res && res.data && res.data.status === "success") {
-        const data = res.data.data;
-        const fetchedScores = data.map((score) => score.obtainedScore);
-        onSuccess(fetchedScores); // Call the callback function with obtained scores only
+
+      if (res.data.status === "success") {
+        const marks = res.data.data.obtainedScores;
+        const labels = marks.map((mark, index) => {
+          return index + 1;
+        });
+
+        // console.log(labels);
+        onSuccess(labels, marks);
+        // Call the callback function with obtained scores only
       } else {
         showAlert("error", "Failed to fetch test scores.");
       }

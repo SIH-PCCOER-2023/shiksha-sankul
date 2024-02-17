@@ -10,14 +10,15 @@ const Performance = (props) => {
     setTestIds(fetchedTestIds);
     setScores(fetchedScores);
   };
-
+  // console.log(scores);
+  // console.log(testIds);
   return (
     <>
       {/* Move TestScoreFetcher component inside Performance */}
       <TestScoreFetcher onSuccess={handleTestScores} />
 
       {/* Pass testIds and scores to LineChart */}
-      {/* <LineChart labels={testIds} values={scores} /> */}
+      <LineChart labels={testIds} values={scores} />
     </>
   );
 };

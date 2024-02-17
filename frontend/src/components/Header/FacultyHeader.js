@@ -30,7 +30,7 @@ const FacultyHeader = (props) => {
       showAlert("success", "Logged out successfully");
 
       authCtx.logout();
-      userCtx.userHandler({});
+      userCtx.removeUserHandler();
 
       navigate("/");
     }

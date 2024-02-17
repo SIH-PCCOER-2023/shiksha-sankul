@@ -1,4 +1,6 @@
 import "./css/style.css";
+import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./components/Signup-Login/Login";
@@ -36,6 +38,19 @@ import TodoList from "./components/Dashboards/Student Dashboard/ToDoList";
 // import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
 
 function App() {
+  // const navigate = useNavigate();
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   return (
     <UserContextProvider>
       <BrowserRouter>
