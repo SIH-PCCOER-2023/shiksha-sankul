@@ -249,7 +249,8 @@ exports.getObtainedScore = catchAsync(async (req, res, next) => {
 });
 
 exports.getArray = catchAsync(async (req, res, next) => {
-  const roll = req.body.rollno;
+  const roll = req.params.rollno;
+  //   const doc = await Student.findOne({ rollno: roll });
   const doc = await Student.findOne({ rollno: roll });
 
   if (!doc) {
