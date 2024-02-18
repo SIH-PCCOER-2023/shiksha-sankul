@@ -250,10 +250,9 @@ exports.getObtainedScore = catchAsync(async (req, res, next) => {
 });
 
 exports.getArray = catchAsync(async (req, res, next) => {
-  const doc = await Student.findOne({ user: req.params.id }).select({
-    obtainedScores: 1,
-    _id: 0,
-  });
+  const roll = req.params.rollno;
+  //   const doc = await Student.findOne({ rollno: roll });
+  const doc = await Student.findOne({ rollno: roll });
 
   if (!doc) {
     return next(
@@ -261,10 +260,12 @@ exports.getArray = catchAsync(async (req, res, next) => {
     );
   }
 
+  const obtainedScores = doc.obtainedScores || [];
+
   res.status(200).json({
     status: "success",
     data: {
-      data: doc,
+      data: obtainedScores,
     },
   });
 });

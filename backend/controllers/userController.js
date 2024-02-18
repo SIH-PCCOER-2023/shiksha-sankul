@@ -20,6 +20,7 @@ exports.getAll = catchAsync(async (req, res, next) => {
 });
 
 exports.getOne = catchAsync(async (req, res, next) => {
+
   const doc = await Student.findOne({ user: req.params.id });
   if (!doc) {
     return next(new AppError("Doc not found", 404));
@@ -28,6 +29,7 @@ exports.getOne = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     count: doc.length,
+
     data: {
       data: doc,
     },
