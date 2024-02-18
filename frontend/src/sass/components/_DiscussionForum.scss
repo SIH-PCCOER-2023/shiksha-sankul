@@ -6,6 +6,8 @@
 
   .create-post {
     margin-bottom: 20px;
+    margin-left: 320px;
+    margin-right: 350px;
 
     input,
     textarea {
@@ -19,7 +21,7 @@
     }
 
     button {
-      padding: 10px 20px;
+      padding: 8px;
       background-color: #007bff;
       color: #fff;
       border: none;
@@ -38,8 +40,9 @@
     width: 100%;
 
     .post {
-      margin-left: 310px;
+      margin-left: 320px;
       margin-bottom: 20px;
+      margin-right: 350px;
       padding: 10px;
       background-color: #f9f9f9;
       border: 1px solid #ccc;
@@ -47,6 +50,7 @@
 
       p {
         margin: 0;
+        font-size: 12px;
       }
 
       input {
@@ -58,17 +62,20 @@
       }
 
       button {
-        padding: 8px 16px;
-        background-color: #007bff;
-        color: #fff;
+        padding: 8px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         font-size: 14px;
         transition: background-color 0.3s;
+        color: #007bff; /* Initial color for the thumbs-up symbol */
 
         &:hover {
-          background-color: #0056b3;
+          background-color: #f9f9f9;
+        }
+
+        &.upvoted {
+          color: green; /* Color for upvoted state */
         }
       }
     }

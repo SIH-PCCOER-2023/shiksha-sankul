@@ -41,11 +41,11 @@ const Notes = () => {
       text: "Performance",
       url: "/performance",
     },
-    // {
-    //   icon: 'fa-solid fa-comments',
-    //   text: 'Discussion Forum',
-    //   url: 'discussion.html',
-    // },
+    {
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
+    },
     {
       icon: "fa-note-sticky",
       text: "Notes",

@@ -1,9 +1,14 @@
 // General styles for the todo list container
 .todo-list-container {
-    margin: 20px;
+    margin: 0px;
     padding: 20px;
+    background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-bottom: 550px;
+    // margin-left: 350px;
+    // margin-right: 650px;
+    // margin-top: 30px;
   
     // Styles for the add todo section
     .add-todo {
@@ -13,12 +18,13 @@
         width: calc(100% - 100px);
         padding: 10px;
         border: 1px solid #ccc;
+        background-color: #e0e7ef;
         border-radius: 5px;
         margin-right: 10px;
       }
   
       button {
-        padding: 10px 20px;
+        padding: 8px ;
         border: none;
         border-radius: 5px;
         background-color: #007bff;
