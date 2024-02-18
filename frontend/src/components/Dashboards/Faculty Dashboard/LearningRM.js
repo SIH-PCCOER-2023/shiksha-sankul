@@ -1,19 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-// import DashboardHeader from "../../Header/DashboardHeader";
 import FacultySidebar from "../../Sidebar/FacultySidebar";
-import Dashboard from "./Dashboard";
-import UserContext from "../../../store/user-context";
+import FacultyHeader from "../../Header/FacultyHeader";
 import { sendGetRequest, sendPostRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
 import YouTubeCard from "../Student Dashboard/YoutubeCard";
 import Container from "react-bootstrap/Container";
-import FacultyHeader from "../../Header/FacultyHeader";
+import UserContext from "../../../store/user-context";
 
 const LearningRM = (props) => {
   const userCtx = useContext(UserContext);
   const [resources, setResources] = useState([]);
   const [newVideoUrl, setNewVideoUrl] = useState("");
   const [newVideoTitle, setNewVideoTitle] = useState("");
+  const [resourceType, setResourceType] = useState("slow");
 
   const sidebarLinks = [
     {
@@ -26,32 +25,11 @@ const LearningRM = (props) => {
       text: "Analytics",
       url: "/analytics",
     },
-    // {
-    //   icon: 'fa-calendar',
-    //   text: 'Individual Learning Plan',
-    //   url: '/faculty-dashboard/ilp',
-    // },
     {
       icon: "fa-book-open",
       text: "Learning Resource Management",
       url: "/learningrm",
     },
-    // {
-    //   icon: 'fa-pen',
-    //   text: 'Assessment Scheduling',
-    //   url: 'assessment-scheduling.html',
-    // },
-    // {
-    //   icon: 'fa-list',
-    //   text: 'Decide Criteria',
-    //   url: 'decide-criteria.html',
-    // },
-
-    // {
-    //   icon: "fa-comments",
-    //   text: "Discussion Forum",
-    //   url: "/discussionforum",
-    // },
     {
       icon: "fa-note-sticky",
       text: "Share Notes",
@@ -88,9 +66,13 @@ const LearningRM = (props) => {
 
   const handleUpload = async () => {
     try {
-      // Check if either URL or title field is empty
-      if (!newVideoUrl.trim() || !newVideoTitle.trim()) {
-        showAlert("error", "Please enter both URL and title.");
+      // Check if either URL, title, or resource type field is empty
+      if (
+        !newVideoUrl.trim() ||
+        !newVideoTitle.trim() ||
+        !resourceType.trim()
+      ) {
+        showAlert("error", "Please enter all fields.");
         return; // Stop further execution
       }
 
@@ -100,8 +82,16 @@ const LearningRM = (props) => {
         return; // Stop further execution
       }
 
-      // Send the new video data to the backend
-      await sendPostRequest("http://localhost:8080/api/v1/resources/", {
+      let endpoint = "";
+      // Determine the endpoint based on the resource type
+      if (resourceType === "slow") {
+        endpoint = "http://localhost:8080/api/v1/slowLearningResources/";
+      } else if (resourceType === "fast") {
+        endpoint = "http://localhost:8080/api/v1/fastLearningResources/";
+      }
+
+      // Send the new video data to the appropriate endpoint
+      await sendPostRequest(endpoint, {
         title: newVideoTitle,
         url: newVideoUrl,
       });
@@ -117,6 +107,7 @@ const LearningRM = (props) => {
       // Clear the input fields after successful upload
       setNewVideoUrl("");
       setNewVideoTitle("");
+      setResourceType("slow");
 
       // Optionally, show a success message
       showAlert("success", "Video uploaded successfully!");
@@ -127,7 +118,6 @@ const LearningRM = (props) => {
 
   return (
     <>
-      {/* <DashboardHeader /> */}
       <FacultyHeader />
       <FacultySidebar navLinks={sidebarLinks} />
       <div className="upload-card-container">
@@ -145,6 +135,13 @@ const LearningRM = (props) => {
             value={newVideoTitle}
             onChange={(e) => setNewVideoTitle(e.target.value)}
           />
+          <select
+            value={resourceType}
+            onChange={(e) => setResourceType(e.target.value)}
+          >
+            <option value="slow">Slow Resource</option>
+            <option value="fast">Fast Resource</option>
+          </select>
           <button onClick={handleUpload}>Upload</button>
         </div>
       </div>

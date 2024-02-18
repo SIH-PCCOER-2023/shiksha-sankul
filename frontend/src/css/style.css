@@ -1289,7 +1289,8 @@ p {
   padding: 20px;
   background-color: #f9f9f9; }
 
-.upload-card input {
+.upload-card input,
+.upload-card select {
   width: 100%;
   margin-bottom: 10px;
   padding: 8px;
