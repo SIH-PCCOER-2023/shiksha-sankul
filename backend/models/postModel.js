@@ -32,7 +32,7 @@ const PostSchema = mongoose.Schema({
     {
       type: mongoose.Schema.ObjectId,
       ref: "User",
-      required: [true],
+      default: [],
     },
   ],
   time: {
@@ -40,11 +40,11 @@ const PostSchema = mongoose.Schema({
     default: Date.now,
   },
 });
-PostSchema.pre(/^find/, function (next) {
-  this.populate("upvotes").populate("author");
+// PostSchema.pre(/^find/, function (next) {
+//   this.populate("upvotes").populate("author");
 
-  next();
-});
+//   next();
+// });
 
 const Post = mongoose.model("Post", PostSchema);
 
