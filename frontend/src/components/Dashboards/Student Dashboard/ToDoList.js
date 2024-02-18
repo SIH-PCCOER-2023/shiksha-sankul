@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+import UserContext from "../../../store/user-context";
 import {
   sendGetRequest,
   sendPostRequest,
@@ -6,10 +9,6 @@ import {
   sendDeleteRequest,
 } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
-import Container from "react-bootstrap/Container";
-import UserContext from "../../../store/user-context";
-import FacultyHeader from "../../Header/FacultyHeader";
-import FacultySidebar from "../../Sidebar/FacultySidebar";
 
 const TodoList = (props) => {
   const userCtx = useContext(UserContext);
@@ -75,7 +74,7 @@ const TodoList = (props) => {
   };
 
   return (
-    <>
+    <Container>
       <div className="todo-list-container">
         <div className="add-todo">
           <input
@@ -88,14 +87,16 @@ const TodoList = (props) => {
         </div>
         <div className="todos-container">
           {todos.map((todo) => (
-            <div key={todo._id} className="todo">
-              <p>{todo.toDo}</p>
-              <button onClick={() => handleDeleteTodo(todo._id)}>Delete</button>
-            </div>
+            <Card key={todo._id} className="todo-card">
+              <Card.Body>
+                <Card.Text>{todo.toDo}</Card.Text>
+                <button onClick={() => handleDeleteTodo(todo._id)}>Delete</button>
+              </Card.Body>
+            </Card>
           ))}
         </div>
       </div>
-    </>
+    </Container>
   );
 };
 

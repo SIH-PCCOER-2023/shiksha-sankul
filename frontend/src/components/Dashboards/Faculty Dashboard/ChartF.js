@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useContext } from 'react';
 import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom';
-import AuthContext from '../store/auth-context';
+import AuthContext from '../../../store/auth-context';
 // import {
 //   LineChart,
 //   ResponsiveContainer,
@@ -13,7 +13,7 @@ import AuthContext from '../store/auth-context';
 //   CartesianGrid,
 // } from 'recharts';
 
-const Chart = ({ chartData }) => {
+const ChartF = ({ chartData }) => {
   const authCtx = useContext(AuthContext);
 
   const sdk = new ChartsEmbedSDK({
@@ -23,7 +23,7 @@ const Chart = ({ chartData }) => {
     },
   });
   const chartDiv1 = useRef(null);
-  // const chartDiv2 = useRef(null);
+  const chartDiv2 = useRef(null);
   const [, setRendered] = useState(false);
 
   const [chart0] = useState(
@@ -35,14 +35,14 @@ const Chart = ({ chartData }) => {
     })
   );
 
-  // const [chart1] = useState(
-  //   sdk.createChart({
-  //     chartId: chartData[1].chartId,
-  //     height: chartData[1].height,
-  //     width: chartData[1].width,
-  //     theme: 'light',
-  //   })
-  // );
+  const [chart1] = useState(
+    sdk.createChart({
+      chartId: chartData[1].chartId,
+      height: chartData[1].height,
+      width: chartData[1].width,
+      theme: 'light',
+    })
+  );
 
   useEffect(() => {
     chart0
@@ -50,11 +50,11 @@ const Chart = ({ chartData }) => {
       .then(() => setRendered(true))
       .catch((err) => console.log('Error during Charts rendering.', err));
 
-    // chart1
-    //   .render(chartDiv2.current)
-    //   .then(() => setRendered(true))
-    //   .catch((err) => console.log('Error during Charts rendering.', err));
-  }, [chart0]);
+    chart1
+      .render(chartDiv2.current)
+      .then(() => setRendered(true))
+      .catch((err) => console.log('Error during Charts rendering.', err));
+  }, [chart0, chart1]);
 
   return (
     <>
@@ -65,10 +65,10 @@ const Chart = ({ chartData }) => {
         </div>
       </div>
 
-      {/* <div className="chart">
+      <div className="chart">
         <h3 className="chart__title">{chartData[1].title}</h3>
         <div className="chart__content" ref={chartDiv2} />
-      </div> */}
+      </div>
     </>
   );
 };
@@ -93,4 +93,4 @@ const Chart = ({ chartData }) => {
 //   );
 // };
 
-export default Chart;
+export default ChartF;
