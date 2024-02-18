@@ -38,6 +38,11 @@ const PDFUpload = () => {
       text: "Share Notes",
       url: "/pdfupload",
     },
+    {
+      icon: "fa-chart-line",
+      text: "View Performance",
+      url: "/performanceview",
+    },
   ];
   useEffect(() => {
     const getPdfs = async () => {

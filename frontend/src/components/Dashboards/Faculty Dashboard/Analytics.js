@@ -34,6 +34,11 @@ const Analytics = (props) => {
       text: "Share Notes",
       url: "/pdfupload",
     },
+    {
+      icon: "fa-chart-line",
+      text: "View Performance",
+      url: "/performanceview",
+    },
   ];
 
   const [students, setStudents] = useState([]);

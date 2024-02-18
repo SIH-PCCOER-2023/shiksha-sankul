@@ -48,24 +48,29 @@ const FacultyProfile = (props) => {
       text: "Share Notes",
       url: "/pdfupload",
     },
+    {
+      icon: "fa-chart-line",
+      text: "View Performance",
+      url: "/performanceview",
+    },
   ];
 
   return (
-  <>
-    <DashboardHeader/>
-    <div className="user-profile">
-      <Sidebar navLinks={sidebarLinks} />
-      {/* <img src="img.jpg" alt="User Avatar" className="avatar" /> */}
-      <div className="profile-container">
-        <br></br>
-        <br></br>
-        <p className="name">Name: {userCtx.user.name}</p>
-        <p>Email: {userCtx.user.email}</p>
-        <p>Year: SE</p>
-        <p>College: PCCOER</p>
+    <>
+      <DashboardHeader />
+      <div className="user-profile">
+        <Sidebar navLinks={sidebarLinks} />
+        {/* <img src="img.jpg" alt="User Avatar" className="avatar" /> */}
+        <div className="profile-container">
+          <br></br>
+          <br></br>
+          <p className="name">Name: {userCtx.user.name}</p>
+          <p>Email: {userCtx.user.email}</p>
+          <p>Year: SE</p>
+          <p>College: PCCOER</p>
+        </div>
       </div>
-    </div>
-  </> 
+    </>
   );
 };
 

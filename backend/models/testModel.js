@@ -12,12 +12,14 @@ const testSchema = mongoose.Schema(
         ref: "QuestionBank",
       },
     ],
-    obtainedScore: [
+
+    obtainedScore: 
       {
         type: Number,
         required: [true, "Please specify obtained score"],
       },
-    ],
+    
+
     totalScore: {
       type: Number,
       required: [true, "Please specify total score"],

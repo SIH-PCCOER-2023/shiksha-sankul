@@ -35,6 +35,7 @@ import HomePage from "./components/Header/HomePage";
 import AboutPage from "./components/Header/AboutPage";
 
 import TodoList from "./components/Dashboards/Student Dashboard/ToDoList";
+import PerformanceView from "./components/Dashboards/Faculty Dashboard/PerformanceView";
 // import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
 
 function App() {
@@ -120,6 +121,8 @@ function App() {
           <Route path="/aboutpage" element={<AboutPage />} />
 
           <Route path="/todolist" element={<TodoList />} />
+
+          <Route path="/performanceview" element={<PerformanceView />} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

@@ -6,6 +6,7 @@ const userController = require("../controllers/userController");
 const router = express.Router();
 
 router.route("/").get(userController.getAll);
+router.route("/:id").get(userController.getOne);
 
 // router
 //   .route("/:id")
