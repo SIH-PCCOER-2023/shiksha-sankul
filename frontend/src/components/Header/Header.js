@@ -1,4 +1,9 @@
 import logo_1 from './../../assets/images/logo.png';
+import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+
+// Other code remains unchanged
+
 
 const BtnClickNavigation = (event) => {
   if (!event.target.checked) {
@@ -33,17 +38,17 @@ const Header = (props) => {
       <div className="navigation__background">&nbsp;</div>
       <nav className="navigation__nav">
         <ul className="navigation__list">
-          <li className="navigation__item">
-            <a href="#home" className="navigation__link">
+        <li className="navigation__item">
+            <Link to="/homepage" className="navigation__link">
               <span>01</span>Home
-            </a>
+            </Link>
           </li>
           <li className="navigation__item">
-            <a href="#about" className="navigation__link">
+            <Link to="/aboutpage" className="navigation__link">
               <span>02</span>About Us
-            </a>
+            </Link>
           </li>
-          <li className="navigation__item">
+          {/* <li className="navigation__item">
             <a href="#pricing" className="navigation__link">
               <span>03</span>Features
             </a>
@@ -57,7 +62,7 @@ const Header = (props) => {
             <a href="#contact" className="navigation__link">
               <span>05</span>Testimonials
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>

@@ -1172,14 +1172,81 @@ p {
         border-bottom: none; }
 
 .performance-container {
+  height: 100vh;
   display: flex;
-  gap: 2rem;
+  flex-direction: column;
+  /* Change flex direction to column */
+  align-items: center;
+  /* Align items at the center horizontally */
   padding-top: 2.5rem;
   margin-left: 0.5rem; }
 
+.line-card {
+  height: auto;
+  width: auto;
+  background-color: #eee;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden; }
+
 .performance-box {
-  height: 95vh;
-  background-color: #eee; }
+  height: 100%; }
+
+.line-chart {
+  width: 100%;
+  height: 100%; }
+
+.test-score-fetcher {
+  margin-top: 5px;
+  height: auto;
+  /* Adjust height as needed */
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  /* Display as flex to align items in a row */
+  flex-direction: column;
+  /* Arrange items vertically */
+  justify-content: center;
+  /* Center items vertically */
+  margin-bottom: 20px;
+  /* Add margin to separate from the chart */ }
+
+.test-score-fetcher h2 {
+  margin-bottom: 10px;
+  /* Add margin below the heading */ }
+
+.test-score-fetcher form {
+  display: flex;
+  flex-direction: row;
+  /* Arrange form items horizontally */
+  align-items: center;
+  /* Align form items vertically in the center */ }
+
+.test-score-fetcher label {
+  margin-right: 10px;
+  /* Add space between label and input */ }
+
+.test-score-fetcher input {
+  flex-grow: 1;
+  /* Allow input to grow to fill available space */
+  padding: 8px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  /* Add space between input and button */ }
+
+.test-score-fetcher button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer; }
+
+.test-score-fetcher button:hover {
+  background-color: #0056b3; }
 
 .profile-container {
   width: 600px;
@@ -1222,7 +1289,8 @@ p {
   padding: 20px;
   background-color: #f9f9f9; }
 
-.upload-card input {
+.upload-card input,
+.upload-card select {
   width: 100%;
   margin-bottom: 10px;
   padding: 8px;
@@ -1392,3 +1460,190 @@ p {
 
 .pdf-info button:hover {
   background-color: #0056b3; }
+
+.forum-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; }
+  .forum-container .create-post {
+    margin-bottom: 20px; }
+    .forum-container .create-post input,
+    .forum-container .create-post textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      resize: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px; }
+    .forum-container .create-post button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s; }
+      .forum-container .create-post button:hover {
+        background-color: #0056b3; }
+  .forum-container .posts-container {
+    width: 100%; }
+    .forum-container .posts-container .post {
+      margin-left: 310px;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px; }
+      .forum-container .posts-container .post p {
+        margin: 0; }
+      .forum-container .posts-container .post input {
+        width: calc(100% - 90px);
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px; }
+      .forum-container .posts-container .post button {
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s; }
+        .forum-container .posts-container .post button:hover {
+          background-color: #0056b3; }
+
+/* Assuming you have a CSS file named HomePage.css */
+/* Styles for the main container */
+.homepage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; }
+
+/* Styles for the card */
+.homepage-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 50px;
+  margin-right: 50px;
+  border-radius: 10px;
+  max-width: 800px;
+  /* Adjust the maximum width as needed */
+  width: 100%; }
+
+/* Styles for the heading */
+.homepage-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center; }
+
+/* Styles for the paragraph */
+.homepage-paragraph {
+  font-size: 18px;
+  line-height: 1.5; }
+
+/* Styles for the bullet points */
+.homepage-bullets {
+  margin-left: 20px;
+  font-size: 16px; }
+
+/* Styles for individual bullet points */
+.homepage-bullet-item {
+  list-style-type: disc; }
+
+/* Styles for the main container */
+.aboutpage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; }
+
+/* Styles for the card */
+.aboutpage-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  /* Adjust the maximum width as needed */
+  width: 100%; }
+
+/* Styles for the heading */
+.aboutpage-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center; }
+
+/* Styles for the subheading */
+.aboutpage-subheading {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px; }
+
+/* Styles for the paragraph */
+.aboutpage-paragraph {
+  font-size: 18px;
+  line-height: 1.5; }
+
+/* Styles for the bullet points */
+.aboutpage-bullets {
+  margin-left: 20px; }
+
+/* Styles for individual bullet points */
+.aboutpage-bullet-item {
+  list-style-type: disc; }
+
+.todo-list-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px; }
+  .todo-list-container .add-todo {
+    margin-bottom: 20px; }
+    .todo-list-container .add-todo input[type="text"] {
+      width: calc(100% - 100px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px; }
+    .todo-list-container .add-todo button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s; }
+      .todo-list-container .add-todo button:hover {
+        background-color: #0056b3; }
+  .todo-list-container .todos-container .todo {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .todo-list-container .todos-container .todo p {
+      margin: 0; }
+    .todo-list-container .todos-container .todo button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: #dc3545;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s; }
+      .todo-list-container .todos-container .todo button:hover {
+        background-color: #bd2130; }

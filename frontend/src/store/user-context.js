@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const UserContext = React.createContext({
   user: {},
-  userHandler: () => {},
+  setUserHandler: (user) => {},
+  removeUserHandler: () => {},
 });
 
 export const UserContextProvider = (props) => {
   const [user, setUser] = useState({});
 
-  const userHandler = (user) => {
+  const setUserHandler = (user) => {
     setUser(user);
+  };
+
+  const removeUserHandler = () => {
+    setUser(null);
   };
 
   const contextValue = {
     user: user,
-    userHandler: userHandler,
+    setUserHandler: setUserHandler,
+    removeUserHandler: removeUserHandler,
   };
 
   return (

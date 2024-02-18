@@ -1,20 +1,15 @@
-// LineChart.js
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import Chart from "chart.js/auto";
 
 const LineChart = ({ labels, values }) => {
   const chartRef = useRef(null);
 
-  useEffect(() => {
-    if (chartRef && chartRef.current) {
-      renderChart();
-    }
-  }, [labels, values]);
+  console.log(labels);
+  console.log(values);
 
-  const renderChart = () => {
+  const renderChart = useCallback(() => {
     const ctx = chartRef.current.getContext("2d");
-
-    new Chart(ctx, {
+    const config = {
       type: "line",
       data: {
         labels: labels, // Test IDs on x-axis
@@ -29,11 +24,12 @@ const LineChart = ({ labels, values }) => {
         ],
       },
       options: {
+        responsive: true,
         scales: {
           x: {
             title: {
               display: true,
-              text: "Test ID",
+              text: "No. of Tests",
             },
           },
           y: {
@@ -44,14 +40,26 @@ const LineChart = ({ labels, values }) => {
           },
         },
       },
-    });
-  };
+    };
+
+    new Chart(ctx, config);
+  }, [labels, values]);
+
+  useEffect(() => {
+    if (chartRef && chartRef.current) {
+      renderChart();
+    }
+  }, [renderChart]);
 
   return (
-    <div className="line-chart">
-      <h2>Line Chart</h2>
-      <canvas ref={chartRef} width="400" height="400"></canvas>
-    </div>
+    <>
+      {values.length > 0 && (
+        <div className="line-chart" style={{ width: "600px", height: "350px" }}>
+          <h2 align="center">Performance Report</h2>
+          <canvas ref={chartRef}></canvas>
+        </div>
+      )}
+    </>
   );
 };
 
