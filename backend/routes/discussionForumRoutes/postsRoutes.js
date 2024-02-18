@@ -12,4 +12,6 @@ router
   .get(postController.getPost)
   .patch(postController.updatePost);
 
+router.route("/upvote/:userId/:postId").patch(postController.updateVote);
+
 module.exports = router;
