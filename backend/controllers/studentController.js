@@ -233,6 +233,7 @@ exports.getObtainedScore = catchAsync(async (req, res, next) => {
       },
     },
   ]);
+  console.log(stats);
 
   const filter = { user: new mongoose.Types.ObjectId(studentId) };
   const update = { $set: { obtainedScores: stats[0].obtainedScores } };

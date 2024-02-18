@@ -4,7 +4,7 @@ const APIFeatures = require("../utils/apiFeatures");
 const { upload, importExcel } = require("../utils/excellImportApi");
 
 const factory = require("./handlerFactory");
-const slowLearningResources= require("./../models/slowResourcesModel");
+const slowLearningResources = require("./../models/slowResourcesModel");
 const multer = require("multer");
 
 exports.deleteOne = catchAsync(async (req, res, next) => {
@@ -21,10 +21,14 @@ exports.deleteOne = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOne = catchAsync(async (req, res, next) => {
-  const doc = await slowLearningResources.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const doc = await slowLearningResources.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!doc) {
     return next(new AppError("No document found with that ID", 404));
@@ -49,7 +53,9 @@ exports.createOne = catchAsync(async (req, res, next) => {
 });
 
 exports.getOne = catchAsync(async (req, res, next) => {
-  const doc = await slowLearningResources.findById(req.params.id);
+  const doc = await slowLearningResources
+    .findById(req.params.id)
+    .populate({ path: "learnerType", select: "learnerType -_id" });
 
   if (!doc) {
     return next(
@@ -66,7 +72,9 @@ exports.getOne = catchAsync(async (req, res, next) => {
 });
 
 exports.getAll = catchAsync(async (req, res, next) => {
-  const docs = await slowLearningResources.find();
+  const docs = await slowLearningResources
+    .find()
+    .populate({ path: "learnerType", select: "learnerType -_id" });
 
   res.status(200).json({
     status: "success",
@@ -117,4 +125,3 @@ exports.bulkAddResources = catchAsync(async (req, res, next) => {
     });
   });
 });
-
