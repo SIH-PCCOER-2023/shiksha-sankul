@@ -37,6 +37,10 @@ const studentSchema = mongoose.Schema(
       //default: "UNKNOWN",
       required: [true, "Learner type required"],
     },
+    preReqTestCompleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
