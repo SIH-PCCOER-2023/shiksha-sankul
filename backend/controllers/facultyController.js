@@ -36,7 +36,6 @@ exports.bulkAddStudents = catchAsync(async (req, res, next) => {
         E: "rollno",
         F: "password",
         G: "passwordConfirm",
-
         H: "learnerType",
         // I: "test2",
         // J: "test3",
