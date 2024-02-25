@@ -30,6 +30,11 @@ const UserProfile = (props) => {
       url: "/performance",
     },
     {
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
+    },
+    {
       icon: "fa-note-sticky",
       text: "Notes",
       url: "/notes",
@@ -46,7 +51,7 @@ const UserProfile = (props) => {
           <br></br>
           <br></br>
           <p className="name">Name: {userCtx.user.name}</p>
-          <p>Email: {userCtx.user.id}</p>
+          <p>Email: {userCtx.user.email}</p>
           <p>Year: SE</p>
           <p>College: PCCOER</p>
         </div>

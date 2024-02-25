@@ -148,7 +148,7 @@ const DiscussionForum = (props) => {
     try {
       // Make API call to upvote the post
       await sendPostRequest(
-        `http://localhost:8080/api/v1/replyforums/${postId}/upvote`
+        `http://localhost:8080/api/v1/postforums/upvote/${userCtx.user.id}/${postId}`
       );
       // Update local state with the incremented upvote count
       setUpvotes((prevUpvotes) => ({
@@ -189,8 +189,7 @@ const DiscussionForum = (props) => {
                 <p>
                   <strong>{post.title}:</strong> {post.description}
                 </p>
-                <p>Upvotes: {upvotes[post._id]}</p>
-                <button onClick={() => handleUpvote(post._id)}>Upvote</button>
+                {/* Display input for reply */}
                 <input
                   type="text"
                   placeholder="Write your reply here..."
@@ -202,7 +201,16 @@ const DiscussionForum = (props) => {
                     })
                   }
                 />
+                {/* Move reply button before upvote button */}
                 <button onClick={() => handleReply(post._id)}>Reply</button>
+                {/* Display upvote count within the button */}
+                <button
+                  className={upvotes[post._id] > 0 ? "upvoted" : ""}
+                  onClick={() => handleUpvote(post._id)}
+                >
+                  &#x1F44D; {/* Unicode thumbs-up symbol */}({upvotes[post._id]}
+                  )
+                </button>
                 {/* You can display additional post information as needed */}
               </div>
             ))}

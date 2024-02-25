@@ -59,7 +59,7 @@ body {
 
 .box-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 2rem;
   padding-top: 2.5rem; }
 
@@ -407,20 +407,24 @@ p {
   color: #666; }
 
 .prereq {
-  height: 88.5vh;
-  margin-left: 30rem;
+  height: 100vh;
+  /* Set height to 100vh to span the entire viewport height */
+  width: 100%;
+  /* Set width to 100% to span the entire viewport width */
   position: relative;
   background-color: #eee;
-  width: 100vw;
+  margin-left: 300px;
   background-image: url("../assets/images/academic-bg.png");
-  background-size: contain;
+  background-size: cover;
+  /* Use cover to ensure the image covers the entire container */
   background-repeat: no-repeat;
-  background-position: 50%; }
+  background-position: center;
+  /* Center the background image */ }
   .prereq__startbtn {
     position: absolute;
     top: 50%;
-    left: 40%;
-    transform: translate(-50%, -50%);
+    left: 50%;
+    transform: translate(-90%, -60%);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
     .prereq__startbtn button {
       font-size: 2.5rem;
@@ -591,7 +595,7 @@ p {
 .student-mgmt__heading--primary {
   padding-bottom: 1.8rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 500;
   background-image: linear-gradient(to right bottom, #5268c7, #2c3d87);
   background-clip: text;
@@ -1004,7 +1008,7 @@ p {
     display: flex;
     flex-direction: column;
     /* Align children vertically */
-    height: 575px; }
+    height: 565px; }
   .App .icon-wrapper {
     display: flex;
     /* Use flexbox to align icon and input */
@@ -1028,11 +1032,12 @@ p {
     display: flex;
     align-items: center; }
   .App .choose-file-btn {
+    font-size: 11px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 8px 18px;
     cursor: pointer;
     margin-right: 10px; }
   .App .choose-file-btn:hover {
@@ -1046,17 +1051,20 @@ p {
   .App .file-icon {
     margin-right: 5px; }
   .App .upload-btn {
-    margin-left: 90px;
-    margin-top: 10px;
+    width: 260px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    align-items: center; }
-  .App .upload-btn:hover {
-    background-color: #0056b3; }
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 0px; }
+    .App .upload-btn:hover {
+      background-color: #0056b3; }
+    .App .upload-btn:focus {
+      outline: none; }
   .App .card2 {
     flex-grow: 1;
     width: 400px;
@@ -1437,6 +1445,7 @@ p {
 .pdf-card {
   width: 200px;
   margin-top: 50px;
+  border: 1px solid #d5d2d2;
   background-color: #f4f4f4;
   padding: 20px;
   border-radius: 8px;
@@ -1467,7 +1476,9 @@ p {
   align-items: center;
   padding: 20px; }
   .forum-container .create-post {
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    margin-left: 320px;
+    margin-right: 350px; }
     .forum-container .create-post input,
     .forum-container .create-post textarea {
       width: 100%;
@@ -1478,7 +1489,7 @@ p {
       border-radius: 5px;
       font-size: 14px; }
     .forum-container .create-post button {
-      padding: 10px 20px;
+      padding: 8px;
       background-color: #007bff;
       color: #fff;
       border: none;
@@ -1491,14 +1502,16 @@ p {
   .forum-container .posts-container {
     width: 100%; }
     .forum-container .posts-container .post {
-      margin-left: 310px;
+      margin-left: 320px;
       margin-bottom: 20px;
+      margin-right: 350px;
       padding: 10px;
       background-color: #f9f9f9;
       border: 1px solid #ccc;
       border-radius: 5px; }
       .forum-container .posts-container .post p {
-        margin: 0; }
+        margin: 0;
+        font-size: 12px; }
       .forum-container .posts-container .post input {
         width: calc(100% - 90px);
         padding: 8px;
@@ -1506,16 +1519,19 @@ p {
         border: 1px solid #ccc;
         border-radius: 5px; }
       .forum-container .posts-container .post button {
-        padding: 8px 16px;
-        background-color: #007bff;
-        color: #fff;
+        padding: 8px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         font-size: 14px;
-        transition: background-color 0.3s; }
+        transition: background-color 0.3s;
+        color: #007bff;
+        /* Initial color for the thumbs-up symbol */ }
         .forum-container .posts-container .post button:hover {
-          background-color: #0056b3; }
+          background-color: #f9f9f9; }
+        .forum-container .posts-container .post button.upvoted {
+          color: green;
+          /* Color for upvoted state */ }
 
 /* Assuming you have a CSS file named HomePage.css */
 /* Styles for the main container */
@@ -1604,20 +1620,23 @@ p {
   list-style-type: disc; }
 
 .todo-list-container {
-  margin: 20px;
+  margin: 0px;
   padding: 20px;
+  background-color: white;
   border: 1px solid #ccc;
-  border-radius: 5px; }
+  border-radius: 5px;
+  margin-bottom: 550px; }
   .todo-list-container .add-todo {
     margin-bottom: 20px; }
     .todo-list-container .add-todo input[type="text"] {
       width: calc(100% - 100px);
       padding: 10px;
       border: 1px solid #ccc;
+      background-color: #e0e7ef;
       border-radius: 5px;
       margin-right: 10px; }
     .todo-list-container .add-todo button {
-      padding: 10px 20px;
+      padding: 8px;
       border: none;
       border-radius: 5px;
       background-color: #007bff;

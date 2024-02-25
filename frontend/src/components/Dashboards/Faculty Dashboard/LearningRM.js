@@ -12,7 +12,7 @@ const LearningRM = (props) => {
   const [resources, setResources] = useState([]);
   const [newVideoUrl, setNewVideoUrl] = useState("");
   const [newVideoTitle, setNewVideoTitle] = useState("");
-  const [resourceType, setResourceType] = useState("slow");
+  const [resourcesType, setResourcesType] = useState("slowresource");
 
   const sidebarLinks = [
     {
@@ -45,11 +45,20 @@ const LearningRM = (props) => {
   useEffect(() => {
     const getLearningResources = async () => {
       try {
-        const resources = await sendGetRequest(
-          `http://localhost:8080/api/v1/resources/`
+        const slowResources = await sendGetRequest(
+          `http://localhost:8080/api/v1/slowLearningResources/`
         );
 
-        setResources(resources.data.data);
+        const fastResources = await sendGetRequest(
+          `http://localhost:8080/api/v1/fastLearningResources/`
+        );
+
+        // Combine both slow and fast resources
+        const combinedResources = [
+          ...slowResources.data.data,
+          ...fastResources.data.data,
+        ];
+        setResources(combinedResources);
       } catch (error) {
         showAlert("error", error);
       }
@@ -66,11 +75,11 @@ const LearningRM = (props) => {
 
   const handleUpload = async () => {
     try {
-      // Check if either URL, title, or resource type field is empty
+      // Check if either URL, title, or resourcesType field is empty
       if (
         !newVideoUrl.trim() ||
         !newVideoTitle.trim() ||
-        !resourceType.trim()
+        !resourcesType.trim()
       ) {
         showAlert("error", "Please enter all fields.");
         return; // Stop further execution
@@ -83,10 +92,10 @@ const LearningRM = (props) => {
       }
 
       let endpoint = "";
-      // Determine the endpoint based on the resource type
-      if (resourceType === "slow") {
+      // Determine the endpoint based on the resourcesType
+      if (resourcesType === "slowresource") {
         endpoint = "http://localhost:8080/api/v1/slowLearningResources/";
-      } else if (resourceType === "fast") {
+      } else if (resourcesType === "fastresource") {
         endpoint = "http://localhost:8080/api/v1/fastLearningResources/";
       }
 
@@ -94,20 +103,31 @@ const LearningRM = (props) => {
       await sendPostRequest(endpoint, {
         title: newVideoTitle,
         url: newVideoUrl,
+        resourcesType: resourcesType, // Include resourcesType in the payload
       });
 
-      // Fetch the updated list of resources from the backend
-      const updatedResources = await sendGetRequest(
-        `http://localhost:8080/api/v1/resources/`
+      // Fetch both slow and fast resources after successful upload
+      const slowResources = await sendGetRequest(
+        `http://localhost:8080/api/v1/slowLearningResources/`
       );
 
+      const fastResources = await sendGetRequest(
+        `http://localhost:8080/api/v1/fastLearningResources/`
+      );
+
+      // Combine both slow and fast resources
+      const combinedResources = [
+        ...slowResources.data.data,
+        ...fastResources.data.data,
+      ];
+
       // Update the state with the new list of resources
-      setResources(updatedResources.data.data);
+      setResources(combinedResources);
 
       // Clear the input fields after successful upload
       setNewVideoUrl("");
       setNewVideoTitle("");
-      setResourceType("slow");
+      setResourcesType("slowresource");
 
       // Optionally, show a success message
       showAlert("success", "Video uploaded successfully!");
@@ -136,11 +156,11 @@ const LearningRM = (props) => {
             onChange={(e) => setNewVideoTitle(e.target.value)}
           />
           <select
-            value={resourceType}
-            onChange={(e) => setResourceType(e.target.value)}
+            value={resourcesType}
+            onChange={(e) => setResourcesType(e.target.value)}
           >
-            <option value="slow">Slow Resource</option>
-            <option value="fast">Fast Resource</option>
+            <option value="slowresource">Slow Resource</option>
+            <option value="fastresource">Fast Resource</option>
           </select>
           <button onClick={handleUpload}>Upload</button>
         </div>
@@ -148,6 +168,7 @@ const LearningRM = (props) => {
       {resources && (
         <div>
           <Container className="youtube-card-container">
+            {/* Pass resources to YouTubeCard */}
             <YouTubeCard videoData={resources} />
           </Container>
         </div>

@@ -2,7 +2,7 @@ import DashboardHeader from "../../Header/DashboardHeader";
 import FacultySidebar from "../../Sidebar/FacultySidebar";
 import UserContext from "../../../store/user-context";
 import { useState, useContext, useEffect } from "react";
-import Chart from "../../Chart";
+import ChartF from "./ChartF";
 import { sendGetRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
 
@@ -99,9 +99,9 @@ const Analytics = (props) => {
       <DashboardHeader />
       <FacultySidebar navLinks={sidebarLinks} />
       <div className="student-dash">
-        <div className="student-dash__heading">Progress</div>
+        <div className="student-dash__heading">Analytics</div>
         <div className="box-container">
-          <Chart chartData={chartData} />
+          <ChartF chartData={chartData} />
         </div>
       </div>
       <div className="App2">

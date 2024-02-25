@@ -1,20 +1,20 @@
 .prereq {
-    height: 88.5vh;
-    margin-left: 30rem;
+    height: 100vh; /* Set height to 100vh to span the entire viewport height */
+    width: 100%; /* Set width to 100% to span the entire viewport width */
     position: relative;
     background-color: $color-light-bg;
-    width: 100vw;
+    margin-left: 300px;
 
     background-image: url("../assets/images/academic-bg.png");
-    background-size: contain;
+    background-size: cover; /* Use cover to ensure the image covers the entire container */
     background-repeat: no-repeat;
-    background-position: 50%;
+    background-position: center; /* Center the background image */
 
     &__startbtn {
         position: absolute;
         top: 50%;
-        left: 40%;
-        transform: translate(-50%, -50%);
+        left: 50%;
+        transform: translate(-90%, -60%);
         box-shadow:
             0 4px 8px 0 rgba(0, 0, 0, 0.2),
             0 6px 20px 0 rgba(0, 0, 0, 0.19);
