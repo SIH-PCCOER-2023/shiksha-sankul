@@ -4,35 +4,35 @@ import React, {
   useReducer,
   useRef,
   useContext,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
+} from "react";
+import { useNavigate } from "react-router-dom";
 
-import validator from 'validator';
-import axios from 'axios';
-import { sendPostRequest } from '../../utils/sendHttp';
-import { showAlert } from '../../utils/alerts';
-import Input from './../UI/Input/Input';
-import UserContext from '../../store/user-context';
-import AuthContext from '../../store/auth-context';
+import validator from "validator";
+import axios from "axios";
+import { sendPostRequest } from "../../utils/sendHttp";
+import { showAlert } from "../../utils/alerts";
+import Input from "./../UI/Input/Input";
+import UserContext from "../../store/user-context";
+import AuthContext from "../../store/auth-context";
 
 const emailReducer = (state, action) => {
-  if (action.type === 'USER_INPUT') {
+  if (action.type === "USER_INPUT") {
     return { value: action.val, isValid: validator.isEmail(state.value) };
   }
-  if (action.type === 'INPUT_BLUR') {
+  if (action.type === "INPUT_BLUR") {
     return { value: state.value, isValid: validator.isEmail(state.value) };
   }
-  return { value: '', isValid: false };
+  return { value: "", isValid: false };
 };
 
 const passwordReducer = (state, action) => {
-  if (action.type === 'USER_INPUT') {
+  if (action.type === "USER_INPUT") {
     return { value: action.val, isValid: true };
   }
-  if (action.type === 'INPUT_BLUR') {
+  if (action.type === "INPUT_BLUR") {
     return { value: state.value, isValid: true };
   }
-  return { value: '', isValid: false };
+  return { value: "", isValid: false };
 };
 
 const LoginForm = (props) => {
@@ -53,11 +53,11 @@ const LoginForm = (props) => {
 
   // Declared Reducers
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
-    value: '',
+    value: "",
     isValid: null,
   });
   const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
-    value: '',
+    value: "",
     isValid: null,
   });
 
@@ -77,26 +77,26 @@ const LoginForm = (props) => {
 
   // Defined Change Handlers
   const emailChangeHandler = (event) => {
-    dispatchEmail({ type: 'USER_INPUT', val: event.target.value });
+    dispatchEmail({ type: "USER_INPUT", val: event.target.value });
   };
   const passwordChangeHandler = (event) => {
-    dispatchPassword({ type: 'USER_INPUT', val: event.target.value });
+    dispatchPassword({ type: "USER_INPUT", val: event.target.value });
   };
 
   // Defined Validation Handlers
   const validateEmailHandler = () => {
-    dispatchEmail({ type: 'INPUT_BLUR' });
+    dispatchEmail({ type: "INPUT_BLUR" });
   };
   const validatePasswordHandler = () => {
-    dispatchPassword({ type: 'INPUT_BLUR' });
+    dispatchPassword({ type: "INPUT_BLUR" });
   };
   const passwordVisibleHandler = (event) => {
     if (isPassVisible === true) {
       setPassVisible(false);
-      event.target.parentElement.parentElement.children[1].type = 'password';
+      event.target.parentElement.parentElement.children[1].type = "password";
     } else {
       setPassVisible(true);
-      event.target.parentElement.parentElement.children[1].type = 'string';
+      event.target.parentElement.parentElement.children[1].type = "string";
     }
   };
 
@@ -111,44 +111,44 @@ const LoginForm = (props) => {
           password: passwordState.value,
         };
         const res = await sendPostRequest(
-          'http://localhost:8080/api/v1/auth/login',
+          "http://localhost:8080/api/v1/auth/login",
           data
         );
 
-        if (res.data.status === 'success') {
-          showAlert('success', 'Logged in successfully');
+        if (res.data.status === "success") {
+          showAlert("success", "Logged in successfully");
 
           const userType = res.data.data.user.type;
 
           authCtx.login(res.data.token);
           authCtx.loginUserType(userType);
 
-          userCtx.userHandler(res.data.data.user);
+          userCtx.setUserHandler(res.data.data.user);
 
           axios.defaults.headers.common[
-            'Authorization'
+            "Authorization"
           ] = `Bearer ${res.data.token}`;
 
-          if (userType === 'STUDENT') {
-            navigate('/student-dashboard');
-          } else if (userType === 'FACULTY') {
-            navigate('/faculty-dashboard');
+          if (userType === "STUDENT") {
+            navigate("/student-dashboard");
+          } else if (userType === "FACULTY") {
+            navigate("/faculty-dashboard");
           } else {
-            showAlert('error', 'Invalid user type, Please try again.');
-            navigate('/');
+            showAlert("error", "Invalid user type, Please try again.");
+            navigate("/");
           }
         }
       } else if (!emailIsValid) {
         emailInputRef.current.focus();
-        setError('Please enter a valid email address');
+        setError("Please enter a valid email address");
       }
     } catch (err) {
-      showAlert('error', err.response.data.message);
+      showAlert("error", err.response.data.message);
       if (
         err.response.data.message ===
-        'Invalid user type. Please enter valid user type'
+        "Invalid user type. Please enter valid user type"
       ) {
-        navigate('/');
+        navigate("/");
       }
     }
   };
@@ -191,7 +191,7 @@ const LoginForm = (props) => {
             <span onClick={passwordVisibleHandler}>
               <i
                 className={`fa-solid ${
-                  isPassVisible ? 'fa-eye' : 'fa-eye-slash'
+                  isPassVisible ? "fa-eye" : "fa-eye-slash"
                 } login__form--eye-icon`}
               ></i>
             </span>

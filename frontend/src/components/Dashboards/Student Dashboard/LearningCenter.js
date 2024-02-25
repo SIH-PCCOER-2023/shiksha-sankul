@@ -62,6 +62,11 @@ const LearningCenter = (props) => {
       text: "Notes",
       url: "/notes",
     },
+    {
+      icon: "fa-note-sticky",
+      text: "ToDoList",
+      url: "/todolist",
+    },
   ];
 
   useEffect(() => {
