@@ -69,14 +69,14 @@ const DiscussionForum = (props) => {
           "http://localhost:8080/api/v1/postforums/"
         );
         console.log("Posts response:", response); // Log response for debugging
-        if (response.data && Array.isArray(response.data.data.data)) {
+        if (response.data.data && Array.isArray(response.data.data.data)) {
           setPosts(response.data.data.data);
           // Initialize upvotes for each post
-          const initialUpvotes = {};
-          response.data.data.data.forEach((post) => {
-            initialUpvotes[post._id] = post.upvotes.length;
-          });
-          setUpvotes(initialUpvotes);
+          // const initialUpvotes = {};
+          // response.data.data.data.forEach((post) => {
+          //   initialUpvotes[post._id] = post.upvotes.length;
+          // });
+          // setUpvotes(initialUpvotes);
         } else {
           showAlert("error", "Invalid response format for posts.");
         }
@@ -98,9 +98,10 @@ const DiscussionForum = (props) => {
         return;
       }
 
-      await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, {
+      await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, 
+      {
         title: newPostTitle,
-        content: newPostContent,
+        description: newPostContent,
       });
 
       const response = await sendGetRequest(
