@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import FacultySidebar from "../../Sidebar/FacultySidebar";
-import FacultyHeader from "../../Header/FacultyHeader";
+import Sidebar from "../../Sidebar/Sidebar";
+import DashboardHeader from "../../Header/DashboardHeader";
 import LineChart from "../Student Dashboard/LineChart";
 import { sendGetRequest } from "../../../utils/sendHttp"; // Import HTTP request function
 import UserContext from "../../../store/user-context"; // Adjust the path based on your project structure
@@ -12,7 +12,51 @@ const Performance = () => {
   const userCtx = useContext(UserContext); // Access user context
 
   const sidebarLinks = [
-    // Sidebar links
+    {
+      icon: "fa-home",
+      text: "Dashboard",
+      url: "/student-dashboard",
+    },
+    // {
+    //   icon: 'fa-calendar',
+    //   text: 'Individual Learning Plan',
+    //   url: '/ilp',
+    // },
+    {
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "/learning-center",
+    },
+    {
+      icon: "fa-pen",
+      text: "Assessments",
+      url: "/assessments",
+    },
+    // {
+    //   icon: 'fa-thumbs-up',
+    //   text: 'Our Recommendations',
+    //   url: 'recommendations.html',
+    // },
+    // {
+    //   icon: 'fa-solid fa-file-pdf',
+    //   text: 'Certificates',
+    //   url: 'certificates.html',
+    // },
+    {
+      icon: "fa-solid fa-chart-pie",
+      text: "Performance",
+      url: "/performance",
+    },
+    {
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
+    },
+    {
+      icon: "fa-note-sticky",
+      text: "Notes",
+      url: "/notes",
+    },
   ];
 
   useEffect(() => {
@@ -67,8 +111,8 @@ const Performance = () => {
 
   return (
     <>
-      <FacultyHeader />
-      <FacultySidebar navLinks={sidebarLinks} />
+      <DashboardHeader />
+      <Sidebar navLinks={sidebarLinks} />
       <div className="performance-container">
         {/* Card behind the LineChart */}
         <div className="line-card">

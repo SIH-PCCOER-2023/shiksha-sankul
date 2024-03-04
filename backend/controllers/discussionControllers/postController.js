@@ -9,11 +9,11 @@ const Tag = require("../../models/discussionModels/tagModel");
 
 exports.getAllPost = catchAsync(async (req, res, next) => {
   let allPosts = await Post.find()
-    .populate({
-      path: "author",
-      select: "name -_id ",
-    })
-    .populate({ path: "upvotes", select: "name -_id" });
+    // .populate({
+    //   path: "author",
+    //   select: "name -_id ",
+    // })
+    // .populate({ path: "upvotes", select: "name -_id" });
 
   if (!allPosts) {
     return next(new AppError(" documents not found with that ID", 404));
@@ -84,14 +84,7 @@ exports.getPost = catchAsync(async (req, res, next) => {
 });
 
 exports.createPost = catchAsync(async (req, res, next) => {
-  //   const post = new Post({
-  //     title: req.body.title,
-  //     description: req.body.description,
-  //     author: req.body.id,
-  //     upvotes: req.body.upvotes,
-  //     views: req.body.views,
-  //   });
-  //   const done = await post.save();
+
   const done = await Post.create(req.body);
 
   if (!done) {
