@@ -312,7 +312,7 @@ const CRUD = () => {
                       onClick={() =>
                         deleteStudent(student.user?._id, student._id)
                       }
-                      className="delete-btn"
+                      className="glow-on-hover"
                     >
                       Delete
                     </button>

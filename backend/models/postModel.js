@@ -12,29 +12,26 @@ const PostSchema = mongoose.Schema({
     required: [true, "title is required"],
     minlength: 5,
     maxlength: 80,
-    unique: true,
+    //unique: true,
   },
 
   description: {
     type: String,
-    required: true,
     minlength: 5,
     maxlength: 1024,
-    required: true,
-    // unique: true,
   },
-  views: {
-    type: Number,
-    default: 1,
-    min: 1,
-  },
-  upvotes: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-      default: [],
-    },
-  ],
+  // views: {
+  //   type: Number,
+  //   default: 1,
+  //   min: 1,
+  // },
+  // upvotes: [
+  //   {
+  //     type: mongoose.Schema.ObjectId,
+  //     ref: "User",
+  //     default: [],
+  //   },
+  // ],
   time: {
     type: Date,
     default: Date.now,

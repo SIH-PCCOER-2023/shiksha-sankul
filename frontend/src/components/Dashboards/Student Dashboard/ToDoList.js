@@ -5,7 +5,6 @@ import UserContext from "../../../store/user-context";
 import {
   sendGetRequest,
   sendPostRequest,
-  sendPatchRequest,
   sendDeleteRequest,
 } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
@@ -15,23 +14,18 @@ const TodoList = (props) => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const response = await sendGetRequest("/api/v1/todolist/");
-        console.log("Todos response:", response); // Log response for debugging
-        if (response.data && Array.isArray(response.data.data)) {
-          setTodos(response.data.data);
-        } else {
-          showAlert("error", "Invalid response format for todos.");
-        }
-      } catch (error) {
-        showAlert("error", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTodos = async () => {
+  //     try {
+  //       const response = await sendGetRequest("/api/v1/todolist");
+  //       setTodos(response.data.data);
+  //     } catch (error) {
+  //       showAlert("error", error.message);
+  //     }
+  //   };
 
-    fetchTodos();
-  }, []);
+  //   fetchTodos();
+  // }, []);
 
   const handleAddTodo = async () => {
     try {
@@ -40,36 +34,24 @@ const TodoList = (props) => {
         return;
       }
 
-      await sendPostRequest("/api/v1/todolist", {
-        toDo: newTodo,
-      });
+      await sendPostRequest("/api/v1/todolist", { toDo: newTodo });
 
       const response = await sendGetRequest("/api/v1/todolist");
-      console.log("Add todo response:", response); // Log response for debugging
-
-      if (response.data && Array.isArray(response.data.data)) {
-        setTodos(response.data.data);
-        setNewTodo("");
-        showAlert("success", "Todo item added successfully!");
-      } else {
-        showAlert("error", "Invalid response format for todos.");
-      }
+      setTodos(response.data.data);
+      setNewTodo("");
+      showAlert("success", "Todo item added successfully!");
     } catch (error) {
-      showAlert("error", error);
+      showAlert("error", error.message);
     }
   };
 
   const handleDeleteTodo = async (todoId) => {
     try {
       await sendDeleteRequest(`/api/v1/todolist/${todoId}`);
-      console.log("Delete Todo URL:", `/api/v1/todolist/${todoId}`);
-
-      const updatedTodos = todos.filter((todo) => todo._id !== todoId);
-      setTodos(updatedTodos);
-
+      setTodos(todos.filter((todo) => todo._id !== todoId));
       showAlert("success", "Todo item deleted successfully!");
     } catch (error) {
-      showAlert("error", error);
+      showAlert("error", error.message);
     }
   };
 
@@ -90,7 +72,9 @@ const TodoList = (props) => {
             <Card key={todo._id} className="todo-card">
               <Card.Body>
                 <Card.Text>{todo.toDo}</Card.Text>
-                <button onClick={() => handleDeleteTodo(todo._id)}>Delete</button>
+                <button onClick={() => handleDeleteTodo(todo._id)}>
+                  Delete
+                </button>
               </Card.Body>
             </Card>
           ))}

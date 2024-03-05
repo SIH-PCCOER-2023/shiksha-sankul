@@ -99,7 +99,7 @@ const Analytics = (props) => {
       <DashboardHeader />
       <FacultySidebar navLinks={sidebarLinks} />
       <div className="student-dash">
-        <div className="student-dash__heading">Progress</div>
+        <div className="student-dash__heading">Analytics</div>
         <div className="box-container">
           <ChartF chartData={chartData} />
         </div>

@@ -69,14 +69,14 @@ const DiscussionForum = (props) => {
           "http://localhost:8080/api/v1/postforums/"
         );
         console.log("Posts response:", response); // Log response for debugging
-        if (response.data && Array.isArray(response.data.data.data)) {
+        if (response.data.data && Array.isArray(response.data.data.data)) {
           setPosts(response.data.data.data);
           // Initialize upvotes for each post
-          const initialUpvotes = {};
-          response.data.data.data.forEach((post) => {
-            initialUpvotes[post._id] = post.upvotes.length;
-          });
-          setUpvotes(initialUpvotes);
+          // const initialUpvotes = {};
+          // response.data.data.data.forEach((post) => {
+          //   initialUpvotes[post._id] = post.upvotes.length;
+          // });
+          // setUpvotes(initialUpvotes);
         } else {
           showAlert("error", "Invalid response format for posts.");
         }
@@ -98,9 +98,10 @@ const DiscussionForum = (props) => {
         return;
       }
 
-      await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, {
+      await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, 
+      {
         title: newPostTitle,
-        content: newPostContent,
+        description: newPostContent,
       });
 
       const response = await sendGetRequest(
@@ -148,7 +149,7 @@ const DiscussionForum = (props) => {
     try {
       // Make API call to upvote the post
       await sendPostRequest(
-        `http://localhost:8080/api/v1/replyforums/${postId}/upvote`
+        `http://localhost:8080/api/v1/postforums/upvote/${userCtx.user.id}/${postId}`
       );
       // Update local state with the incremented upvote count
       setUpvotes((prevUpvotes) => ({
@@ -183,38 +184,37 @@ const DiscussionForum = (props) => {
           <button onClick={handlePostCreation}>Create Post</button>
         </div>
         <div className="posts-container">
-        {Array.isArray(posts) &&
-  posts.map((post) => (
-    <div key={post._id} className="post">
-      <p>
-        <strong>{post.title}:</strong> {post.description}
-      </p>
-      {/* Display input for reply */}
-      <input
-        type="text"
-        placeholder="Write your reply here..."
-        value={replyContent[post._id] || ""}
-        onChange={(e) =>
-          setReplyContent({
-            ...replyContent,
-            [post._id]: e.target.value,
-          })
-        }
-      />
-      {/* Move reply button before upvote button */}
-      <button onClick={() => handleReply(post._id)}>Reply</button>
-      {/* Display upvote count within the button */}
-      <button
-        className={upvotes[post._id] > 0 ? "upvoted" : ""}
-        onClick={() => handleUpvote(post._id)}
-      >
-        &#x1F44D; {/* Unicode thumbs-up symbol */}
-        ({upvotes[post._id]})
-      </button>
-      {/* You can display additional post information as needed */}
-    </div>
-  ))}
-
+          {Array.isArray(posts) &&
+            posts.map((post) => (
+              <div key={post._id} className="post">
+                <p>
+                  <strong>{post.title}:</strong> {post.description}
+                </p>
+                {/* Display input for reply */}
+                <input
+                  type="text"
+                  placeholder="Write your reply here..."
+                  value={replyContent[post._id] || ""}
+                  onChange={(e) =>
+                    setReplyContent({
+                      ...replyContent,
+                      [post._id]: e.target.value,
+                    })
+                  }
+                />
+                {/* Move reply button before upvote button */}
+                <button onClick={() => handleReply(post._id)}>Reply</button>
+                {/* Display upvote count within the button */}
+                <button
+                  className={upvotes[post._id] > 0 ? "upvoted" : ""}
+                  onClick={() => handleUpvote(post._id)}
+                >
+                  &#x1F44D; {/* Unicode thumbs-up symbol */}({upvotes[post._id]}
+                  )
+                </button>
+                {/* You can display additional post information as needed */}
+              </div>
+            ))}
         </div>
       </div>
     </>
