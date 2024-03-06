@@ -28,11 +28,6 @@ const CRUD = () => {
       text: "Learning Resource Management",
       url: "/learningrm",
     },
-    // {
-    //   icon: "fa-comments",
-    //   text: "Discussion Forum",
-    //   url: "/discussionforum",
-    // },
     {
       icon: "fa-note-sticky",
       text: "Share Notes",
@@ -312,7 +307,7 @@ const CRUD = () => {
                       onClick={() =>
                         deleteStudent(student.user?._id, student._id)
                       }
-                      className="glow-on-hover"
+                      className="glow-on-hover delete-btn"
                     >
                       Delete
                     </button>
