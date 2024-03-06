@@ -133,7 +133,7 @@ const DiscussionForum = (props) => {
       await sendPostRequest(
         `http://localhost:8080/api/v1/replyforums/create/${postId}`,
         {
-          content: replyContent[postId],
+          comment: replyContent[postId],
         }
       );
 
