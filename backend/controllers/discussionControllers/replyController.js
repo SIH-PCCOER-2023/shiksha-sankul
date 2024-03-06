@@ -17,12 +17,12 @@ exports.createReply = catchAsync(async (req, res, next) => {
     post: req.params.id,
     comment: req.body.comment,
     author: req.body.id,
-    upvotes:req.body.upvotes
+    //upvotes:req.body.upvotes
   });
   await reply.save();
   const reply_populated = await Reply.find({ _id: reply._id }).populate(
     "author"
-  ).populate("upvotes");
+  )//.populate("upvotes");
   res.status(200).json({
     status: "success",
     data: {
