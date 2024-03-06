@@ -982,13 +982,20 @@ p {
   background-color: #eee;
   padding-bottom: 5rem; }
 
+@keyframes roll-down {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0; }
+  100% {
+    transform: translateY(0);
+    opacity: 1; } }
+
 .App {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: auto;
   background-color: #eee;
-  font-family: Arial, sans-serif;
   flex-wrap: wrap; }
   .App .cards-container {
     display: flex;
@@ -1008,7 +1015,9 @@ p {
     display: flex;
     flex-direction: column;
     /* Align children vertically */
-    height: 565px; }
+    height: 590px;
+    animation: roll-down 1s ease forwards;
+    /* Apply the roll-down animation */ }
   .App .icon-wrapper {
     display: flex;
     /* Use flexbox to align icon and input */
@@ -1073,7 +1082,32 @@ p {
     background-color: #ffffff;
     border-radius: 5px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: roll-down 1s ease forwards;
+    /* Apply the roll-down animation */ }
+    .App .card2:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); }
+    .App .card2 ul {
+      list-style-type: none;
+      padding: 0; }
+      .App .card2 ul li {
+        display: flex;
+        flex-direction: column;
+        /* Display information vertically */
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+        transition: transform 0.3s ease; }
+        .App .card2 ul li:last-child {
+          border-bottom: none; }
+        .App .card2 ul li:hover {
+          transform: scale(1.05); }
+        .App .card2 ul li span {
+          display: flex;
+          font-size: small;
+          margin-bottom: 5px;
+          /* Add spacing between each piece of information */ }
   .App h2 {
     margin-bottom: 5px;
     text-align: center; }
@@ -1081,22 +1115,6 @@ p {
     color: red;
     font-size: 14px;
     margin-left: 5px; }
-  .App ul {
-    list-style-type: none;
-    padding: 0; }
-    .App ul li {
-      display: flex;
-      flex-direction: column;
-      /* Display information vertically */
-      padding: 10px 0;
-      border-bottom: 1px solid #ddd; }
-      .App ul li:last-child {
-        border-bottom: none; }
-      .App ul li span {
-        display: flex;
-        font-size: small;
-        margin-bottom: 5px;
-        /* Add spacing between each piece of information */ }
   .App button.add-student-btn {
     background-color: #007bff;
     color: #fff;
@@ -1110,20 +1128,57 @@ p {
       background-color: #0056b3; }
     .App button.add-student-btn:focus {
       outline: none; }
-  .App button.delete-btn {
-    background-color: #dc3545;
-    color: #fff;
+  .App .glow-on-hover {
+    width: 120px;
+    height: 30px;
     border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
+    outline: none;
+    color: #fff;
+    background: #111;
     cursor: pointer;
-    align-content: center;
-    margin-left: 120px;
-    margin-right: 120px; }
-    .App button.delete-btn:hover {
-      background-color: #c82333; }
-    .App button.delete-btn:focus {
-      outline: none; }
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    margin-left: 35%; }
+  .App .glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px; }
+  .App .glow-on-hover:active {
+    color: #000; }
+  .App .glow-on-hover:active:after {
+    background: transparent; }
+  .App .glow-on-hover:hover:before {
+    opacity: 1; }
+  .App .glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px; }
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0; }
+  50% {
+    background-position: 400% 0; }
+  100% {
+    background-position: 0 0; } }
   .App #classification {
     background-color: #f8f9fa;
     border: 1px solid #ced4da;
@@ -1148,7 +1203,6 @@ p {
   /* Align items to the top */
   height: 100vh;
   background-color: #eee;
-  font-family: Arial, sans-serif;
   padding: 20px;
   /* Add padding for spacing */
   margin-left: 300px; }
@@ -1160,7 +1214,9 @@ p {
     width: 300px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-right: 20px;
-    /* Adjust margin between cards */ }
+    /* Adjust margin between cards */
+    animation: roll-down 1s ease forwards;
+    /* Apply the roll-down animation */ }
   .App2 h2 {
     margin-bottom: 20px; }
   .App2 .error {
@@ -1297,8 +1353,7 @@ p {
   padding: 20px;
   background-color: #f9f9f9; }
 
-.upload-card input,
-.upload-card select {
+.upload-card input {
   width: 100%;
   margin-bottom: 10px;
   padding: 8px;
