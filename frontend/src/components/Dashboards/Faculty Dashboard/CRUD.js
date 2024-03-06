@@ -283,37 +283,35 @@ const CRUD = () => {
         <div className="card2">
           <h2>Student List</h2>
           <ul>
-            {students.map(
-              (student, index) =>
-                student.user && (
-                  <li key={index}>
-                    <span>
-                      {"Name: "}
-                      {student.user?.name}
-                    </span>
-                    <span>
-                      {"  Email: "}
-                      {student.user?.email}
-                    </span>
-                    <span>
-                      {"Year: "}
-                      {student.user?.class}
-                    </span>
-                    <span>
-                      {"  Learner Type: "}
-                      {student.user?.learnerType}
-                    </span>
-                    <button
-                      onClick={() =>
-                        deleteStudent(student.user?._id, student._id)
-                      }
-                      className="glow-on-hover delete-btn"
-                    >
-                      Delete
-                    </button>
-                  </li>
-                )
-            )}
+            {students
+              .filter((student) => student.user) // Filter out students with no user data
+              .sort((a, b) => a.user.rollno.localeCompare(b.user.rollno)) // Sort students based on roll numbers
+              .map((student, index) => (
+                <li key={index}>
+                  <span>
+                    {"Name: "}
+                    {student.user.name}
+                  </span>
+                  <span>
+                    {"  Email: "}
+                    {student.user.email}
+                  </span>
+                  <span>
+                    {"Roll Number: "}
+                    {student.user.rollno}
+                  </span>
+                  <span>
+                    {"  Learner Type: "}
+                    {student.user.learnerType}
+                  </span>
+                  <button
+                    onClick={() => deleteStudent(student.user._id, student._id)}
+                    className="glow-on-hover delete-btn"
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
           </ul>
         </div>
       </div>
