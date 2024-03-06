@@ -20,10 +20,16 @@ exports.createReply = catchAsync(async (req, res, next) => {
     //upvotes:req.body.upvotes
   });
   await reply.save();
+<<<<<<< HEAD
+  const reply_populated = await Reply.find({ _id: reply._id }).populate(
+    "author"
+  )//.populate("upvotes");
+=======
   const reply_populated = await Reply.find({ _id: reply._id })//.populate(
   // "author")
   //).populate("upvotes");
   //const done=await Reply.create(req.body)
+>>>>>>> e0e01a02616cde8ad4f66c22b8e5ff3b47141618
   res.status(200).json({
     status: "success",
     data: {

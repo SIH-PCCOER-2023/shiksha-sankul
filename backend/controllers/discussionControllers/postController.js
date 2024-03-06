@@ -8,12 +8,12 @@ const User = require("./../../models/userModel");
 const Tag = require("../../models/discussionModels/tagModel");
 
 exports.getAllPost = catchAsync(async (req, res, next) => {
-  let allPosts = await Post.find()
-    // .populate({
-    //   path: "author",
-    //   select: "name -_id ",
-    // })
-    // .populate({ path: "upvotes", select: "name -_id" });
+   let allPosts = await Post.find()
+  //   .populate({
+  //     path: "author",
+  //     select: "name -_id ",
+  //   })
+  //   .populate({ path: "upvotes", select: "name -_id" });
 
   if (!allPosts) {
     return next(new AppError(" documents not found with that ID", 404));
@@ -47,38 +47,43 @@ exports.getAllPost = catchAsync(async (req, res, next) => {
 //     },
 //   });
 // });
-exports.getPost = catchAsync(async (req, res, next) => {
-  // Find the post by its ID and populate the 'upvotes' and 'author' fields
-  const post = await Post.findById(req.params.id)
-    .populate("upvotes", "_id") // Populate only the _id field of the users who upvoted
-    .populate("author", "name");
 
-  if (!post) {
+
+
+
+
+exports.getPost = catchAsync(async (req, res, next) => {
+  const done = await Post.findById(req.params.id)
+    .populate("author", "name -_id").exec();
+
+  if (!done) {
     return next(new AppError("No document found with that ID", 404));
   }
 
   // Increment the views count by 1
-  post.views += 1;
-  await post.save();
+  // done.views += 1;
+  // await done.save();
 
-  // Calculate the upvote count
-  const upvoteCount = post.upvotes.length;
+  // // Calculate the upvote count
+  // const upvoteCount = done.upvotes.length;
 
-  // Create a new object containing the post data along with the upvote count
-  const postWithUpvoteCount = {
-    _id: post._id,
-    // Include other fields of the post as needed
-    views: post.views,
-    // Include other fields of the post as needed
-    upvoteCount: upvoteCount,
-    author: post.author.name,
-  };
+  // // Create a new object containing the done data along with the upvote count
+  // const postWithUpvoteCount = {
+  //   _id: done._id,
+  //   // Include other fields of the done as needed
+  //   views: done.views,
+  //   // Include other fields of the done as needed
+  //   upvoteCount: upvoteCount,
+  //   author: done.author.name,
+  // };
 
-  // Send the post with the upvote count as a response
-  res.status(200).json({
+  // Send the done with the upvote count as a response
+  res.status(200).json(
+  {
     status: "success",
-    data: {
-      post: postWithUpvoteCount,
+    data: 
+    {
+      data: done,
     },
   });
 });
@@ -180,7 +185,8 @@ exports.updateVote = catchAsync(async (req, res, next) => {
         post: post,
       },
     });
-  } catch (error) {
+  } 
+  catch (error) {
     return res.status(500).json({
       status: "Error",
       message: error.message,

@@ -12,7 +12,13 @@ const testSchema = mongoose.Schema(
         ref: "QuestionBank",
       },
     ],
-
+    correct:
+    [
+      {
+      type: mongoose.Types.ObjectId,
+      ref: "QuestionBank",
+      }
+    ],
     obtainedScore: 
       {
         type: Number,
@@ -24,15 +30,15 @@ const testSchema = mongoose.Schema(
       type: Number,
       required: [true, "Please specify total score"],
     },
-    // learnerType:{
-    //     type: String,
-    //     enum:{
-    //         values:[ "SLOW", "FAST","UNKNOWN"],
+    learnerType:{
+        type: String,
+        enum:{
+            values:[ "SLOW", "FAST","UNKNOWN"],
 
-    //     },
-    //     default:"UNKNOWN",
-    //     required:[true,'learnerType should be mentioned']
-    // }
+        },
+        default:"UNKNOWN",
+        required:[true,'learnerType should be mentioned']
+    }
   },
   { timestamps: true }
 );

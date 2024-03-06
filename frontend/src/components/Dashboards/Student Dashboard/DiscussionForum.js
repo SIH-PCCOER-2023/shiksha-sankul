@@ -101,7 +101,8 @@ const DiscussionForum = (props) => {
       await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, 
       {
         title: newPostTitle,
-        description: newPostContent,
+        description: newPostContent
+
       });
 
       const response = await sendGetRequest(
@@ -161,6 +162,7 @@ const DiscussionForum = (props) => {
       showAlert("error", error);
     }
   };
+
 
   return (
     <>
