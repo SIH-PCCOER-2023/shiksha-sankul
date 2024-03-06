@@ -12,6 +12,13 @@ const testSchema = mongoose.Schema(
         ref: "QuestionBank",
       },
     ],
+    incorrectQuestions:
+    [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "QuestionBank",
+      }
+    ],
     obtainedScore: 
       {
         type: Number,
