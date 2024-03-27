@@ -52,27 +52,28 @@ exports.getPost = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id)
     .populate("upvotes", "_id") // Populate only the _id field of the users who upvoted
     .populate("author", "name");
+  console.log(post);
 
   if (!post) {
     return next(new AppError("No document found with that ID", 404));
   }
 
   // Increment the views count by 1
-  post.views += 1;
-  await post.save();
+  // post.views += 1;
+  // await post.save();
 
-  // Calculate the upvote count
-  const upvoteCount = post.upvotes.length;
+  // // Calculate the upvote count
+  // const upvoteCount = post.upvotes.length;
 
-  // Create a new object containing the post data along with the upvote count
-  const postWithUpvoteCount = {
-    _id: post._id,
-    // Include other fields of the post as needed
-    views: post.views,
-    // Include other fields of the post as needed
-    upvoteCount: upvoteCount,
-    author: post.author.name,
-  };
+  // // Create a new object containing the post data along with the upvote count
+  // const postWithUpvoteCount = {
+  //   _id: post._id,
+  //   // Include other fields of the post as needed
+  //   views: post.views,
+  //   // Include other fields of the post as needed
+  //   upvoteCount: upvoteCount,
+  //   author: post.author.name,
+  // };
 
   // Send the post with the upvote count as a response
   res.status(200).json({

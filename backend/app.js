@@ -30,7 +30,8 @@ const pdfRoutes = require("./routes/pdfRoutes");
 const slowLearnerPdfRoutes = require("./routes/slowLearnerPdfRoutes");
 const fastLearnerPdfRoutes = require("./routes/fastLearnerPdfRoutes");
 const tagsRoutes=require("./routes/discussionForumRoutes/tagsRoutes")
-const todoListRoutes=require('./routes/todoListRoutes')
+const todoListRoutes=require('./routes/todoListRoutes');
+const ILPResourcesRoutes=require("./routes/ILPRoutes/ILPResourcesRoutes");
 const User = require("./models/userModel");
 
 // const predict = require('./ML/predict');
@@ -131,6 +132,7 @@ app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/questions", questionBankRoutes);
 app.use("/api/v1/ilps", ILPRoutes);
 app.use("/api/v1/ilptemplates", ILPTemplateRoutes);
+app.use("/api/v1/ilpresources",ILPResourcesRoutes);
 app.use("/api/v1/resources", resourceRoutes);
 app.use("/api/v1/slowLearningResources",slowResourcesRoutes );
 app.use("/api/v1/fastLearningResources",fastResourcesRoutes );
