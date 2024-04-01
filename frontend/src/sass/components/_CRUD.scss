@@ -1,3 +1,14 @@
+@keyframes roll-down {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -26,6 +37,7 @@
     display: flex;
     flex-direction: column; /* Align children vertically */
     height: 590px;
+    animation: roll-down 1s ease forwards; /* Apply the roll-down animation */
   }
 
   .icon-wrapper {
@@ -109,6 +121,40 @@
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: roll-down 1s ease forwards; /* Apply the roll-down animation */
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        flex-direction: column; /* Display information vertically */
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+        transition: transform 0.3s ease;
+
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+
+        span {
+          display: flex;
+          font-size: small;
+          margin-bottom: 5px; /* Add spacing between each piece of information */
+        }
+      }
+    }
   }
 
   h2 {
@@ -120,27 +166,6 @@
     color: red;
     font-size: 14px;
     margin-left: 5px;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-
-    li {
-      display: flex;
-    flex-direction: column; /* Display information vertically */
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-
-      &:last-child {
-        border-bottom: none;
-      }
-      span {
-        display: flex;
-        font-size: small;
-        margin-bottom: 5px; /* Add spacing between each piece of information */
-      }
-    }
   }
 
   button.add-student-btn {
@@ -174,9 +199,9 @@
     z-index: 0;
     border-radius: 10px;
     margin-left: 35%;
-}
+  }
 
-.glow-on-hover:before {
+  .glow-on-hover:before {
     content: '';
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
@@ -191,21 +216,21 @@
     opacity: 0;
     transition: opacity .3s ease-in-out;
     border-radius: 10px;
-}
+  }
 
-.glow-on-hover:active {
-    color: #000
-}
+  .glow-on-hover:active {
+    color: #000;
+  }
 
-.glow-on-hover:active:after {
+  .glow-on-hover:active:after {
     background: transparent;
-}
+  }
 
-.glow-on-hover:hover:before {
+  .glow-on-hover:hover:before {
     opacity: 1;
-}
+  }
 
-.glow-on-hover:after {
+  .glow-on-hover:after {
     z-index: -1;
     content: '';
     position: absolute;
@@ -215,13 +240,13 @@
     left: 0;
     top: 0;
     border-radius: 10px;
-}
+  }
 
-@keyframes glowing {
+  @keyframes glowing {
     0% { background-position: 0 0; }
     50% { background-position: 400% 0; }
     100% { background-position: 0 0; }
-}
+  }
 
   #classification {
     background-color: #f8f9fa;
@@ -244,50 +269,51 @@
   }
 }
 
-  .App2 {
-    display: flex;
-    flex-direction: row; /* Change flex direction to row */
-    justify-content: center;
-    align-items: flex-start; /* Align items to the top */
-    height: 100vh;
-    background-color: #eee;
-    padding: 20px; /* Add padding for spacing */
-    margin-left: 300px;
-  
-    .card3,
-    .card4 {
-      background-color: #ffffff;
-      border-radius: 5px;
-      padding: 20px;
-      width: 300px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-right: 20px; /* Adjust margin between cards */
-    }
-  
-    h2 {
-      margin-bottom: 20px;
-    }
-  
-    .error {
-      color: red;
-      font-size: 14px;
-      margin-left: 5px;
-    }
-  
-    ul {
-      list-style-type: none;
-      padding: 0;
-  
-      li {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 0;
-        border-bottom: 1px solid #ddd;
-  
-        &:last-child {
-          border-bottom: none;
-        }
+.App2 {
+  display: flex;
+  flex-direction: row; /* Change flex direction to row */
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  height: 100vh;
+  background-color: #eee;
+  padding: 20px; /* Add padding for spacing */
+  margin-left: 300px;
+
+  .card3,
+  .card4 {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-right: 20px; /* Adjust margin between cards */
+    animation: roll-down 1s ease forwards; /* Apply the roll-down animation */
+  }
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+
+      &:last-child {
+        border-bottom: none;
       }
     }
   }
+}
