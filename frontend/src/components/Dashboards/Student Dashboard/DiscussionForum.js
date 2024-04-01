@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { sendGetRequest, sendPostRequest } from "../../../utils/sendHttp";
+import { sendGetRequest, sendPostRequest, sendPatchRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
 import Container from "react-bootstrap/Container";
 import UserContext from "../../../store/user-context";
@@ -13,6 +13,7 @@ const DiscussionForum = (props) => {
   const [newPostTitle, setNewPostTitle] = useState("");
   const [replyContent, setReplyContent] = useState({});
   const [upvotes, setUpvotes] = useState({});
+  const [replies, setReplies] = useState({});
 
   const sidebarLinks = [
     {
@@ -68,15 +69,15 @@ const DiscussionForum = (props) => {
         const response = await sendGetRequest(
           "http://localhost:8080/api/v1/postforums/"
         );
-        console.log("Posts response:", response); // Log response for debugging
+        console.log("Posts response:", response);
         if (response.data.data && Array.isArray(response.data.data.data)) {
           setPosts(response.data.data.data);
-          // Initialize upvotes for each post
-          // const initialUpvotes = {};
-          // response.data.data.data.forEach((post) => {
-          //   initialUpvotes[post._id] = post.upvotes.length;
-          // });
-          // setUpvotes(initialUpvotes);
+          const initialUpvotes = {};
+          response.data.data.data.forEach((post) => {
+            initialUpvotes[post._id] = post.upvotes.length;
+            fetchReplies(post._id); // Fetch replies for each post
+          });
+          setUpvotes(initialUpvotes);
         } else {
           showAlert("error", "Invalid response format for posts.");
         }
@@ -88,6 +89,25 @@ const DiscussionForum = (props) => {
     fetchPosts();
   }, []);
 
+  const fetchReplies = async (postId) => {
+    try {
+      const response = await sendGetRequest(
+        `http://localhost:8080/api/v1/replyforums/${postId}`
+      );
+      console.log("Replies response for post ", postId, ":", response);
+      if (response.data.data && Array.isArray(response.data.data.replies)) {
+        setReplies((prevReplies) => ({
+          ...prevReplies,
+          [postId]: response.data.data.replies,
+        }));
+      } else {
+        showAlert("error", "Invalid response format for replies.");
+      }
+    } catch (error) {
+      showAlert("error", error);
+    }
+  };
+
   const handlePostCreation = async () => {
     try {
       if (!newPostContent.trim() || !newPostTitle.trim()) {
@@ -98,8 +118,7 @@ const DiscussionForum = (props) => {
         return;
       }
 
-      await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, 
-      {
+      await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, {
         title: newPostTitle,
         description: newPostContent,
       });
@@ -108,8 +127,7 @@ const DiscussionForum = (props) => {
         `http://localhost:8080/api/v1/postforums/`
       );
 
-      console.log("Create post response:", response); // Log response for debugging
-
+      console.log("Create post response:", response);
       if (response.data && Array.isArray(response.data.data)) {
         setPosts(response.data.data);
         setNewPostContent("");
@@ -137,9 +155,10 @@ const DiscussionForum = (props) => {
         }
       );
 
-      showAlert("success", "Reply submitted successfully!");
-      // Reset reply content for the specific post
       setReplyContent({ ...replyContent, [postId]: "" });
+
+      showAlert("success", "Reply submitted successfully!");
+      fetchReplies(postId); // Fetch replies again after submitting a reply
     } catch (error) {
       showAlert("error", error);
     }
@@ -147,11 +166,15 @@ const DiscussionForum = (props) => {
 
   const handleUpvote = async (postId) => {
     try {
-      // Make API call to upvote the post
-      await sendPostRequest(
+      if (upvotes[postId] > 0) {
+        showAlert("error", "You have already upvoted this post.");
+        return;
+      }
+
+      await sendPatchRequest(
         `http://localhost:8080/api/v1/postforums/upvote/${userCtx.user.id}/${postId}`
       );
-      // Update local state with the incremented upvote count
+
       setUpvotes((prevUpvotes) => ({
         ...prevUpvotes,
         [postId]: prevUpvotes[postId] + 1,
@@ -190,7 +213,6 @@ const DiscussionForum = (props) => {
                 <p>
                   <strong>{post.title}:</strong> {post.description}
                 </p>
-                {/* Display input for reply */}
                 <input
                   type="text"
                   placeholder="Write your reply here..."
@@ -202,17 +224,22 @@ const DiscussionForum = (props) => {
                     })
                   }
                 />
-                {/* Move reply button before upvote button */}
                 <button onClick={() => handleReply(post._id)}>Reply</button>
-                {/* Display upvote count within the button */}
                 <button
                   className={upvotes[post._id] > 0 ? "upvoted" : ""}
                   onClick={() => handleUpvote(post._id)}
                 >
-                  &#x1F44D; {/* Unicode thumbs-up symbol */}({upvotes[post._id]}
-                  )
+                  &#x1F44D; ({upvotes[post._id]})
                 </button>
-                {/* You can display additional post information as needed */}
+                {/* Display replies for the post */}
+                <div className="replies">
+                  {replies[post._id] &&
+                    replies[post._id].map((reply) => (
+                      <div key={reply._id} className="reply">
+                        <p>{reply.comment}</p>
+                      </div>
+                    ))}
+                </div>
               </div>
             ))}
         </div>

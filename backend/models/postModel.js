@@ -25,23 +25,23 @@ const PostSchema = mongoose.Schema({
   //   default: 1,
   //   min: 1,
   // },
-  // upvotes: [
-  //   {
-  //     type: mongoose.Schema.ObjectId,
-  //     ref: "User",
-  //     default: [],
-  //   },
-  // ],
+  upvotes: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      default: [],
+    },
+  ],
   time: {
     type: Date,
     default: Date.now,
   },
 });
-// PostSchema.pre(/^find/, function (next) {
-//   this.populate("upvotes").populate("author");
+PostSchema.pre(/^find/, function (next) {
+  this.populate("upvotes").populate("author");
 
-//   next();
-// });
+  next();
+});
 
 const Post = mongoose.model("Post", PostSchema);
 
