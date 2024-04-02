@@ -120,7 +120,8 @@ const DiscussionForum = (props) => {
 
       await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, {
         title: newPostTitle,
-        description: newPostContent
+        description: newPostContent,
+        author: userCtx.user.id
 
       });
 
@@ -153,6 +154,7 @@ const DiscussionForum = (props) => {
         `http://localhost:8080/api/v1/replyforums/create/${postId}`,
         {
           comment: replyContent[postId],
+          author: userCtx.user.id
         }
       );
 
@@ -164,28 +166,29 @@ const DiscussionForum = (props) => {
       showAlert("error", error);
     }
   };
-
+  
   const handleUpvote = async (postId) => {
     try {
-      if (upvotes[postId] > 0) {
-        showAlert("error", "You have already upvoted this post.");
-        return;
-      }
-
+      // Send a PATCH request to the server to handle the upvote
       await sendPatchRequest(
         `http://localhost:8080/api/v1/postforums/upvote/${userCtx.user.id}/${postId}`
       );
-
+  
       setUpvotes((prevUpvotes) => ({
         ...prevUpvotes,
-        [postId]: prevUpvotes[postId] + 1,
+        [postId]: (prevUpvotes[postId] || 0) + 1,
       }));
       showAlert("success", "Upvoted successfully!");
     } catch (error) {
-      showAlert("error", error);
+      // Check if the error is due to the user already upvoting the post
+      if (error.response && error.response.status === 400 && error.response.data.message === "User already voted for this post") {
+        showAlert("error", "You have already upvoted this post.");
+      } else {
+        showAlert("error", error);
+      }
     }
   };
-
+  
 
   return (
     <>
@@ -238,7 +241,7 @@ const DiscussionForum = (props) => {
                   {replies[post._id] &&
                     replies[post._id].map((reply) => (
                       <div key={reply._id} className="reply">
-                        <p>{reply.comment}</p>
+                        <p><strong>{reply.author.name}:</strong> {reply.comment}</p>
                       </div>
                     ))}
                 </div>
