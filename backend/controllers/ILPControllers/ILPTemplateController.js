@@ -79,10 +79,12 @@ exports.generateILPfromTemplate = async (req, res,next) => {
   var userId = req.params.userId;
   const ilptemplate = await ILPTemplate.findById(ilptemplateId);
   var ilp = new ILP(ilptemplate.model);
+  console.log(ilp)
   ilp['userId'] = userId;
   var ilp_lr = ilp['learningResources'];
 
   const learningResources = await Resources.find({ type1: ilp_lr });
+  console.log(learningResources);
 //   const learningResources = [{title:"1", type:"visual", url:"localhost:8080/index.html"}]
   if (!learningResources) {
     return next(new AppError('No document found with that ID', 404));

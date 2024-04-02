@@ -67,24 +67,50 @@ exports.getCount = catchAsync(async (req, res, next) => {
   });
   
 
+// exports.getAll = catchAsync(async (req, res, next) => {
+//   const docs = await QuestionBank.find().limit(10);
+//   // console.log(docs);
+//   var IDs=docs.map(docs=>docs._id);
+//   console.log(IDs);
+//   res.status(200).json({
+//     status: 'success',
+//     count: docs.length,
+//     data: docs.map((doc) => {
+      
+//       const requestObject = {
+//         request: {
+//           type: 'GET',
+//           url: req.originalUrl + '' + doc._id,
+//         },
+//       };
+//       Object.assign(doc, requestObject);`
+//       return doc;
+//     }),
+//   });
+// });
 exports.getAll = catchAsync(async (req, res, next) => {
-  const docs = await QuestionBank.find();
-  // console.log(docs);
+  const docs = await QuestionBank.find().limit(10);
+  const IDs = docs.map(doc => doc._id); // Extracting only the _id field
+  
   res.status(200).json({
     status: 'success',
     count: docs.length,
-    data: docs.map((doc) => {
-      const requestObject = {
-        request: {
-          type: 'GET',
-          url: req.originalUrl + '' + doc._id,
-        },
-      };
-      Object.assign(doc, requestObject);
-      return doc;
-    }),
+    data: {
+      IDs: IDs, // Including the array of IDs
+      questions: docs.map((doc) => {
+        const requestObject = {
+          request: {
+            type: 'GET',
+            url: req.originalUrl + '' + doc._id,
+          },
+        };
+        Object.assign(doc, requestObject);
+        return doc;
+      }),
+    },
   });
 });
+
 
 exports.bulkAddQuestions = catchAsync(async (req, res, next) => {   
   const uploader = upload.single('uploadfile');
