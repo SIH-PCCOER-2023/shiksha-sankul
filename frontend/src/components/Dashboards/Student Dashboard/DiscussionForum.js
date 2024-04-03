@@ -1,5 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { sendGetRequest, sendPostRequest, sendPatchRequest } from "../../../utils/sendHttp";
+import {
+  sendGetRequest,
+  sendPostRequest,
+  sendPatchRequest,
+} from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
 import Container from "react-bootstrap/Container";
 import UserContext from "../../../store/user-context";
@@ -16,6 +20,7 @@ const DiscussionForum = (props) => {
   const [replies, setReplies] = useState({});
 
   const sidebarLinks = [
+    // Sidebar links here...
     {
       icon: "fa-home",
       text: "Dashboard",
@@ -63,29 +68,29 @@ const DiscussionForum = (props) => {
     },
   ];
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await sendGetRequest(
-          "http://localhost:8080/api/v1/postforums/"
-        );
-        console.log("Posts response:", response);
-        if (response.data.data && Array.isArray(response.data.data.data)) {
-          setPosts(response.data.data.data);
-          const initialUpvotes = {};
-          response.data.data.data.forEach((post) => {
-            initialUpvotes[post._id] = post.upvotes.length;
-            fetchReplies(post._id); // Fetch replies for each post
-          });
-          setUpvotes(initialUpvotes);
-        } else {
-          showAlert("error", "Invalid response format for posts.");
-        }
-      } catch (error) {
-        showAlert("error", error);
+  const fetchPosts = async () => {
+    try {
+      const response = await sendGetRequest(
+        "http://localhost:8080/api/v1/postforums/"
+      );
+      console.log("Posts response:", response);
+      if (response.data.data && Array.isArray(response.data.data.data)) {
+        setPosts(response.data.data.data);
+        const initialUpvotes = {};
+        response.data.data.data.forEach((post) => {
+          initialUpvotes[post._id] = post.upvotes.length;
+          fetchReplies(post._id); // Fetch replies for each post
+        });
+        setUpvotes(initialUpvotes);
+      } else {
+        showAlert("error", "Invalid response format for posts.");
       }
-    };
+    } catch (error) {
+      showAlert("error", error);
+    }
+  };
 
+  useEffect(() => {
     fetchPosts();
   }, []);
 
@@ -118,26 +123,22 @@ const DiscussionForum = (props) => {
         return;
       }
 
-      await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, {
+      const requestBody = {
+        author: userCtx.user.id,
         title: newPostTitle,
         description: newPostContent,
-        author: userCtx.user.id
+      };
 
-      });
-
-      const response = await sendGetRequest(
-        `http://localhost:8080/api/v1/postforums/`
+      await sendPostRequest(
+        "http://localhost:8080/api/v1/postforums/create",
+        requestBody
       );
 
-      console.log("Create post response:", response);
-      if (response.data && Array.isArray(response.data.data)) {
-        setPosts(response.data.data);
-        setNewPostContent("");
-        setNewPostTitle("");
-        showAlert("success", "Post created successfully!");
-      } else {
-        showAlert("error", "Invalid response format for posts.");
-      }
+      fetchPosts(); // Fetch the updated list of posts after creating a new post
+
+      setNewPostContent("");
+      setNewPostTitle("");
+      showAlert("success", "Post created successfully!");
     } catch (error) {
       showAlert("error", error);
     }
@@ -154,7 +155,7 @@ const DiscussionForum = (props) => {
         `http://localhost:8080/api/v1/replyforums/create/${postId}`,
         {
           comment: replyContent[postId],
-          author: userCtx.user.id
+          author: userCtx.user.id,
         }
       );
 
@@ -166,14 +167,14 @@ const DiscussionForum = (props) => {
       showAlert("error", error);
     }
   };
-  
+
   const handleUpvote = async (postId) => {
     try {
       // Send a PATCH request to the server to handle the upvote
       await sendPatchRequest(
         `http://localhost:8080/api/v1/postforums/upvote/${userCtx.user.id}/${postId}`
       );
-  
+
       setUpvotes((prevUpvotes) => ({
         ...prevUpvotes,
         [postId]: (prevUpvotes[postId] || 0) + 1,
@@ -181,14 +182,17 @@ const DiscussionForum = (props) => {
       showAlert("success", "Upvoted successfully!");
     } catch (error) {
       // Check if the error is due to the user already upvoting the post
-      if (error.response && error.response.status === 400 && error.response.data.message === "User already voted for this post") {
+      if (
+        error.response &&
+        error.response.status === 400 &&
+        error.response.data.message === "User already voted for this post"
+      ) {
         showAlert("error", "You have already upvoted this post.");
       } else {
         showAlert("error", error);
       }
     }
   };
-  
 
   return (
     <>
@@ -215,9 +219,18 @@ const DiscussionForum = (props) => {
           {Array.isArray(posts) &&
             posts.map((post) => (
               <div key={post._id} className="post">
+                <strong>
+                  <p>{post.author.name}</p>
+                </strong>
                 <p>
-                  <strong>{post.title}:</strong> {post.description}
+                  <strong>title:</strong>
+                  {post.title}
                 </p>
+                <p>
+                  <strong>description:</strong>
+                  {post.description}
+                </p>
+
                 <input
                   type="text"
                   placeholder="Write your reply here..."
@@ -241,7 +254,9 @@ const DiscussionForum = (props) => {
                   {replies[post._id] &&
                     replies[post._id].map((reply) => (
                       <div key={reply._id} className="reply">
-                        <p><strong>{reply.author.name}:</strong> {reply.comment}</p>
+                        <p>
+                          <strong>{reply.author.name}:</strong> {reply.comment}
+                        </p>
                       </div>
                     ))}
                 </div>
