@@ -114,7 +114,7 @@ const Test = ({ testType }) => {
     {
       icon: "fa-book-open",
       text: "Learning Center",
-      url: "learning.html",
+      url: "/learning-center",
     },
     {
       icon: "fa-pen",
@@ -131,6 +131,11 @@ const Test = ({ testType }) => {
     //   text: 'Discussion Forum',
     //   url: 'discussion.html',
     // },
+    {
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
+    },
     {
       icon: "fa-note-sticky",
       text: "Notes",

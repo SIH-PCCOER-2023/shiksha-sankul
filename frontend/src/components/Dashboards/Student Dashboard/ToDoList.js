@@ -14,18 +14,21 @@ const TodoList = (props) => {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
 
-  // useEffect(() => {
-  //   const fetchTodos = async () => {
-  //     try {
-  //       const response = await sendGetRequest("/api/v1/todolist");
-  //       setTodos(response.data.data);
-  //     } catch (error) {
-  //       showAlert("error", error.message);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const response = await sendGetRequest(
+          `http://localhost:8080/api/v1/todolist`
+        );
+        console.log(response);
+        setTodos(response.data.data.data);
+      } catch (error) {
+        showAlert("error", error.message);
+      }
+    };
 
-  //   fetchTodos();
-  // }, []);
+    fetchTodos();
+  }, []);
 
   const handleAddTodo = async () => {
     try {
