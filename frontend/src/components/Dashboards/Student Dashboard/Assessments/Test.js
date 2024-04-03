@@ -20,6 +20,8 @@ const Test = ({ testType }) => {
   // const [loading, setLoading] = useState(true);
   const [testStarted, setTestStarted] = useState(false);
   const [testCompleted, setTestCompleted] = useState(false);
+  const [incorrectQuestions, setIncorrectQuestions] = useState([]);
+  // let incorrectQuestions = [];
 
   useEffect(() => {
     const loadQuestions = async () => {
@@ -47,6 +49,19 @@ const Test = ({ testType }) => {
     }
 
     if (
+      answers[currentQuestion] !== questions[currentQuestion].correctanswer &&
+      JSON.stringify(answers[currentQuestion]) !==
+        JSON.stringify(questions[currentQuestion].answer)
+    ) {
+      setIncorrectQuestions((prevIds) => [
+        ...prevIds,
+        questions[currentQuestion]._id,
+      ]);
+      // incorrectQuestions.push(questions[currentQuestion]._id);
+    }
+    // console.log("IAQ: ", incorrectQuestions);
+
+    if (
       answers[currentQuestion] === questions[currentQuestion].correctanswer ||
       JSON.stringify(answers[currentQuestion]) ===
         JSON.stringify(questions[currentQuestion].answer)
@@ -66,7 +81,19 @@ const Test = ({ testType }) => {
 
     if (currentQuestion === questions.length - 1) {
       setTestCompleted(true);
+      // if (
+      //   answers[currentQuestion] !== questions[currentQuestion].correctanswer &&
+      //   JSON.stringify(answers[currentQuestion]) !==
+      //     JSON.stringify(questions[currentQuestion].answer)
+      // ) {
+      //   // If last question answered incorrectly, add its ID to incorrectQuestions
+      //   setIncorrectQuestions((prevIds) => [
+      //     ...prevIds,
+      //     questions[currentQuestion]._id,
+      //   ]);
+      // }
     }
+    // console.log("IAQ: ", incorrectQuestions);
   };
 
   const handleTestStart = () => {
@@ -128,6 +155,7 @@ const Test = ({ testType }) => {
           handleAnswerSelection,
           handleNextQuestion,
           testCompleted,
+          incorrectQuestions,
         }}
       >
         <div className="prereq">

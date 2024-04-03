@@ -21,6 +21,7 @@ const Question = ({ activeClass, testType }) => {
     totalScore,
     obtainedScore,
     testCompleted,
+    incorrectQuestions,
   } = useContext(TestContext);
 
   const getRadioProps = useCallback(
@@ -68,6 +69,7 @@ const Question = ({ activeClass, testType }) => {
           questions: questions,
           obtainedScore: obtainedScore,
           totalScore: totalScore,
+          incorrectQuestions: incorrectQuestions,
         };
 
         const res = await sendPostRequest(
