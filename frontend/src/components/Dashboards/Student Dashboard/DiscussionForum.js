@@ -20,6 +20,7 @@ const DiscussionForum = (props) => {
   const [replies, setReplies] = useState({});
 
   const sidebarLinks = [
+    // Sidebar links here...
     {
       icon: "fa-home",
       text: "Dashboard",
@@ -67,29 +68,29 @@ const DiscussionForum = (props) => {
     },
   ];
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await sendGetRequest(
-          "http://localhost:8080/api/v1/postforums/"
-        );
-        console.log("Posts response:", response);
-        if (response.data.data && Array.isArray(response.data.data.data)) {
-          setPosts(response.data.data.data);
-          const initialUpvotes = {};
-          response.data.data.data.forEach((post) => {
-            initialUpvotes[post._id] = post.upvotes.length;
-            fetchReplies(post._id); // Fetch replies for each post
-          });
-          setUpvotes(initialUpvotes);
-        } else {
-          showAlert("error", "Invalid response format for posts.");
-        }
-      } catch (error) {
-        showAlert("error", error);
+  const fetchPosts = async () => {
+    try {
+      const response = await sendGetRequest(
+        "http://localhost:8080/api/v1/postforums/"
+      );
+      console.log("Posts response:", response);
+      if (response.data.data && Array.isArray(response.data.data.data)) {
+        setPosts(response.data.data.data);
+        const initialUpvotes = {};
+        response.data.data.data.forEach((post) => {
+          initialUpvotes[post._id] = post.upvotes.length;
+          fetchReplies(post._id); // Fetch replies for each post
+        });
+        setUpvotes(initialUpvotes);
+      } else {
+        showAlert("error", "Invalid response format for posts.");
       }
-    };
+    } catch (error) {
+      showAlert("error", error);
+    }
+  };
 
+  useEffect(() => {
     fetchPosts();
   }, []);
 
@@ -122,25 +123,22 @@ const DiscussionForum = (props) => {
         return;
       }
 
-      await sendPostRequest(`http://localhost:8080/api/v1/postforums/create`, {
+      const requestBody = {
         author: userCtx.user.id,
         title: newPostTitle,
         description: newPostContent,
-      });
+      };
 
-      const response = await sendGetRequest(
-        `http://localhost:8080/api/v1/postforums/`
+      await sendPostRequest(
+        "http://localhost:8080/api/v1/postforums/create",
+        requestBody
       );
 
-      console.log("Create post response:", response);
-      if (response.data && Array.isArray(response.data.data)) {
-        setPosts(response.data.data);
-        setNewPostContent("");
-        setNewPostTitle("");
-        showAlert("success", "Post created successfully!");
-      } else {
-        showAlert("error", "Invalid response format for posts.");
-      }
+      fetchPosts(); // Fetch the updated list of posts after creating a new post
+
+      setNewPostContent("");
+      setNewPostTitle("");
+      showAlert("success", "Post created successfully!");
     } catch (error) {
       showAlert("error", error);
     }
@@ -230,7 +228,7 @@ const DiscussionForum = (props) => {
                 </p>
                 <p>
                   <strong>description:</strong>
-                  {post.description}s
+                  {post.description}
                 </p>
 
                 <input
