@@ -7,8 +7,6 @@ const testSchema = mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "Student",
       },
-
-
       questions: [
         {
           type: mongoose.Types.ObjectId,
@@ -26,6 +24,7 @@ const testSchema = mongoose.Schema(
       type: Number,
       required: [true, "Please specify obtained score"],
     },
+
     totalScore: {
       type: Number,
       required: [true, "Please specify total score"],
