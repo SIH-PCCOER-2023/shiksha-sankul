@@ -23,6 +23,7 @@ const ilpSchema = new mongoose.Schema(
           type: String,
           enum: ['PENDING', 'COMPLETE'],
           default: 'PENDING',
+          required:true
         },
         dueDate: Date,
         progress: Number,
@@ -34,7 +35,7 @@ const ilpSchema = new mongoose.Schema(
     //     type: String,
     //     url: String,
     //   },
-    notes: String,
+    notes: [Object],
     weakTopics: [String]
   },
   { strict: false, toJSON: { virtuals: true }, toObject: { virtuals: true } }
