@@ -5,7 +5,10 @@ const mongoose = require("mongoose");
 const toDo=require('./../models/todoListModel')
 
 exports.getAll=catchAsync(async (req,res,next)=>{
-    const toDos=await toDo.find();
+    const toDos=await toDo.find().populate({
+        path: "author",
+        select: "name -_id ",
+      });
     res.status(200).json({
         status: "success",
         data: {
@@ -25,44 +28,97 @@ exports.createOne=catchAsync(async (req,res,next)=>{
     });
 })
 
-exports.updateOne=catchAsync(async (req,res,next)=>{
-    const toDos=await toDo.findByIdAndUpdate(req.params.id,req.body,{
-        new: true,
-        runValidators: true,
-    })
-    if(!toDos){
-        return next(new AppError("No toDos found with that ID", 404))
+
+exports.getOne = catchAsync(async (req, res, next) => {
+    
+    const userId = req.params.id;
+    const toDos = await toDo.find({ author: userId })
+    //.populate({
+    //     path: "author",
+    //     select: "name -_id ",
+    // });
+
+    if (!toDos || toDos.length === 0) {
+        return next(new AppError("No to-dos found for this user ID", 404));
     }
     res.status(200).json({
-        status:'success',
-        data:{
-            data:toDos
+        status: 'success',
+        data: {
+            data: toDos
         }
-    })
-})
-
-exports.getOne=catchAsync(async(req,res,next)=>{
-    const toDos=await toDo.findById(req.params.id)
-    if(!toDos){
-        return next(new AppError("No toDos found with that ID", 404))
-    }
-    res.status(200).json({
-        status:'success',
-        data:{
-            data:toDos
-        }
-    })
-})
-
-exports.deleteOne=catchAsync(async (req,res,next)=>{
-    const toDos = await toDo.findByIdAndDelete(req.params.id);
+    });
+});
+exports.updateOne = catchAsync(async (req, res, next) => {
+    const todoId = req.params.todoId;
+    
+    const toDos = await toDo.findByIdAndUpdate(
+        todoId,
+        req.body,
+        { new: true, runValidators: true }
+    );
 
     if (!toDos) {
-        return next(new AppError("No toDos found with that ID", 404));
+        return next(new AppError("No to-do found with that ID", 404));
+    }
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            data: toDos
+        }
+    });
+});
+
+exports.deleteOne = catchAsync(async (req, res, next) => {
+    const todoId = req.params.todoId;
+
+    const toDos = await toDo.findByIdAndDelete(todoId);
+
+    if (!toDos) {
+        return next(new AppError("No to-do found with that ID", 404));
     }
 
     res.status(204).json({
         status: "success",
-        data: null, 
+        data: null,
     });
-})
+});
+
+
+// exports.updateOne = catchAsync(async (req, res, next) => {
+//     const todoId = req.params.todoId;
+//     const userId = req.params.userId;
+    
+//     const toDos = await toDo.findOneAndUpdate(
+//         { _id: todoId, author: userId }, // Find specific todo belonging to the user
+//         req.body,
+//         { new: true, runValidators: true }
+//     );
+
+//     if (!toDos) {
+//         return next(new AppError("No to-do found with that ID for this user", 404));
+//     }
+
+//     res.status(200).json({
+//         status: 'success',
+//         data: {
+//             data: toDos
+//         }
+//     });
+// });
+
+// exports.deleteOne = catchAsync(async (req, res, next) => {
+//     const todoId = req.params.todoId;
+//     const userId = req.params.userId;
+
+//     const toDos = await toDo.findOneAndDelete({ _id: todoId, author: userId });
+
+//     if (!toDos) {
+//         return next(new AppError("No to-do found with that ID for this user", 404));
+//     }
+
+//     res.status(204).json({
+//         status: "success",
+//         data: null,
+//     });
+// });

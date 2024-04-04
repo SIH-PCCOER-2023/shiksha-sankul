@@ -8,6 +8,7 @@ const testSchema = mongoose.Schema(
         ref: "Student",
       },
 
+
       questions: [
         {
           type: mongoose.Types.ObjectId,
@@ -21,25 +22,24 @@ const testSchema = mongoose.Schema(
           ref: "QuestionBank",
         }
       ],
-      obtainedScore: 
-
-      {
-        type: Number,
-        required: [true, "Please specify obtained score"],
-      },
-
-      totalScore: {
-        type: Number,
-        required: [true, "Please specify total score"],
-      },
-      learnerType:{
-        type:String,
-        enum:["fast","slow"],
-      }
-
+    obtainedScore: {
+      type: Number,
+      required: [true, "Please specify obtained score"],
     },
-    
-  
+    totalScore: {
+      type: Number,
+      required: [true, "Please specify total score"],
+    },
+    learnerType: {
+      type: String,
+      enum: {
+        values: ["slow", "fast"],
+      },
+      default: "slow",
+      required: [true, "learnerType should be mentioned"],
+    },
+  },
+
   { timestamps: true }
 );
 

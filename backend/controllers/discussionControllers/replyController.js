@@ -17,12 +17,16 @@ exports.createReply = catchAsync(async (req, res, next) => {
     post: req.params.id,
     comment: req.body.comment,
     author: req.body.author,
-    upvotes:req.body.upvotes
+    //upvotes:req.body.upvotes
+
   });
   await reply.save();
-  const reply_populated = await Reply.find({ _id: reply._id }).populate(
-    "author"
-  ).populate("upvotes");
+
+  const reply_populated = await Reply.find({ _id: reply._id }); //.populate(
+  // "author")
+  //).populate("upvotes");
+  //const done=await Reply.create(req.body)
+
   res.status(200).json({
     status: "success",
     data: {
@@ -30,9 +34,8 @@ exports.createReply = catchAsync(async (req, res, next) => {
     },
   });
 });
-
 exports.updateReply = catchAsync(async (req, res, next) => {
-  const reply = await Reply.findByIdAndUpdate(req.params.id,req.body); // Find the reply by its ID
+  const reply = await Reply.findByIdAndUpdate(req.params.id, req.body); // Find the reply by its ID
   console.log("Found Reply:", reply);
   if (!reply) {
     return next(new AppError("Reply doesn't exist", 404));
@@ -54,10 +57,9 @@ exports.updateReply = catchAsync(async (req, res, next) => {
   // reply.upvotes = upvoteArray;
 
   // Save the updated reply
-  
 
   // Populate the reply with author details
- // const reply_new = await Reply.findById(reply._id).populate("author").populate();
+  // const reply_new = await Reply.findById(reply._id).populate("author").populate();
 
   // Send the updated reply as a response
   res.status(200).json({
@@ -68,9 +70,6 @@ exports.updateReply = catchAsync(async (req, res, next) => {
   });
 });
 
-
-
-// 
 exports.getReply = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id);
 
@@ -79,27 +78,40 @@ exports.getReply = catchAsync(async (req, res, next) => {
   }
 
   // Find all replies for the post and populate the author details
-  const replies = await Reply.find({ post: req.params.id }).populate("author", "name");
+  // const replies = await Reply.find({ post: req.params.id }).populate("author" ,"name").exec()
+  // console.log(replies.author)
+  const replies = await Reply.find({ post: req.params.id })
+    .populate({
+      path: "author",
+      select: "name -_id", // Specify to include only the 'name' field of the 'author'
+    })
+    .exec();
+
+  replies.forEach((reply) => {
+    if (reply.author) {
+      delete reply.author.id;
+    }
+  });
 
   // Iterate through each reply to calculate the upvote count
-  const repliesWithUpvoteCount = await Promise.all(replies.map(async (reply) => {
-    // Calculate the upvote count for the reply
-    const upvoteCount = reply.upvotes.length;
+  // const repliesWithUpvoteCount = await Promise.all(replies.map(async (reply) => {
+  //   // Calculate the upvote count for the reply
+  //   const upvoteCount = reply.upvotes.length;
 
-    // Create a new object containing the reply data along with the upvote count
-    return {
-      _id: reply._id,
-      comment: reply.comment,
-      author: reply.author,
-      upvoteCount: upvoteCount
-    };
-  }));
+  //   // Create a new object containing the reply data along with the upvote count
+  //   return {
+  //     _id: reply._id,
+  //     comment: reply.comment,
+  //     author: reply.author,
+  //     upvoteCount: upvoteCount
+  //   };
+  // }));
 
-  // Send the replies with upvote count as a response
+  // Send the response with the populated replies
   res.status(200).json({
     status: "success",
     data: {
-      replies: repliesWithUpvoteCount,
+      replies,
     },
   });
 });

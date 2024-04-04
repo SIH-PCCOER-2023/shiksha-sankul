@@ -36,7 +36,7 @@ import AboutPage from "./components/Header/AboutPage";
 
 import TodoList from "./components/Dashboards/Student Dashboard/ToDoList";
 import PerformanceView from "./components/Dashboards/Faculty Dashboard/PerformanceView";
-// import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
+import IndividualLearningPlan from "./components/Dashboards/Student Dashboard/IndividualLearningPlan";
 
 function App() {
   // const navigate = useNavigate();
@@ -123,6 +123,11 @@ function App() {
           <Route path="/todolist" element={<TodoList />} />
 
           <Route path="/performanceview" element={<PerformanceView />} />
+
+          <Route
+            path="/individuallearningplan"
+            element={<IndividualLearningPlan />}
+          />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

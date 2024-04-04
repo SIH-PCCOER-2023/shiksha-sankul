@@ -17,15 +17,16 @@ exports.getILPTemplate = async (req, res) => {
 };
 
 // Create a new ILP Template
-exports.createILPTemplate = async (req, res) => {
-  const ilp = new ILP(req.body);
-  try {
-    const newILP = await ilp.save();
-    res.status(201).json(newILP);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
+// exports.createILPTemplate = async (req, res) => 
+// {
+//   const ilp = new ILP(req.body);
+//   try {
+//     const newILP = await ilp.save();
+//     res.status(201).json(newILP);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// };
 
 // Update ILP by ID
 exports.updateILPTemplate = async (req, res) => {

@@ -29,6 +29,11 @@ const replySchema = mongoose.Schema({
   },
 });
 
+// replySchema.pre(/^find/, function (next) {
+//     this.populate("author", "name");
+  
+//     next();
+// });
 const Reply = mongoose.model("Reply", replySchema);
 
 module.exports = Reply;

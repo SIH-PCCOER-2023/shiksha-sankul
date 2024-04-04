@@ -4,6 +4,10 @@ const TodolistSchema=mongoose.Schema({
     toDo:{
         type:String,
         required:true
+    },
+    author: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
     }
 })
 

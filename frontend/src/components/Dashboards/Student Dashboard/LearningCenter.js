@@ -42,6 +42,11 @@ const LearningCenter = (props) => {
       text: "Notes",
       url: "/notes",
     },
+    {
+      icon: "fa-note-sticky",
+      text: "ILP",
+      url: "/individuallearningplan",
+    },
     // {
     //   icon: "fa-note-sticky",
     //   text: "ToDoList",

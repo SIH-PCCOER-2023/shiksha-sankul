@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
-const ilpTemplateSchema = new mongoose.Schema(
+const ilpTemplateSchema = new mongoose.Schema
+(
   {
     templateName: String,
-    model: {
+    model: 
+    {
       type: Object,
     },
   },
@@ -12,11 +14,12 @@ const ilpTemplateSchema = new mongoose.Schema(
 
 const ilpSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile' },
+    //userId: { type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile' },
     templateId: { type: mongoose.Schema.Types.ObjectId, ref: 'ILPTemplate' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    goals: [
+    goals: 
+    [
       {
         title: String,
         status: {
@@ -41,8 +44,18 @@ const ilpSchema = new mongoose.Schema(
   { strict: false, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+const ilpTestSchema=new mongoose.Schema(  )
+
 const ILPTemplate = mongoose.model('ILPTemplate', ilpTemplateSchema);
 const ILP = mongoose.model('ILP', ilpSchema);
+
+
+
+module.exports.ILP = ILP;
+module.exports.ILPTemplate = ILPTemplate;
+// module.exports = Communication;
+// module.exports = Analytics;
+
 
 // const communicationSchema = new mongoose.Schema({
 //     senderId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -62,8 +75,3 @@ const ILP = mongoose.model('ILP', ilpSchema);
 // });
 
 // const Analytics = mongoose.model("Analytics", analyticsSchema);
-
-module.exports.ILP = ILP;
-module.exports.ILPTemplate = ILPTemplate;
-// module.exports = Communication;
-// module.exports = Analytics;
