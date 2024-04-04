@@ -7,6 +7,7 @@ const testSchema = mongoose.Schema(
         type: mongoose.Types.ObjectId,
         ref: "Student",
       },
+
       questions: [
         {
           type: mongoose.Types.ObjectId,
@@ -21,10 +22,12 @@ const testSchema = mongoose.Schema(
         }
       ],
       obtainedScore: 
+
       {
         type: Number,
         required: [true, "Please specify obtained score"],
       },
+
       totalScore: {
         type: Number,
         required: [true, "Please specify total score"],
@@ -33,6 +36,7 @@ const testSchema = mongoose.Schema(
         type:String,
         enum:["fast","slow"],
       }
+
     },
     
   

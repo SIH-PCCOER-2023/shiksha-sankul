@@ -1,15 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-
 import DashboardHeader from "../../Header/DashboardHeader";
 import Sidebar from "../../Sidebar/Sidebar";
-import Dashboard from "./Dashboard";
-
 import UserContext from "../../../store/user-context";
 import { sendGetRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
-
 import YouTubeCard from "./YoutubeCard";
-
 import Container from "react-bootstrap/Container";
 
 const LearningCenter = (props) => {
@@ -22,11 +17,6 @@ const LearningCenter = (props) => {
       text: "Dashboard",
       url: "/student-dashboard",
     },
-    // {
-    //   icon: 'fa-calendar',
-    //   text: 'Individual Learning Plan',
-    //   url: '/ilp',
-    // },
     {
       icon: "fa-book-open",
       text: "Learning Center",
@@ -37,16 +27,6 @@ const LearningCenter = (props) => {
       text: "Assessments",
       url: "/assessments",
     },
-    // {
-    //   icon: 'fa-thumbs-up',
-    //   text: 'Our Recommendations',
-    //   url: 'recommendations.html',
-    // },
-    // {
-    //   icon: 'fa-solid fa-file-pdf',
-    //   text: 'Certificates',
-    //   url: 'certificates.html',
-    // },
     {
       icon: "fa-solid fa-chart-pie",
       text: "Performance",
@@ -62,30 +42,50 @@ const LearningCenter = (props) => {
       text: "Notes",
       url: "/notes",
     },
+    // {
+    //   icon: "fa-note-sticky",
+    //   text: "ToDoList",
+    //   url: "/todolist",
+    // },
   ];
 
   useEffect(() => {
     const getLearningResources = async () => {
       try {
-        const resources = await sendGetRequest(
-          `http://localhost:8080/api/v1/resources/`
-        );
+        // Fetch user information from context
+        const { user } = userCtx;
+        if (!user || !user.learnerType) {
+          showAlert("error", "User information not found.");
+          return;
+        }
 
+        // Determine endpoint based on user type or any other relevant condition
+        let endpoint = "";
+        if (user.learnerType === "slow") {
+          endpoint = "http://localhost:8080/api/v1/slowLearningResources/";
+        } else if (user.learnerType === "fast") {
+          endpoint = "http://localhost:8080/api/v1/fastLearningResources/";
+        } else {
+          // Handle other cases if necessary
+          showAlert("error", "Invalid learner type.");
+          return;
+        }
+
+        // Fetch resources based on endpoint
+        const resources = await sendGetRequest(endpoint);
         setResources(resources.data.data);
-        console.log(resources);
       } catch (error) {
         showAlert("error", error);
       }
     };
 
     getLearningResources();
-  }, []);
+  }, [userCtx]);
 
   return (
     <>
       <DashboardHeader />
       <Sidebar navLinks={sidebarLinks} />
-      {/* {!userCtx.user.prereqCompleted && <PrerequisiteTest />} */}
       {resources && (
         <div>
           <Container className="youtube-card-container">

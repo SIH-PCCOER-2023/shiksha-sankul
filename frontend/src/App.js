@@ -1,4 +1,6 @@
 import "./css/style.css";
+import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./components/Signup-Login/Login";
@@ -26,9 +28,30 @@ import ContentLibrary from "./components/Dashboards/Faculty Dashboard/ContentLib
 import GoogleDriveResources from "./components/Dashboards/Faculty Dashboard/GoogleDriveResources";
 import PDFUpload from "./components/Dashboards/Faculty Dashboard/PDFUpload";
 import Notes from "./components/Dashboards/Student Dashboard/Notes";
+
+import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
+
+import HomePage from "./components/Header/HomePage";
+import AboutPage from "./components/Header/AboutPage";
+
+import TodoList from "./components/Dashboards/Student Dashboard/ToDoList";
+import PerformanceView from "./components/Dashboards/Faculty Dashboard/PerformanceView";
 // import DiscussionForum from "./components/Dashboards/Student Dashboard/DiscussionForum";
 
 function App() {
+  // const navigate = useNavigate();
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   return (
     <UserContextProvider>
       <BrowserRouter>
@@ -70,8 +93,6 @@ function App() {
 
           <Route path="/analytics" element={<Analytics />} />
 
-          {/* <Route path="/discussionforum" element={<DiscussionForum />} /> */}
-
           <Route path="/learningrm" element={<LearningRM />} />
 
           <Route path="/facultyprofile" element={<FacultyProfile />} />
@@ -92,6 +113,16 @@ function App() {
             path="/googledriveresources"
             element={<GoogleDriveResources />}
           />
+
+          <Route path="/discussionforum" element={<DiscussionForum />} />
+
+          <Route path="/homepage" element={<HomePage />} />
+
+          <Route path="/aboutpage" element={<AboutPage />} />
+
+          <Route path="/todolist" element={<TodoList />} />
+
+          <Route path="/performanceview" element={<PerformanceView />} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

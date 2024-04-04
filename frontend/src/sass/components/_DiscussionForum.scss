@@ -1,0 +1,83 @@
+.forum-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  .create-post {
+    margin-bottom: 20px;
+    margin-left: 320px;
+    margin-right: 350px;
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      resize: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 8px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+
+  .posts-container {
+    width: 100%;
+
+    .post {
+      margin-left: 320px;
+      margin-bottom: 20px;
+      margin-right: 350px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+
+      p {
+        margin: 0;
+        font-size: 12px;
+      }
+
+      input {
+        width: calc(100% - 90px); // Adjust width for reply input
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+        color: #007bff; /* Initial color for the thumbs-up symbol */
+
+        &:hover {
+          background-color: #f9f9f9;
+        }
+
+        &.upvoted {
+          color: green; /* Color for upvoted state */
+        }
+      }
+    }
+  }
+}

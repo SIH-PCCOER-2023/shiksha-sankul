@@ -38,6 +38,11 @@ const CRUD = () => {
       text: "Share Notes",
       url: "/pdfupload",
     },
+    {
+      icon: "fa-chart-line",
+      text: "View Performance",
+      url: "/performanceview",
+    },
   ];
   const [students, setStudents] = useState([]);
   const [name, setName] = useState("");

@@ -1,0 +1,73 @@
+// General styles for the todo list container
+.todo-list-container {
+    margin: 0px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 550px;
+    // margin-left: 350px;
+    // margin-right: 650px;
+    // margin-top: 30px;
+  
+    // Styles for the add todo section
+    .add-todo {
+      margin-bottom: 20px;
+  
+      input[type="text"] {
+        width: calc(100% - 100px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #e0e7ef;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+  
+      button {
+        padding: 8px ;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  
+    // Styles for individual todo items
+    .todos-container {
+      .todo {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+  
+        p {
+          margin: 0;
+        }
+  
+        button {
+          padding: 8px 12px;
+          border: none;
+          border-radius: 5px;
+          background-color: #dc3545;
+          color: #fff;
+          cursor: pointer;
+          transition: background-color 0.3s;
+  
+          &:hover {
+            background-color: #bd2130;
+          }
+        }
+      }
+    }
+  }
+  
