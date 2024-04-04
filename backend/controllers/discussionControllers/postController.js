@@ -13,6 +13,7 @@ exports.getAllPost = catchAsync(async (req, res, next) => {
       path: "author",
       select: "name -_id ",
     })
+
     //.populate({ path: "upvotes", select: "name -_id" });
 
   if (!allPosts) {
@@ -53,14 +54,17 @@ exports.getAllPost = catchAsync(async (req, res, next) => {
 
 
 exports.getPost = catchAsync(async (req, res, next) => {
+
   const done = await Post.findById(req.params.id)
     .populate("author", "name -_id").exec();
+
 
   if (!done) {
     return next(new AppError("No document found with that ID", 404));
   }
 
   // Increment the views count by 1
+
   // done.views += 1;
   // await done.save();
 
@@ -84,6 +88,7 @@ exports.getPost = catchAsync(async (req, res, next) => {
     data: 
     {
       data: done,
+
     },
   });
 });

@@ -115,7 +115,7 @@ exports.bulkAddResources = catchAsync(async (req, res, next) => {
       (mappingCol2Key = {
         A: "title",
         B: "url",
-        C: "learnerType",
+        C: "resourcesType",
       })
     );
     console.log(exceldata);
