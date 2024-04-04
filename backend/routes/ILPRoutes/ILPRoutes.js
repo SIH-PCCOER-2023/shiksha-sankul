@@ -4,14 +4,17 @@ const ILPController=require('../../controllers/ILPControllers/ILPController.js')
 const router=express.Router();
 
 router
-.route('/')
+.route('/generateilp/:userId')
 // .get(ILPController.getAll)
 .post(ILPController.createILP)
 
+// router
+// .route("/:id")
+// .patch(ILPController.updateILP)
+// .get(ILPController.getILP)
+// .delete(ILPController.deleteILP)
 router
-.route("/:id")
-.patch(ILPController.updateILP)
-.get(ILPController.getILP)
-.delete(ILPController.deleteILP)
+.route('/startworker/:userId')
+.get(ILPController.createILP)
 
 module.exports=router;
