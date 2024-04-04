@@ -2,10 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { sendGetRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
 import UserContext from "../../../store/user-context";
-import React, { useState, useEffect, useContext } from "react";
-import { sendGetRequest } from "../../../utils/sendHttp";
-import { showAlert } from "../../../utils/alerts";
-import UserContext from "../../../store/user-context";
 import Container from "react-bootstrap/Container";
 
 const IndividualLearningPlan = () => {
@@ -57,24 +53,6 @@ const ILPCard = ({ ILP }) => {
       fetchILPResources();
     }
   }, [ILP.id, showResources]);
-  const [ILPResources, setILPResources] = useState([]);
-
-  useEffect(() => {
-    const fetchILPResources = async () => {
-      try {
-        const response = await sendGetRequest(
-          `http://localhost:8080/api/v1/individual-learning-plans/${ILP.id}/resources`
-        );
-        setILPResources(response.data.data);
-      } catch (error) {
-        showAlert("error", error);
-      }
-    };
-
-    if (showResources) {
-      fetchILPResources();
-    }
-  }, [ILP.id, showResources]);
 
   const toggleResources = () => {
     setShowResources(!showResources);
@@ -100,16 +78,13 @@ const ResourceCard = ({ resource }) => {
     <div className="ResourceCard">
       <h4>{resource.title}</h4>
       {resource.type === "note" && <p>{resource.content}</p>}
-      {resource.type === "note" && <p>{resource.content}</p>}
       {resource.type === "youtube" && (
         <iframe
           width="560"
           height="315"
           src={resource.url}
           frameborder="0"
-          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
           allowfullscreen
         ></iframe>
       )}

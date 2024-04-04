@@ -77,7 +77,6 @@ const TodoList = (props) => {
           <button onClick={handleAddTodo}>Add Todo</button>
         </div>
         <div className="todos-container">
-<<<<<<< HEAD
           {todos &&
             todos.map((todo) => (
               <Card key={todo._id} className="todo-card">
@@ -89,18 +88,6 @@ const TodoList = (props) => {
                 </Card.Body>
               </Card>
             ))}
-=======
-          {/* {todos.map((todo) => (
-            <Card key={todo._id} className="todo-card">
-              <Card.Body>
-                <Card.Text>{todo.toDo}</Card.Text>
-                <button onClick={() => handleDeleteTodo(todo._id)}>
-                  Delete
-                </button>
-              </Card.Body>
-            </Card>
-          ))} */}
->>>>>>> 3f71219373fa34355600c3ec1bfc7a3a9ce4d747
         </div>
       </div>
     </Container>

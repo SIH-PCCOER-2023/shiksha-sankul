@@ -14,8 +14,8 @@ const ilpTemplateSchema = new mongoose.Schema
 
 const ilpSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile' },
-    //templateId: { type: mongoose.Schema.Types.ObjectId, ref: 'ILPTemplate' },
+    //userId: { type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile' },
+    templateId: { type: mongoose.Schema.Types.ObjectId, ref: 'ILPTemplate' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     goals: 
