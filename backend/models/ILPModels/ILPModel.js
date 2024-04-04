@@ -14,8 +14,8 @@ const ilpTemplateSchema = new mongoose.Schema
 
 const ilpSchema = new mongoose.Schema(
   {
-    //userId: { type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile' },
-    templateId: { type: mongoose.Schema.Types.ObjectId, ref: 'ILPTemplate' },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile' },
+    //templateId: { type: mongoose.Schema.Types.ObjectId, ref: 'ILPTemplate' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     goals: 
@@ -26,6 +26,7 @@ const ilpSchema = new mongoose.Schema(
           type: String,
           enum: ['PENDING', 'COMPLETE'],
           default: 'PENDING',
+          required:true
         },
         dueDate: Date,
         progress: Number,
@@ -37,7 +38,7 @@ const ilpSchema = new mongoose.Schema(
     //     type: String,
     //     url: String,
     //   },
-    notes: String,
+    notes: [Object],
     weakTopics: [String]
   },
   { strict: false, toJSON: { virtuals: true }, toObject: { virtuals: true } }
