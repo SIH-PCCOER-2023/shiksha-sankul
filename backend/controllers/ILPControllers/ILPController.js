@@ -102,26 +102,39 @@ exports.createILP = async (req, res) => {
 };
 
 // Update ILP by ID
-exports.updateILP = async (req, res) => {
+exports.updateILP = catchAsync(async (req, res,next) => {
   try {
     const updatedILP = await ILP.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    res.json(updatedILP);
+    if (!updatedILP) {
+      return next(new AppError("No document found with that ID", 404));
+    }
+    res.status(200).json({
+      status:"success",
+      data: {
+        data: updatedILP, 
+      },
+      });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-};
+});
 
 // Delete ILP by ID
-exports.deleteILP = async (req, res) => {
+exports.deleteILP =catchAsync(async (req, res,next) => {
   try {
-    await ILP.findByIdAndDelete(req.params.id);
-    res.json({ message: "ILP deleted" });
+    const doc=await ILP.findByIdAndDelete(req.params.id);
+    if (!doc) {
+      return next(new AppError("No document found with that ID", 404));
+    }
+    res.status(200).json({ 
+      status:"success",
+      message: "ILP deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+});
 
 
 
