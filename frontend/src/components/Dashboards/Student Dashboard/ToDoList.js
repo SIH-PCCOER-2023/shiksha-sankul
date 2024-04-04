@@ -20,7 +20,6 @@ const TodoList = (props) => {
         const response = await sendGetRequest(
           `http://localhost:8080/api/v1/todolist`
         );
-        console.log(response);
         setTodos(response.data.data.data);
       } catch (error) {
         showAlert("error", error.message);
@@ -43,9 +42,9 @@ const TodoList = (props) => {
       });
 
       const response = await sendGetRequest(
-        `http://localhost:8080/api/v1/todolist/${userCtx.user.id}`
+        `http://localhost:8080/api/v1/todolist/`
       );
-      setTodos(response.data.data);
+      setTodos(response.data.data.data);
       setNewTodo("");
       showAlert("success", "Todo item added successfully!");
     } catch (error) {
@@ -78,16 +77,17 @@ const TodoList = (props) => {
           <button onClick={handleAddTodo}>Add Todo</button>
         </div>
         <div className="todos-container">
-          {todos.map((todo) => (
-            <Card key={todo._id} className="todo-card">
-              <Card.Body>
-                <Card.Text>{todo.toDo}</Card.Text>
-                <button onClick={() => handleDeleteTodo(todo._id)}>
-                  Delete
-                </button>
-              </Card.Body>
-            </Card>
-          ))}
+          {todos &&
+            todos.map((todo) => (
+              <Card key={todo._id} className="todo-card">
+                <Card.Body>
+                  <Card.Text>{todo.toDo}</Card.Text>
+                  <button onClick={() => handleDeleteTodo(todo._id)}>
+                    Delete
+                  </button>
+                </Card.Body>
+              </Card>
+            ))}
         </div>
       </div>
     </Container>
