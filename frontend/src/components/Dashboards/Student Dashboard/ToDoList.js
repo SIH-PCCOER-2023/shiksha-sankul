@@ -78,7 +78,7 @@ const TodoList = (props) => {
           <button onClick={handleAddTodo}>Add Todo</button>
         </div>
         <div className="todos-container">
-          {todos.map((todo) => (
+          {/* {todos.map((todo) => (
             <Card key={todo._id} className="todo-card">
               <Card.Body>
                 <Card.Text>{todo.toDo}</Card.Text>
@@ -87,7 +87,7 @@ const TodoList = (props) => {
                 </button>
               </Card.Body>
             </Card>
-          ))}
+          ))} */}
         </div>
       </div>
     </Container>

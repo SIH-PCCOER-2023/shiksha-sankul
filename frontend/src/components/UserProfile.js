@@ -49,6 +49,7 @@ const UserProfile = (props) => {
   return (
     <>
       <DashboardHeader />
+      <Sidebar navLinks={sidebarLinks} />
       <div className="user-profile">
         <Sidebar navLinks={sidebarLinks} />
         {/* <img src="img.jpg" alt="User Avatar" className="avatar" /> */}

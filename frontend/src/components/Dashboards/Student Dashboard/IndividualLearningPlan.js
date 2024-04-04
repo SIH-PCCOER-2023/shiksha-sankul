@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { sendGetRequest } from "../../../utils/sendHttp";
+import { showAlert } from "../../../utils/alerts";
+import UserContext from "../../../store/user-context";
 import Container from "react-bootstrap/Container";
 
 const IndividualLearningPlan = () => {
-  // Simulated ILPs data for testing
-  const [ILPs] = useState([
-    { id: 1, title: "ILP 1" },
-    { id: 2, title: "ILP 2" },
-    { id: 3, title: "ILP 3" },
-  ]);
+  const userCtx = useContext(UserContext);
+  const [ILPs, setILPs] = useState([]);
+
+  useEffect(() => {
+    const fetchILPs = async () => {
+      try {
+        const response = await sendGetRequest(
+          `http://localhost:8080/api/v1/individual-learning-plans/${userCtx.user.id}`
+        );
+        setILPs(response.data.data);
+      } catch (error) {
+        showAlert("error", error);
+      }
+    };
+
+    fetchILPs();
+  }, [userCtx.user.id]);
 
   return (
     <Container>
@@ -20,22 +34,24 @@ const IndividualLearningPlan = () => {
 
 const ILPCard = ({ ILP }) => {
   const [showResources, setShowResources] = useState(false);
+  const [ILPResources, setILPResources] = useState([]);
 
-  // Simulated ILP resources data for testing
-  const [ILPResources] = useState([
-    {
-      id: 1,
-      title: "Introduction to React",
-      type: "youtube",
-      url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    },
-    {
-      id: 2,
-      title: "Getting Started with React",
-      type: "pdf",
-      url: "/path/to/pdf/getting_started_with_react.pdf",
-    },
-  ]);
+  useEffect(() => {
+    const fetchILPResources = async () => {
+      try {
+        const response = await sendGetRequest(
+          `http://localhost:8080/api/v1/individual-learning-plans/${ILP.id}/resources`
+        );
+        setILPResources(response.data.data);
+      } catch (error) {
+        showAlert("error", error);
+      }
+    };
+
+    if (showResources) {
+      fetchILPResources();
+    }
+  }, [ILP.id, showResources]);
 
   const toggleResources = () => {
     setShowResources(!showResources);
@@ -60,22 +76,15 @@ const ResourceCard = ({ resource }) => {
   return (
     <div className="ResourceCard">
       <h4>{resource.title}</h4>
-      {resource.type === "pdf" && (
-        <embed
-          src={resource.url}
-          type="application/pdf"
-          width="100%"
-          height="600px"
-        />
-      )}
+      {resource.type === "note" && <p>{resource.content}</p>}
       {resource.type === "youtube" && (
         <iframe
           width="560"
           height="315"
           src={resource.url}
-          frameBorder="0"
+          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
+          allowfullscreen
         ></iframe>
       )}
     </div>

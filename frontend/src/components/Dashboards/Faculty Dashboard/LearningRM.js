@@ -40,11 +40,6 @@ const LearningRM = (props) => {
       text: "View Performance",
       url: "/performanceview",
     },
-    {
-      icon: "fa-chart-line",
-      text: "ILP",
-      url: "/faculty-dashboard/ilp",
-    },
   ];
 
   useEffect(() => {
