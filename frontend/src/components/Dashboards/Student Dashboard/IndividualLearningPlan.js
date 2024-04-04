@@ -3,10 +3,55 @@ import { sendGetRequest } from "../../../utils/sendHttp";
 import { showAlert } from "../../../utils/alerts";
 import UserContext from "../../../store/user-context";
 import Container from "react-bootstrap/Container";
+import DashboardHeader from "../../Header/DashboardHeader";
+import Sidebar from "../../Sidebar/Sidebar";
 
 const IndividualLearningPlan = () => {
   const userCtx = useContext(UserContext);
   const [ILPs, setILPs] = useState([]);
+
+  const sidebarLinks = [
+    {
+      icon: "fa-home",
+      text: "Dashboard",
+      url: "/student-dashboard",
+    },
+    {
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "/learning-center",
+    },
+    {
+      icon: "fa-pen",
+      text: "Assessments",
+      url: "/assessments",
+    },
+    {
+      icon: "fa-solid fa-chart-pie",
+      text: "Performance",
+      url: "/performance",
+    },
+    {
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
+    },
+    {
+      icon: "fa-note-sticky",
+      text: "Notes",
+      url: "/notes",
+    },
+    {
+      icon: "fa-note-sticky",
+      text: "ILP",
+      url: "/individuallearningplan",
+    },
+    // {
+    //   icon: "fa-note-sticky",
+    //   text: "ToDoList",
+    //   url: "/todolist",
+    // },
+  ];
 
   useEffect(() => {
     const fetchILPs = async () => {
@@ -25,11 +70,15 @@ const IndividualLearningPlan = () => {
   }, [userCtx.user.id]);
 
   return (
-    <Container>
-      {ILPs.map((ILP, index) => (
-        <ILPCard key={index} ILP={ILP} />
-      ))}
-    </Container>
+    <>
+      <DashboardHeader />
+      <Sidebar navLinks={sidebarLinks} />
+      <Container>
+        {ILPs.map((ILP, index) => (
+          <ILPCard key={index} ILP={ILP} />
+        ))}
+      </Container>
+    </>
   );
 };
 
@@ -46,12 +95,16 @@ const ILPCard = ({ ILP }) => {
       <button onClick={toggleResources}>View</button>
       {showResources && (
         <div className="ILPResources">
-          {ILP.learningResources.map((resource, index) => (
-            <ResourceCard key={index} resource={resource} />
-          ))}
-          {ILP.notes.map((note, index) => (
-            <ResourceCard key={index} resource={note} />
-          ))}
+          <div className="ResourceCardContainer">
+            {" "}
+            {/* Added container for flex */}
+            {ILP.learningResources.map((resource, index) => (
+              <ResourceCard key={index} resource={resource} />
+            ))}
+            {ILP.notes.map((note, index) => (
+              <ResourceCard key={index} resource={note} />
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -68,8 +121,8 @@ const ResourceCard = ({ resource }) => {
         </a>
       ) : (
         <iframe
-          width="560"
-          height="315"
+          width="320"
+          height="165"
           src={resource.url}
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

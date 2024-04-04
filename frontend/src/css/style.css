@@ -1726,6 +1726,9 @@ p {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 15px;
+  margin-left: 35rem;
+  margin-top: 20px;
+  width: 80rem;
   margin-bottom: 15px;
   background-color: #f9f9f9; }
   .ILPCard h3 {
@@ -1744,19 +1747,23 @@ p {
     margin-top: 15px;
     padding-top: 10px;
     border-top: 1px solid #ccc; }
+    .ILPCard .ILPResources .ResourceCardContainer {
+      display: flex;
+      /* Use flexbox */
+      flex-wrap: wrap;
+      /* Allow wrapping */
+      gap: 10px;
+      /* Add gap between cards */ }
 
 .ResourceCard {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #fff; }
+  background-color: #fff;
+  width: 340px; }
   .ResourceCard h4 {
+    align-content: center;
     margin-bottom: 5px; }
   .ResourceCard p {
     margin: 0; }
-  .ResourceCard iframe {
-    width: 100%;
-    height: 200px;
-    border: none;
-    border-radius: 5px; }
