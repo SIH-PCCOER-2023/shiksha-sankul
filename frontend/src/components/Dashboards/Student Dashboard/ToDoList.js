@@ -37,9 +37,14 @@ const TodoList = (props) => {
         return;
       }
 
-      await sendPostRequest("/api/v1/todolist", { toDo: newTodo });
+      await sendPostRequest(`http://localhost:8080/api/v1/todolist`, {
+        toDo: newTodo,
+        author: userCtx.user.id,
+      });
 
-      const response = await sendGetRequest("/api/v1/todolist");
+      const response = await sendGetRequest(
+        `http://localhost:8080/api/v1/todolist/${userCtx.user.id}`
+      );
       setTodos(response.data.data);
       setNewTodo("");
       showAlert("success", "Todo item added successfully!");
@@ -50,7 +55,9 @@ const TodoList = (props) => {
 
   const handleDeleteTodo = async (todoId) => {
     try {
-      await sendDeleteRequest(`/api/v1/todolist/${todoId}`);
+      await sendDeleteRequest(
+        `http://localhost:8080/api/v1/todolist/${todoId}`
+      );
       setTodos(todos.filter((todo) => todo._id !== todoId));
       showAlert("success", "Todo item deleted successfully!");
     } catch (error) {
