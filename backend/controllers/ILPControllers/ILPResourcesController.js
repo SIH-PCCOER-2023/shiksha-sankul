@@ -29,7 +29,7 @@ exports.createResourcesILP = catchAsync(async (req, res, next) => {
      //console.log(incorrectQuestionIds)
     //finding the individual quesions from the question banks
     const questionBankData = await QuestionBank.find({ _id: { $in: incorrectQuestionIds } });
-    console.log(questionBankData);
+    
 
     // Extract topics from the retrieved QuestionBank documents
     const topics = questionBankData.map(question => question.topic);
@@ -61,10 +61,16 @@ console.log('Max Topics:', maxTopics, 'Max Count:', maxCount);
 
     // Continue with your logic...
 
+
+    
+
     res.status(201).json({
         status: 'success',
         data: {
-            updated: latestTest
+            updated:{
+                latestTest
+            },
+            maxTopics
         }
     });
 });

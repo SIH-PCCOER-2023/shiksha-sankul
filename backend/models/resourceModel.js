@@ -7,8 +7,8 @@ const resourceSchema = mongoose.Schema(
       type: String,
       required: [true, "title is required"],
     },
-    type1:String,
-    type2:String,
+    // type1:String,
+    // type2:String,
     url: {
       type: String,
       required: [true,"Please provide a URL"],

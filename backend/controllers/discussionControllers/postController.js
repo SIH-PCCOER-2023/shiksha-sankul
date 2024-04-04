@@ -13,7 +13,9 @@ exports.getAllPost = catchAsync(async (req, res, next) => {
       path: "author",
       select: "name -_id ",
     })
-    .populate({ path: "upvotes", select: "name -_id" });
+    
+    
+    //.populate({ path: "upvotes", select: "name -_id" });
 
   if (!allPosts) {
     return next(new AppError(" documents not found with that ID", 404));
