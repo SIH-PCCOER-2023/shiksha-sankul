@@ -10,7 +10,7 @@ const fastLearningResourcesSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide a URL"],
     },
-    topic: String,
+    //topic: String,
     learnerType: {
       type: mongoose.Types.ObjectId,
       ref: "Student",

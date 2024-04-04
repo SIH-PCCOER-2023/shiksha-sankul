@@ -13,7 +13,12 @@ const resourceSchema = mongoose.Schema(
       type: String,
       required: [true,"Please provide a URL"],
     },
-    topic: String,
+    topic:{
+      type:String,
+      enum:["basic","array","Sorting and Searching","stack","linked list","tree","graphs","hashing"],
+      required:true
+
+    },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
