@@ -15,7 +15,7 @@ const IndividualLearningPlan = () => {
           `http://localhost:8080/api/v1/ilps/${userCtx.user.id}`
         );
         console.log("res: ", response);
-        setILPs(response.data.data);
+        setILPs(response.data.data.data); // Access the nested data array
       } catch (error) {
         showAlert("error", error);
       }
@@ -35,24 +35,6 @@ const IndividualLearningPlan = () => {
 
 const ILPCard = ({ ILP }) => {
   const [showResources, setShowResources] = useState(false);
-  const [ILPResources, setILPResources] = useState([]);
-
-  useEffect(() => {
-    const fetchILPResources = async () => {
-      try {
-        const response = await sendGetRequest(
-          `http://localhost:8080/api/v1/individual-learning-plans/${ILP.id}/resources`
-        );
-        setILPResources(response.data.data);
-      } catch (error) {
-        showAlert("error", error);
-      }
-    };
-
-    if (showResources) {
-      fetchILPResources();
-    }
-  }, [ILP.id, showResources]);
 
   const toggleResources = () => {
     setShowResources(!showResources);
@@ -60,12 +42,15 @@ const ILPCard = ({ ILP }) => {
 
   return (
     <div className="ILPCard">
-      <h3>{ILP.title}</h3>
+      <h3>{ILP.learningResources[0].topic}</h3>
       <button onClick={toggleResources}>View</button>
       {showResources && (
         <div className="ILPResources">
-          {ILPResources.map((resource, index) => (
+          {ILP.learningResources.map((resource, index) => (
             <ResourceCard key={index} resource={resource} />
+          ))}
+          {ILP.notes.map((note, index) => (
+            <ResourceCard key={index} resource={note} />
           ))}
         </div>
       )}
@@ -77,8 +62,11 @@ const ResourceCard = ({ resource }) => {
   return (
     <div className="ResourceCard">
       <h4>{resource.title}</h4>
-      {resource.type === "note" && <p>{resource.content}</p>}
-      {resource.type === "youtube" && (
+      {resource.url.includes(".pdf") ? (
+        <a href={resource.url} target="_blank" rel="noopener noreferrer">
+          View PDF
+        </a>
+      ) : (
         <iframe
           width="560"
           height="315"

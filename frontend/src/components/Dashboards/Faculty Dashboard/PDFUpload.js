@@ -11,6 +11,7 @@ const PDFUpload = () => {
   const [pdfs, setPdfs] = useState([]);
   const [newPdfLink, setNewPdfLink] = useState("");
   const [newPdfTitle, setNewPdfTitle] = useState("");
+  const [resourcesType, setResourcesType] = useState("slowresource");
 
   const sidebarLinks = [
     {
@@ -28,11 +29,6 @@ const PDFUpload = () => {
       text: "Learning Resource Management",
       url: "/learningrm",
     },
-    // {
-    //   icon: "fa-comments",
-    //   text: "Discussion Forum",
-    //   url: "/discussionforum",
-    // },
     {
       icon: "fa-note-sticky",
       text: "Share Notes",
@@ -44,11 +40,19 @@ const PDFUpload = () => {
       url: "/performanceview",
     },
   ];
+
   useEffect(() => {
     const getPdfs = async () => {
       try {
-        const pdfs = await sendGetRequest(`http://localhost:8080/api/v1/pdf`);
-        setPdfs(pdfs.data.data);
+        const slowPdfs = await sendGetRequest(
+          "http://localhost:8080/api/v1/slowLearnerPdf"
+        );
+        const fastPdfs = await sendGetRequest(
+          "http://localhost:8080/api/v1/fastLearnerPdf"
+        );
+
+        const combinedPdfs = [...slowPdfs.data.data, ...fastPdfs.data.data];
+        setPdfs(combinedPdfs);
       } catch (error) {
         showAlert("error", error);
       }
@@ -71,18 +75,35 @@ const PDFUpload = () => {
         return;
       }
 
-      await sendPostRequest("http://localhost:8080/api/v1/pdf", {
+      let endpoint = "";
+      // Determine the endpoint based on the resourcesType
+      if (resourcesType === "slowresource") {
+        endpoint = "http://localhost:8080/api/v1/slowLearnerPdf";
+      } else if (resourcesType === "fastresource") {
+        endpoint = "http://localhost:8080/api/v1/fastLearnerPdf";
+      }
+
+      await sendPostRequest(endpoint, {
         title: newPdfTitle,
         link: newPdfLink,
       });
 
-      const updatedPdfs = await sendGetRequest(
-        `http://localhost:8080/api/v1/pdf`
+      // Fetch the updated list of PDFs
+      const slowPdfs = await sendGetRequest(
+        "http://localhost:8080/api/v1/slowLearnerPdf"
+      );
+      const fastPdfs = await sendGetRequest(
+        "http://localhost:8080/api/v1/fastLearnerPdf"
       );
 
-      setPdfs(updatedPdfs.data.data);
+      // Combine the PDFs
+      const combinedPdfs = [...slowPdfs.data.data, ...fastPdfs.data.data];
+      setPdfs(combinedPdfs);
+
+      // Clear input fields after successful upload
       setNewPdfLink("");
       setNewPdfTitle("");
+
       showAlert("success", "PDF uploaded successfully!");
     } catch (error) {
       showAlert("error", error);
@@ -107,6 +128,13 @@ const PDFUpload = () => {
             value={newPdfTitle}
             onChange={(e) => setNewPdfTitle(e.target.value)}
           />
+          <select
+            value={resourcesType}
+            onChange={(e) => setResourcesType(e.target.value)}
+          >
+            <option value="slowresource">Slow Resource</option>
+            <option value="fastresource">Fast Resource</option>
+          </select>
           <button onClick={handleUpload}>Upload</button>
         </div>
       </div>
