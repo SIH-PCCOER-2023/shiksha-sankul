@@ -15,6 +15,11 @@ const UserProfile = (props) => {
       url: "/student-dashboard",
     },
     {
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "/learning-center",
+    },
+    {
       icon: "fa-pen",
       text: "Assessments",
       url: "/assessments",
@@ -25,31 +30,20 @@ const UserProfile = (props) => {
       url: "/performance",
     },
     {
-      icon: "fa-solid fa-layer-group",
-      text: "ILP",
-      url: "/individuallearningplan",
-    },
-    {
-      icon: "fa-book-open",
-      text: "Learning Center",
-      url: "/learning-center",
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
     },
     {
       icon: "fa-note-sticky",
       text: "Notes",
       url: "/notes",
     },
-    {
-      icon: "fa-solid fa-comments",
-      text: "Discussion Forum",
-      url: "/discussionforum",
-    },
   ];
 
   return (
     <>
       <DashboardHeader />
-      <Sidebar navLinks={sidebarLinks} />
       <div className="user-profile">
         <Sidebar navLinks={sidebarLinks} />
         {/* <img src="img.jpg" alt="User Avatar" className="avatar" /> */}

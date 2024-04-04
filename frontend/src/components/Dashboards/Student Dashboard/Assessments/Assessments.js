@@ -10,6 +10,16 @@ const Assessments = (props) => {
       text: "Dashboard",
       url: "/student-dashboard",
     },
+    // {
+    //   icon: 'fa-calendar',
+    //   text: 'Individual Learning Plan',
+    //   url: '/ilp',
+    // },
+    {
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "/learning-center",
+    },
     {
       icon: "fa-pen",
       text: "Assessments",
@@ -20,25 +30,20 @@ const Assessments = (props) => {
       text: "Performance",
       url: "/performance",
     },
+    // {
+    //   icon: 'fa-solid fa-comments',
+    //   text: 'Discussion Forum',
+    //   url: 'discussion.html',
+    // },
     {
-      icon: "fa-solid fa-layer-group",
-      text: "ILP",
-      url: "/individuallearningplan",
-    },
-    {
-      icon: "fa-book-open",
-      text: "Learning Center",
-      url: "/learning-center",
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
     },
     {
       icon: "fa-note-sticky",
       text: "Notes",
       url: "/notes",
-    },
-    {
-      icon: "fa-solid fa-comments",
-      text: "Discussion Forum",
-      url: "/discussionforum",
     },
   ];
 

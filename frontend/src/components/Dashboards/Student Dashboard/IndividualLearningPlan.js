@@ -12,8 +12,9 @@ const IndividualLearningPlan = () => {
     const fetchILPs = async () => {
       try {
         const response = await sendGetRequest(
-          `http://localhost:8080/api/v1/individual-learning-plans/${userCtx.user.id}`
+          `http://localhost:8080/api/v1/ilps/${userCtx.user.id}`
         );
+        console.log("res: ", response);
         setILPs(response.data.data);
       } catch (error) {
         showAlert("error", error);

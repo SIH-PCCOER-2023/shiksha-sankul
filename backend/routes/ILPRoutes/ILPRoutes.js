@@ -4,11 +4,10 @@ const ILPController=require('../../controllers/ILPControllers/ILPController.js')
 const router=express.Router();
 
 router
-.route('/generateilp/:userId')
+.route('/')
 // .get(ILPController.getAll)
 .post(ILPController.createILP)
 
-router.route('/:userId').get(ILPController.getILP)
 router
 .route("/:id")
 .patch(ILPController.updateILP)
