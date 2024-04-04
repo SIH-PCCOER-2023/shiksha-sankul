@@ -18,6 +18,7 @@ exports.createReply = catchAsync(async (req, res, next) => {
     comment: req.body.comment,
     author: req.body.author,
     //upvotes:req.body.upvotes
+
   });
   await reply.save();
 
