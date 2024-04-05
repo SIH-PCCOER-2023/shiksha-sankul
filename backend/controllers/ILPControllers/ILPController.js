@@ -1,10 +1,8 @@
-
-<<<<<<< HEAD
 const { types } = require('node-sass');
 const { ILP, ILPTemplate,ILPProgressbar} = require('../../models/ILPModels/ILPModel');
-=======
 const { ILP, ILPTemplate } = require('../../models/ILPModels/ILPModel');
->>>>>>> parent of 6674954 (worker done)
+const { ILP, ILPTemplate } = require('../../models/ILPModels/ILPModel');
+
 const Resources = require('../../models/resourceModel')
 const AppError = require("../../utils/appError");
 const Test=require('./../../models/testModel');
@@ -145,21 +143,11 @@ exports.deleteILP =catchAsync(async (req, res,next) => {
     }
     res.status(200).json({ 
       status:"success",
-      message: "ILP deleted" });
+      message: "ILP deleted",
+     });
 
 });
 
+ 
 
 
-
-
-<<<<<<< HEAD
-  res.status(201).json({
-    status: "success",
-    data: {
-      data: doc, //created doc
-    },
-  });
-})
-=======
->>>>>>> parent of 6674954 (worker done)
