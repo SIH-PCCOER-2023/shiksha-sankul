@@ -8,11 +8,9 @@ router
 // .get(ILPController.getAll)
 .post(ILPController.createILP)
 
-// router
-// .route("/:id")
-// .patch(ILPController.updateILP)
-// .get(ILPController.getILP)
-// .delete(ILPController.deleteILP)
+ router
+.route("/:userId").get(ILPController.getILP);
+
 router
 .route('/startworker/:userId')
 .get(ILPController.createILPWorker)

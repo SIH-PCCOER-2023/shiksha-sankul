@@ -8,14 +8,22 @@ const catchAsync = require('../../utils/catchAsync');
 const createILPWorker = require('./../worker/worker');
 
 // Get ILP by ID
-exports.getILP = async (req, res,next) => {
-  try {
-    const ilp = await ILP.findById(req.params.id);
-    res.json(ilp);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+exports.getILP = catchAsync(async (req, res,next) => {
+  const userId=req.params.userId;
+  
+  const ilp = await ILP.find(userId);
+  if (!ilp) 
+  {
+    return next(new AppError('No test found for the specified student.', 200));
   }
-};
+  res.status(200).json({
+    status:"success",
+    data:{
+      ilp
+    }
+  })
+ 
+});
 
 // Create a new ILP
 exports.createILP = async (req, res,next) => {
