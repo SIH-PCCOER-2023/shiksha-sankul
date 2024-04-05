@@ -4,9 +4,9 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 15px;
-  margin-left: 35rem;
+  margin-left: 47.5rem;
   margin-top: 20px;
-  width:80rem;
+  width:74rem;
   margin-bottom: 15px;
   background-color: #f9f9f9;
 
@@ -36,7 +36,7 @@
     .ResourceCardContainer {
       display: flex; /* Use flexbox */
       flex-wrap: wrap; /* Allow wrapping */
-      gap: 10px; /* Add gap between cards */
+      gap: 20px; /* Add gap between cards */
     }
   }
 }
