@@ -44,29 +44,15 @@ const ilpSchema = new mongoose.Schema(
   { strict: false, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-const progressbarSchema=new mongoose.Schema({
-  userId:{ type: mongoose.Schema.Types.ObjectId,
-     ref: "User"
-  },
-  ilpId:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref:"ILP"
-  },
-  percentage:{
-    type:Number,
-    default:0
-  }
-})
-
+const ilpTestSchema=new mongoose.Schema(  )
 
 const ILPTemplate = mongoose.model('ILPTemplate', ilpTemplateSchema);
 const ILP = mongoose.model('ILP', ilpSchema);
-const ILPProgressbar = mongoose.model('ILPProgressbar',progressbarSchema);
+
 
 
 module.exports.ILP = ILP;
 module.exports.ILPTemplate = ILPTemplate;
-module.exports.ILPProgressbar=ILPProgressbar;
 // module.exports = Communication;
 // module.exports = Analytics;
 
