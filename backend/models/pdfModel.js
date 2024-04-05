@@ -11,6 +11,7 @@ const pdfSchema = mongoose.Schema(
       type: String,
       required: [true, "Please provide a link"],
     },
+    
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

@@ -15,6 +15,6 @@ router
 // .delete(ILPController.deleteILP)
 router
 .route('/startworker/:userId')
-.get(ILPController.createILP)
+.get(ILPController.createILPWorker)
 
 module.exports=router;

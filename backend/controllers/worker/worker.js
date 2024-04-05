@@ -3,6 +3,7 @@ const QuestionBank = require('./../../models/QuestionBankModel'); // Import your
 const Resources = require('./../../models/resourceModel'); // Import your Resources model
 const { ILP, ILPTemplate } = require('../../models/ILPModels/ILPModel'); // Import your ILP model
 const AppError = require('./../../utils/appError'); // Import your AppError utility
+const Pdf=require('./../../models/pdfModel');
 
 async function createILP(userId) {
   try {
@@ -52,11 +53,20 @@ async function createILP(userId) {
       throw new AppError('No learning resources found for the final topic.', 404);
     }
 
+    //appending notes 
+    const pdfResources=await Pdf.find({title:finalTopic});
+    console.log(pdfResources);
+
+    if (!pdfResources) {
+      throw new AppError('No learning resources found for the final topic.', 404);
+    }
+
     // Create a new ILP document
     const newILP = new ILP({
       userId: userId,
       learningResources: learningResources,
-      weakTopics: finalTopic
+      weakTopics: finalTopic,
+      notes:pdfResources
     });
     console.log(newILP);
 
