@@ -17,11 +17,6 @@ const IndividualLearningPlan = () => {
       url: "/student-dashboard",
     },
     {
-      icon: "fa-book-open",
-      text: "Learning Center",
-      url: "/learning-center",
-    },
-    {
       icon: "fa-pen",
       text: "Assessments",
       url: "/assessments",
@@ -32,9 +27,14 @@ const IndividualLearningPlan = () => {
       url: "/performance",
     },
     {
-      icon: "fa-solid fa-comments",
-      text: "Discussion Forum",
-      url: "/discussionforum",
+      icon: "fa-solid fa-layer-group",
+      text: "ILP",
+      url: "/individuallearningplan",
+    },
+    {
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "/learning-center",
     },
     {
       icon: "fa-note-sticky",
@@ -42,9 +42,9 @@ const IndividualLearningPlan = () => {
       url: "/notes",
     },
     {
-      icon: "fa-note-sticky",
-      text: "ILP",
-      url: "/individuallearningplan",
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
     },
   ];
 
