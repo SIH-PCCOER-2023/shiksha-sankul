@@ -240,7 +240,11 @@ const DiscussionForum = (props) => {
                   &#x1F44D; ({upvotes[post._id]})
                 </button>
                 {/* Display replies for the post */}
+
                 <div className="replies">
+                  {replies[post._id] && replies[post._id].length > 0 && (
+                    <h2>Replies:</h2>
+                  )}
                   {replies[post._id] &&
                     replies[post._id].map((reply) => (
                       <div key={reply._id} className="reply">
