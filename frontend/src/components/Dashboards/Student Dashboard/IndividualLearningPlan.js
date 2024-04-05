@@ -46,11 +46,6 @@ const IndividualLearningPlan = () => {
       text: "ILP",
       url: "/individuallearningplan",
     },
-    // {
-    //   icon: "fa-note-sticky",
-    //   text: "ToDoList",
-    //   url: "/todolist",
-    // },
   ];
 
   useEffect(() => {
@@ -69,6 +64,10 @@ const IndividualLearningPlan = () => {
     fetchILPs();
   }, [userCtx.user.id]);
 
+  if (!ILPs) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <DashboardHeader />
@@ -84,25 +83,35 @@ const IndividualLearningPlan = () => {
 
 const ILPCard = ({ ILP }) => {
   const [showResources, setShowResources] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
 
   const toggleResources = () => {
     setShowResources(!showResources);
   };
 
+  const toggleNotes = () => {
+    setShowNotes(!showNotes);
+  };
+
   return (
     <div className="ILPCard">
       <h3>{ILP.learningResources[0].topic}</h3>
-      <button onClick={toggleResources}>View</button>
+      <button onClick={toggleResources}>View Resources</button>
       {showResources && (
         <div className="ILPResources">
           <div className="ResourceCardContainer">
-            {" "}
-            {/* Added container for flex */}
             {ILP.learningResources.map((resource, index) => (
               <ResourceCard key={index} resource={resource} />
             ))}
+          </div>
+        </div>
+      )}
+      <button onClick={toggleNotes}>View Notes</button>
+      {showNotes && (
+        <div className="ILPNotes">
+          <div className="NoteCardContainer">
             {ILP.notes.map((note, index) => (
-              <ResourceCard key={index} resource={note} />
+              <NoteCard key={index} note={note} />
             ))}
           </div>
         </div>
@@ -124,11 +133,24 @@ const ResourceCard = ({ resource }) => {
           width="320"
           height="165"
           src={resource.url}
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       )}
+    </div>
+  );
+};
+
+const NoteCard = ({ note }) => {
+  const handleViewNote = () => {
+    window.open(note.link, "_blank");
+  };
+
+  return (
+    <div className="NoteCard">
+      <h4>{note.title}</h4>
+      <button onClick={handleViewNote}>Note</button>
     </div>
   );
 };
