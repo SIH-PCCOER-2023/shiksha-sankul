@@ -1529,7 +1529,8 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px; }
+  padding: 20px;
+  margin-top: 25px; }
   .forum-container .create-post {
     margin-bottom: 20px;
     margin-left: 320px;
@@ -1539,6 +1540,7 @@ p {
       width: 100%;
       padding: 10px;
       margin-bottom: 10px;
+      background-color: #f9f9f9;
       resize: none;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -1557,16 +1559,16 @@ p {
   .forum-container .posts-container {
     width: 100%; }
     .forum-container .posts-container .post {
-      margin-left: 320px;
+      margin-left: 335px;
       margin-bottom: 20px;
-      margin-right: 350px;
+      margin-right: 360px;
       padding: 10px;
       background-color: #f9f9f9;
       border: 1px solid #ccc;
       border-radius: 5px; }
       .forum-container .posts-container .post p {
         margin: 0;
-        font-size: 12px; }
+        font-size: 14px; }
       .forum-container .posts-container .post input {
         width: calc(100% - 90px);
         padding: 8px;
@@ -1579,6 +1581,7 @@ p {
         border-radius: 5px;
         cursor: pointer;
         font-size: 14px;
+        margin-left: 15px;
         transition: background-color 0.3s;
         color: #007bff;
         /* Initial color for the thumbs-up symbol */ }
@@ -1586,7 +1589,8 @@ p {
           background-color: #f9f9f9; }
         .forum-container .posts-container .post button.upvoted {
           color: green;
-          /* Color for upvoted state */ }
+          /* Color for upvoted state */
+          margin-left: 0%; }
 
 /* Assuming you have a CSS file named HomePage.css */
 /* Styles for the main container */
@@ -1726,6 +1730,9 @@ p {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 15px;
+  margin-left: 47.5rem;
+  margin-top: 20px;
+  width: 74rem;
   margin-bottom: 15px;
   background-color: #f9f9f9; }
   .ILPCard h3 {
@@ -1744,19 +1751,23 @@ p {
     margin-top: 15px;
     padding-top: 10px;
     border-top: 1px solid #ccc; }
+    .ILPCard .ILPResources .ResourceCardContainer {
+      display: flex;
+      /* Use flexbox */
+      flex-wrap: wrap;
+      /* Allow wrapping */
+      gap: 20px;
+      /* Add gap between cards */ }
 
 .ResourceCard {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #fff; }
+  background-color: #fff;
+  width: 340px; }
   .ResourceCard h4 {
+    align-content: center;
     margin-bottom: 5px; }
   .ResourceCard p {
     margin: 0; }
-  .ResourceCard iframe {
-    width: 100%;
-    height: 200px;
-    border: none;
-    border-radius: 5px; }

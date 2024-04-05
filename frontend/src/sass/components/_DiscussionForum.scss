@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  margin-top: 25px;
 
   .create-post {
     margin-bottom: 20px;
@@ -14,6 +15,7 @@
       width: 100%;
       padding: 10px;
       margin-bottom: 10px;
+      background-color: #f9f9f9;
       resize: none;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -40,9 +42,9 @@
     width: 100%;
 
     .post {
-      margin-left: 320px;
+      margin-left: 335px;
       margin-bottom: 20px;
-      margin-right: 350px;
+      margin-right: 360px;
       padding: 10px;
       background-color: #f9f9f9;
       border: 1px solid #ccc;
@@ -50,7 +52,7 @@
 
       p {
         margin: 0;
-        font-size: 12px;
+        font-size: 14px;
       }
 
       input {
@@ -67,6 +69,7 @@
         border-radius: 5px;
         cursor: pointer;
         font-size: 14px;
+         margin-left: 15px;
         transition: background-color 0.3s;
         color: #007bff; /* Initial color for the thumbs-up symbol */
 
@@ -76,6 +79,7 @@
 
         &.upvoted {
           color: green; /* Color for upvoted state */
+          margin-left: 0%;
         }
       }
     }

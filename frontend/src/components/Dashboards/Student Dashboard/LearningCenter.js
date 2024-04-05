@@ -18,11 +18,6 @@ const LearningCenter = (props) => {
       url: "/student-dashboard",
     },
     {
-      icon: "fa-book-open",
-      text: "Learning Center",
-      url: "/learning-center",
-    },
-    {
       icon: "fa-pen",
       text: "Assessments",
       url: "/assessments",
@@ -33,9 +28,14 @@ const LearningCenter = (props) => {
       url: "/performance",
     },
     {
-      icon: "fa-solid fa-comments",
-      text: "Discussion Forum",
-      url: "/discussionforum",
+      icon: "fa-solid fa-layer-group",
+      text: "ILP",
+      url: "/individuallearningplan",
+    },
+    {
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "/learning-center",
     },
     {
       icon: "fa-note-sticky",
@@ -43,15 +43,10 @@ const LearningCenter = (props) => {
       url: "/notes",
     },
     {
-      icon: "fa-note-sticky",
-      text: "ILP",
-      url: "/individuallearningplan",
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
     },
-    // {
-    //   icon: "fa-note-sticky",
-    //   text: "ToDoList",
-    //   url: "/todolist",
-    // },
   ];
 
   useEffect(() => {

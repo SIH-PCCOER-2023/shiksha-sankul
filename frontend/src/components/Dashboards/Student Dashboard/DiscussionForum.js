@@ -26,45 +26,35 @@ const DiscussionForum = (props) => {
       text: "Dashboard",
       url: "/student-dashboard",
     },
-    // {
-    //   icon: 'fa-calendar',
-    //   text: 'Individual Learning Plan',
-    //   url: '/ilp',
-    // },
-    {
-      icon: "fa-book-open",
-      text: "Learning Center",
-      url: "/learning-center",
-    },
     {
       icon: "fa-pen",
       text: "Assessments",
       url: "/assessments",
     },
-    // {
-    //   icon: 'fa-thumbs-up',
-    //   text: 'Our Recommendations',
-    //   url: 'recommendations.html',
-    // },
-    // {
-    //   icon: 'fa-solid fa-file-pdf',
-    //   text: 'Certificates',
-    //   url: 'certificates.html',
-    // },
     {
       icon: "fa-solid fa-chart-pie",
       text: "Performance",
       url: "/performance",
     },
     {
-      icon: "fa-solid fa-comments",
-      text: "Discussion Forum",
-      url: "/discussionforum",
+      icon: "fa-solid fa-layer-group",
+      text: "ILP",
+      url: "/individuallearningplan",
+    },
+    {
+      icon: "fa-book-open",
+      text: "Learning Center",
+      url: "/learning-center",
     },
     {
       icon: "fa-note-sticky",
       text: "Notes",
       url: "/notes",
+    },
+    {
+      icon: "fa-solid fa-comments",
+      text: "Discussion Forum",
+      url: "/discussionforum",
     },
   ];
 
@@ -250,7 +240,11 @@ const DiscussionForum = (props) => {
                   &#x1F44D; ({upvotes[post._id]})
                 </button>
                 {/* Display replies for the post */}
+
                 <div className="replies">
+                  {replies[post._id] && replies[post._id].length > 0 && (
+                    <h2>Replies:</h2>
+                  )}
                   {replies[post._id] &&
                     replies[post._id].map((reply) => (
                       <div key={reply._id} className="reply">
