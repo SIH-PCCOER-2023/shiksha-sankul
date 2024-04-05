@@ -8,11 +8,18 @@ router
 // .get(ILPController.getAll)
 .post(ILPController.createILP)
 
-router.route('/:userId').get(ILPController.getILP)
+// router
+// .route("/:id")
+// .patch(ILPController.updateILP)
+// .get(ILPController.getILP)
+// .delete(ILPController.deleteILP)
 router
-.route("/:id")
-.patch(ILPController.updateILP)
-.get(ILPController.getILP)
-.delete(ILPController.deleteILP)
+.route('/startworker/:userId')
+.get(ILPController.createILP)
+
+router.route('/:ilpId').get(ILPController.getIlpProgress).patch(ILPController.updateIlpProgress)
+router.route('/createprogress').post(ILPController.createIlpProgress)
+
+
 
 module.exports=router;
