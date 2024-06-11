@@ -1243,7 +1243,29 @@ p {
   align-items: center;
   /* Align items at the center horizontally */
   padding-top: 2.5rem;
-  margin-left: 0.5rem; }
+  margin-left: 30rem;
+  margin-top: 10rem; }
+
+.refresh-button-container {
+  margin-top: 10px;
+  background-color: #007bff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; }
+  .refresh-button-container:hover {
+    background-color: #0056b3; }
+  .refresh-button-container button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; }
+    .refresh-button-container button:hover {
+      background-color: #0056b3; }
 
 .line-card {
   height: auto;
@@ -1254,11 +1276,16 @@ p {
   overflow: hidden; }
 
 .performance-box {
-  height: 100%; }
+  height: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.8rem;
+  margin-right: 0.8rem; }
 
 .line-chart {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  background-color: #f9f9f9; }
 
 .test-score-fetcher {
   margin-top: 5px;
@@ -1736,6 +1763,7 @@ p {
   margin-bottom: 15px;
   background-color: #f9f9f9; }
   .ILPCard h3 {
+    margin-left: 5px;
     margin-bottom: 10px; }
   .ILPCard button {
     background-color: #007bff;
@@ -1744,7 +1772,9 @@ p {
     padding: 5px 10px;
     border-radius: 3px;
     cursor: pointer;
-    transition: background-color 0.3s ease; }
+    transition: background-color 0.3s ease;
+    gap: 15px;
+    margin-left: 5px; }
     .ILPCard button:hover {
       background-color: #0056b3; }
   .ILPCard .ILPResources {

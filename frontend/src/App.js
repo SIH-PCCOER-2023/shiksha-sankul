@@ -38,6 +38,9 @@ import TodoList from "./components/Dashboards/Student Dashboard/ToDoList";
 import PerformanceView from "./components/Dashboards/Faculty Dashboard/PerformanceView";
 import IndividualLearningPlan from "./components/Dashboards/Student Dashboard/IndividualLearningPlan";
 
+import ILPDetails from "./components/Dashboards/Student Dashboard/ILPDetails";
+import ILPList from "./components/Dashboards/Student Dashboard/ILPList";
+
 function App() {
   // const navigate = useNavigate();
   useEffect(() => {
@@ -128,6 +131,10 @@ function App() {
             path="/individuallearningplan"
             element={<IndividualLearningPlan />}
           />
+
+          <Route path="/ilp-details" element={<ILPDetails />} />
+
+          <Route path="/ilp-list" element={<ILPList />} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

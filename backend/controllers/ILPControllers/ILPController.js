@@ -4,6 +4,7 @@ const AppError = require("../../utils/appError");
 const Test = require("./../../models/testModel");
 const QuestionBank = require("./../../models/QuestionBankModel");
 const catchAsync = require("../../utils/catchAsync");
+const createILPWorker = require("./../Worker/worker");
 
 // Get ILP by ID
 // exports.getILP = async (req, res) => {
@@ -126,6 +127,15 @@ exports.updateILP = catchAsync(async (req, res, next) => {
     },
   });
 });
+exports.createILPWorker = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const newILP = await createILPWorker(userId);
+    res.status(201).json(newILP);
+  } catch (error) {
+    next(error); // Pass any error to the error handler middleware
+  }
+};
 
 // Delete ILP by ID
 exports.deleteILP = catchAsync(async (req, res, next) => {
