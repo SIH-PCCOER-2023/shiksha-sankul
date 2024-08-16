@@ -9,7 +9,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.16",
-    "axios": "^1.6.2",
+    "axios": "^1.7.4",
     "bootstrap": "^5.3.2",
     "chart.js": "^4.4.1",
     "crypto-browserify": "^3.12.0",
